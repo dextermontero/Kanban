@@ -5,6 +5,10 @@
 /public/storage
 /storage/*.key
 /vendor
+/resources/views/components1
+/resources/views/layouts
+/resources/views/profile
+/resources/views/dasboard.blade.php
 .env
 .env.backup
 .env.production
