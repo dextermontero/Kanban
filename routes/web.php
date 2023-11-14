@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome')->with('title', 'Kanban Board');
 });
 
 Route::get('/dashboard', function () {
@@ -29,3 +29,16 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+
+Route::get('/lists', function() {
+    return view('kanban.index')->with('title', 'Kanban Lists');
+});
+
+Route::get('/view', function() {
+    return view('kanban.view')->with('title', 'Kanban View');
+});
+
+Route::get('/users', function() {
+    return view('users.index')->with('title', 'Organization Members');
+});
