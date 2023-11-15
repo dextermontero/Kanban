@@ -42,3 +42,7 @@ Route::get('/view', function() {
 Route::get('/users', function() {
     return view('users.index')->with('title', 'Organization Members');
 });
+
+Route::get('/reports', function() {
+    return view('reports.index')->with('title', 'Reports');
+});

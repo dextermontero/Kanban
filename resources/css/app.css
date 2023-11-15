@@ -3,3 +3,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+ 
+/* Track */
+::-webkit-scrollbar-track {
+    @apply bg-transparent;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    @apply bg-gray-500 rounded-md;
+}
+ 
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-600;
+}
