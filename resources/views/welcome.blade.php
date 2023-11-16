@@ -37,18 +37,28 @@
             </div>
         </div>
         <div class="grid grid-cols-1 xl:grid-cols-3 gap-1 xl:gap-4 mb-4 xl:mb-0">
-            <div class="xl:col-span-2">
-                <div class="flex items-center justify-center h-48 mb-4 rounded bg-gray-800 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">
-                        <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                        </svg>
-                    </p>
+            <div class="xl:col-span-2 bg-gray-800 mb-4 px-5 py-2.5 rounded w-full relative h-[31.25rem]">
+                <div class="absolute block top-0 right-0 left-2 bottom-2 p-3">
+                    <canvas id="lineChart"></canvas>
                 </div>
             </div>
             <div class="flex flex-col min-h-[20rem] rounded bg-gray-800 mb-4">
                 <h2 class="text-2xl text-gray-100 font-medium tracking-wider py-2.5 px-5">Recent Logs</h2>
-                <div class="tracking-wider px-2">
+                <div class="tracking-wider px-2 h-[25rem] overflow-y-auto">
+                    <a href="#filter" class="block group px-1">
+                        <div class="flex items-center justify-between group-hover:bg-gray-600 px-2 py-2.5 rounded-lg">
+                            <div class="inline-flex items-center justify-center">
+                                <img class="w-10 h-10 rounded-full mr-2" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" alt="user photo">
+                                <div class="flex flex-col items-start justify-start">
+                                    <h2 class="text-gray-200 font-semibold text-md">Title Recent</h2>
+                                    <span class="text-gray-300 text-sm font-medium">Moved by Juan Dela Cruz</span>
+                                </div>
+                            </div>
+                            <div class="text-gray-300">
+                                {{ Carbon\Carbon::parse('2023-11-16 12:00:00')->diffForHumans()}}
+                            </div>
+                        </div>
+                    </a>
                     <a href="#filter" class="block group px-1">
                         <div class="flex items-center justify-between group-hover:bg-gray-600 px-2 py-2.5 rounded-lg">
                             <div class="inline-flex items-center justify-center">
@@ -105,7 +115,41 @@
                             </div>
                         </div>
                     </a>
+                    <a href="#filter" class="block group px-1">
+                        <div class="flex items-center justify-between group-hover:bg-gray-600 px-2 py-2.5 rounded-lg">
+                            <div class="inline-flex items-center justify-center">
+                                <img class="w-10 h-10 rounded-full mr-2" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" alt="user photo">
+                                <div class="flex flex-col items-start justify-start">
+                                    <h2 class="text-gray-200 font-semibold text-md">Title Recent</h2>
+                                    <span class="text-gray-300 text-sm font-medium">Edited by Juan Dela Cruz</span>
+                                </div>
+                            </div>
+                            <div class="text-gray-300">
+                                {{ Carbon\Carbon::parse('2023-11-16 2:00:00 AM')->diffForHumans()}}
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#filter" class="block group px-1">
+                        <div class="flex items-center justify-between group-hover:bg-gray-600 px-2 py-2.5 rounded-lg">
+                            <div class="inline-flex items-center justify-center">
+                                <img class="w-10 h-10 rounded-full mr-2" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" alt="user photo">
+                                <div class="flex flex-col items-start justify-start">
+                                    <h2 class="text-gray-200 font-semibold text-md">Title Recent</h2>
+                                    <span class="text-gray-300 text-sm font-medium">Edited by Juan Dela Cruz</span>
+                                </div>
+                            </div>
+                            <div class="text-gray-300">
+                                {{ Carbon\Carbon::parse('2023-11-16 1:00:00 AM')->diffForHumans()}}
+                            </div>
+                        </div>
+                    </a>
                 </div>
+                <a href="#viewAll" class="flex items-center justify-center text-gray-200 mt-2 group mb-2">
+                    <svg class="flex-shrink-0 w-5 h-5 text-gray-200 mr-1 group-hover:text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 576 512">
+                        <path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"/>
+                    </svg>
+                    <span class="text-lg group-hover:text-blue-500">View</span>
+                </a>
             </div>
         </div>
         <div class="grid grid-cols-2 gap-4 mb-4">
