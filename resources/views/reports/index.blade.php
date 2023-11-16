@@ -1,9 +1,9 @@
 @include("partials.header", [$title])
-<div class="p-4 sm:ml-64">
+<div class="p-4 xl:ml-64">
     <div class="py-4 rounded-lg dark:border-gray-700 mt-14">
         <div class="flex flex-row justify-between items-center mb-5">
             <div class="mb-2">
-                <h2 class="text-gray-100 text-3xl font-medium tracking-wider">File Reports</h2>
+                <h2 class="text-gray-100 text-3xl font-medium tracking-wider">Reports</h2>
             </div>
             <div class="inline-flex items-center justify-center">
                 <button type="button" data-tooltip-target="add_report" data-tooltip-placement="bottom" class="border-2 border-dashed border-gray-200 rounded-full h-12 w-12">

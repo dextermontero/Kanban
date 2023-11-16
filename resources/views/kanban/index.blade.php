@@ -1,5 +1,5 @@
 @include("partials.header", [$title])
-<div class="p-4 sm:ml-64">
+<div class="p-4 xl:ml-64">
     <div class="py-4 rounded-lg dark:border-gray-700 mt-14">
         <div class="flex flex-col xl:flex-row justify-start xl:justify-between items-start xl:items-center mb-5">
             <div class="mb-2">

@@ -1,6 +1,6 @@
 @include("partials.header", [$title])
-<div class="p-4 sm:ml-64">
-    <div class="p-4 rounded-lg mt-14">
+<div class="p-4 xl:ml-64">
+    <div class="py-4 rounded-lg mt-14">
         <div class="flex justify-between items-start xl:items-center mb-5">
             <div class="mb-2">
                 <h2 class="text-gray-100 text-3xl font-medium tracking-wider">Organization Members</h2>
