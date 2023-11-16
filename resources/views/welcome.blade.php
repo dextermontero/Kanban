@@ -36,7 +36,7 @@
                 </div>
             </div>
         </div>
-        <div class="grid grid-cols-1 xl:grid-cols-3 gap-1 xl:gap-4 mb-4 xl:mb-0">
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-1 xl:gap-4 mb-1 xl:mb-0">
             <div class="xl:col-span-2 bg-gray-800 mb-4 px-5 py-2.5 rounded w-full relative h-[31.25rem]">
                 <div class="absolute block top-0 right-0 left-2 bottom-2 p-3">
                     <canvas id="lineChart"></canvas>
@@ -152,73 +152,129 @@
                 </a>
             </div>
         </div>
-        <div class="grid grid-cols-2 gap-4 mb-4">
-            <div class="flex items-center justify-center rounded bg-gray-800 h-28 dark:bg-gray-800">
-                <p class="text-2xl text-gray-400 dark:text-gray-500">
-                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                    </svg>
-                </p>
-            </div>
-            <div class="flex items-center justify-center rounded bg-gray-800 h-28 dark:bg-gray-800">
-                <p class="text-2xl text-gray-400 dark:text-gray-500">
-                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                    </svg>
-                </p>
-            </div>
-            <div class="flex items-center justify-center rounded bg-gray-800 h-28 dark:bg-gray-800">
-                <p class="text-2xl text-gray-400 dark:text-gray-500">
-                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                    </svg>
-                </p>
-            </div>
-            <div class="flex items-center justify-center rounded bg-gray-800 h-28 dark:bg-gray-800">
-                <p class="text-2xl text-gray-400 dark:text-gray-500">
-                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                    </svg>
-                </p>
+        <div class="flex flex-col items-start justify-start mb-4 rounded bg-gray-800">
+            <h2 class="text-2xl text-gray-100 font-medium tracking-wider py-2.5 px-5">Project Status</h2>
+            <div class="w-full tracking-wider py-2.5 px-5 mb-4">
+                <div class="relative overflow-x-auto shadow-md ">
+                    <table class="w-full text-md text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <thead class="text-md text-gray-300 uppercase ">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">
+                                    Project
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Progress
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Status
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd:bg-gray-700 even:bg-gray-800 border-b border-gray-600 dark:border-gray-700">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <div class="flex items-center justify-start">
+                                        <img class="w-10 h-10 rounded-full mr-3" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" alt="user photo">
+                                        <p class="text-lg text-gray-200">Project Title</p>
+                                    </div>
+                                </th>
+                                <td class="px-6 py-4">
+                                    <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+                                        <div class="bg-gray-400 text-xs font-medium text-gray-100 text-center p-0.5 leading-none rounded-full" style="width: 25%"> 25%</div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 text-green-400">
+                                    In Process
+                                </td>
+                                <td class="px-6 py-4">
+                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
+                                </td>
+                            </tr>
+                            <tr class="odd:bg-gray-700 even:bg-gray-800 border-b border-gray-600 dark:border-gray-700">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <div class="flex items-center justify-start">
+                                        <img class="w-10 h-10 rounded-full mr-3" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" alt="user photo">
+                                        <p class="text-lg text-gray-200">Project Title</p>
+                                    </div>
+                                </th>
+                                <td class="px-6 py-4">
+                                    <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+                                        <div class="bg-orange-400 text-xs font-medium text-gray-100 text-center p-0.5 leading-none rounded-full" style="width: 45%"> 45%</div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 text-green-400">
+                                    In Process
+                                </td>
+                                <td class="px-6 py-4">
+                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
+                                </td>
+                            </tr>
+                            <tr class="odd:bg-gray-700 even:bg-gray-800 border-b border-gray-600 dark:border-gray-700">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <div class="flex items-center justify-start">
+                                        <img class="w-10 h-10 rounded-full mr-3" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" alt="user photo">
+                                        <p class="text-lg text-gray-200">Project Title</p>
+                                    </div>
+                                </th>
+                                <td class="px-6 py-4">
+                                    <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+                                        <div class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style="width: 65%"> 65%</div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 text-green-400">
+                                    In Process
+                                </td>
+                                <td class="px-6 py-4">
+                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
+                                </td>
+                            </tr>
+                            <tr class="odd:bg-gray-700 even:bg-gray-800 border-b border-gray-600 dark:border-gray-700">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <div class="flex items-center justify-start">
+                                        <img class="w-10 h-10 rounded-full mr-3" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" alt="user photo">
+                                        <p class="text-lg text-gray-200">Project Title</p>
+                                    </div>
+                                </th>
+                                <td class="px-6 py-4">
+                                    <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+                                        <div class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style="width: 65%"> 65%</div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 text-orange-400">
+                                    On Hold
+                                </td>
+                                <td class="px-6 py-4">
+                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
+                                </td>
+                            </tr>
+                            <tr class="odd:bg-gray-700 even:bg-gray-800 border-b border-gray-600 dark:border-gray-700">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <div class="flex items-center justify-start">
+                                        <img class="w-10 h-10 rounded-full mr-3" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" alt="user photo">
+                                        <p class="text-lg text-gray-200">Project Title</p>
+                                    </div>
+                                </th>
+                                <td class="px-6 py-4">
+                                    <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+                                        <div class="bg-green-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style="width: 100%"> 100%</div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 text-blue-500">
+                                    Completed
+                                </td>
+                                <td class="px-6 py-4">
+                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-        <div class="flex items-center justify-center h-48 mb-4 rounded bg-gray-800 dark:bg-gray-800">
-            <p class="text-2xl text-gray-400 dark:text-gray-500">
-                <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                </svg>
-            </p>
-        </div>
-        <div class="grid grid-cols-2 gap-4">
-            <div class="flex items-center justify-center rounded bg-gray-800 h-28 dark:bg-gray-800">
-                <p class="text-2xl text-gray-400 dark:text-gray-500">
-                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                    </svg>
-                </p>
-            </div>
-            <div class="flex items-center justify-center rounded bg-gray-800 h-28 dark:bg-gray-800">
-                <p class="text-2xl text-gray-400 dark:text-gray-500">
-                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                    </svg>
-                </p>
-            </div>
-            <div class="flex items-center justify-center rounded bg-gray-800 h-28 dark:bg-gray-800">
-                <p class="text-2xl text-gray-400 dark:text-gray-500">
-                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                    </svg>
-                </p>
-            </div>
-            <div class="flex items-center justify-center rounded bg-gray-800 h-28 dark:bg-gray-800">
-                <p class="text-2xl text-gray-400 dark:text-gray-500">
-                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                    </svg>
-                </p>
-            </div>
-        </div>
+        asdasda
     </div>
 </div>
 @include("partials.footer")

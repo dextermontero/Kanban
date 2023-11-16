@@ -20,14 +20,14 @@ const data = {
     datasets: [
         {
             label: '2023',
-            backgroundColor: 'rgb(100, 45, 100)',
-            borderColor: 'rgb(100, 45, 100)',
+            backgroundColor: 'rgba(228, 86, 230, 0.8)',
+            borderColor: 'rgba(228, 86, 230, 0.8)',
             data: [15, 10, 7, 5, 15, 36, 55, 38, 24, 20, 7, 4],
         },
         {
             label: '2022',
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
+            backgroundColor: 'rgba(92, 247, 178, 0.8)',
+            borderColor: 'rgba(92, 247, 178, 0.8)',
             data: [10, 15, 5, 2, 20, 30, 45, 32, 27, 20, 10, 0],
         }
     ]
