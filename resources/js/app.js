@@ -1,6 +1,5 @@
 import './bootstrap';
 import 'flowbite';
-import './lineChart';
 
 import Alpine from 'alpinejs';
 

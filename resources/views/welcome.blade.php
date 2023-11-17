@@ -277,4 +277,5 @@
         asdasda
     </div>
 </div>
+@vite('resources/js/lineChart')
 @include("partials.footer")
