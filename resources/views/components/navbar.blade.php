@@ -6,7 +6,7 @@
                     <span class="sr-only">Open sidebar</span>
                     <i class="fa-solid fa-bars"></i>
                 </button>
-                <a href="/" class="flex ms-2 md:me-24">
+                <a href="/dashboard" class="flex ms-2 md:me-24">
                     <img src="" class="h-8 me-3" alt="">
                     <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-gray-100">Kanban Board</span>
                 </a>
