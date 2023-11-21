@@ -38,4 +38,8 @@ Route::get('/users', function() {
 
 Route::get('/reports', function() {
     return view('reports.index')->with('title', 'Reports');
+})->name('reports.list');
+
+Route::get('/reports/{id}', function() {
+    return view('reports.view')->with('title', 'Reports');
 });

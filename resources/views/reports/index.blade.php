@@ -18,7 +18,7 @@
         <div class="grid grid-cols-1 xl:grid-cols-3 gap-4 mb-4">
             <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4">
                 <div class="flex items-center justify-between mb-4">
-                    <a href="#view" class="text-lg font-medium text-gray-200 hover:underline tracking-wide">Change Alert Javascript</a>
+                    <a href="/reports/1" class="text-lg font-medium text-gray-200 hover:underline tracking-wide">Change Alert Javascript</a>
                     <a href="#edit" data-modal-target="view_reports" data-modal-toggle="view_reports" class="text-gray-100 text-lg hover:bg-gray-600 hover:text-gray-400 px-2 py-1 rounded-lg">
                         <i class="fa-solid fa-pen-to-square"></i>
                     </a>
@@ -34,7 +34,8 @@
                             <div class="tooltip-arrow" data-popper-arrow></div>
                         </div>
                     </div>
-                    <div class="">
+                    <div class="inline-flex items-center">
+
                         <span class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-1 rounded dark:bg-gray-700 dark:text-gray-300">
                             <i class="fa-solid fa-clock mr-1"></i> 5 days ago
                         </span>
@@ -43,7 +44,7 @@
             </div>
             <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4">
                 <div class="flex items-center justify-between mb-4">
-                    <a href="#view" class="text-lg font-medium text-gray-200 hover:underline tracking-wide">Change Alert Javascript</a>
+                    <a href="/reports/2" class="text-lg font-medium text-gray-200 hover:underline tracking-wide">Change Alert Javascript</a>
                     <a href="#edit" data-modal-target="view_reports" data-modal-toggle="view_reports" class="text-gray-100 text-lg hover:bg-gray-600 hover:text-gray-400 px-2 py-1 rounded-lg">
                         <i class="fa-solid fa-pen-to-square"></i>
                     </a>
@@ -68,7 +69,7 @@
             </div>
             <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4">
                 <div class="flex items-center justify-between mb-4">
-                    <a href="#view" class="text-lg font-medium text-gray-200 hover:underline tracking-wide">Change Alert Javascript</a>
+                    <a href="/reports/3" class="text-lg font-medium text-gray-200 hover:underline tracking-wide">Change Alert Javascript</a>
                     <a href="#edit" data-modal-target="view_reports" data-modal-toggle="view_reports" class="text-gray-100 text-lg hover:bg-gray-600 hover:text-gray-400 px-2 py-1 rounded-lg">
                         <i class="fa-solid fa-pen-to-square"></i>
                     </a>
@@ -178,12 +179,25 @@
                 <p class="text-base leading-relaxed text-gray-300">
                     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
                 </p>
-            </div>
-            <!-- Modal footer -->
-            <div class="flex items-center justify-end p-4 md:p-5 rounded-b">
-                <button data-modal-hide="view_reports" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                    <i class="fa-solid fa-eye mr-1"></i> View
-                </button>
+                <div class="border-t border-gray-200 py-2.5">
+                    <h2 class="text-gray-200 text-xl font-medium tracking-wider mb-4">Comments</h2>
+                    <div class="mb-4 divide-y h-96 overflow-y-auto">
+                        <div class="flex items-start py-2.5">
+                            <img class="h-10 w-10 rounded-full" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg">
+                            <div class="px-4 rounded-lg w-full">
+                                <h2 class="text-gray-200 text-xl font-bold tracking-wider">Juan Dela Cruz</h2>
+                                <p class="text-gray-200 text-md">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start py-2.5">
+                            <img class="h-10 w-10 rounded-full" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg">
+                            <div class="px-4 rounded-lg w-full">
+                                <h2 class="text-gray-200 text-xl font-bold tracking-wider">Juan Dela Cruz</h2>
+                                <p class="text-gray-200">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -193,7 +207,7 @@ const dt = new DataTransfer();
 $('#file-upload').on('change', function() {
     for(var i = 0; i < this.files.length; i++){
         let FileLists = $('<div/>', {class: 'inline-flex items-center justify-center mr-2 text-gray-200 border border-gray-50 px-2 py-1 rounded-md mb-2'}), fileName = $('<span/>', {class: 'mr-2',text: this.files.item(i).name});
-        FileLists.append(fileName).append('<span class="file-delete hover:text-red-600"><i class="fa-solid fa-xmark text-sm"></i></span>');
+        FileLists.append(fileName).append('<span class="file-delete hover:text-red-600 hover:cursor-pointer"><i class="fa-solid fa-xmark text-sm"></i></span>');
         $("#filesList").append(FileLists);
     }
 

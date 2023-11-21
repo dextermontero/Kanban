@@ -43,7 +43,7 @@
                     <i class="fa-solid fa-list text-2xl mr-3"></i>
                     <span>To Do</span>
                 </h2>
-                <div class="min-h-[20rem] xl:min-h-[45rem] rounded border border-gray-200 border-dashed draggableDiv" id="todo-drop">
+                <div class="min-h-[20rem] xl:min-h-[45rem] rounded draggableDiv" id="todo-drop">
                     <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 cursor-move mb-4" id="mainDiv" item-id="1">
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-lg font-medium text-gray-100 tracking-wide">Change Alert Javascript</h2>
@@ -171,7 +171,7 @@
                     <i class="fa-solid fa-bars-progress text-2xl mr-3"></i>
                     <span>In Progress</span>
                 </h2>
-                <div class="min-h-[20rem] xl:min-h-[45rem] rounded border border-gray-200 border-dashed draggableDiv" id="progress-drop">
+                <div class="min-h-[20rem] xl:min-h-[45rem] rounded draggableDiv" id="progress-drop">
                     <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 mb-4">
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-lg font-medium text-gray-100 tracking-wide">Change Alert Javascript</h2>
@@ -254,7 +254,7 @@
                     <i class="fa-solid fa-list-check text-2xl mr-3"></i>
                     <span>Done</span>
                 </h2>
-                <div class="min-h-[20rem] xl:min-h-[45rem] rounded border border-gray-200 border-dashed draggableDiv" id="done-drop">
+                <div class="min-h-[20rem] xl:min-h-[45rem] rounded draggableDiv" id="done-drop">
                     <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 mb-4">
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-lg font-medium text-gray-100 tracking-wide">Change Alert Javascript</h2>
