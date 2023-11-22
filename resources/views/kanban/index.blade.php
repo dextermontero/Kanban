@@ -255,7 +255,7 @@
                     <span>Done</span>
                 </h2>
                 <div class="min-h-[20rem] xl:min-h-[45rem] rounded draggableDiv" id="done-drop">
-                    <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 cursor-move mb-4" id="drop" item-id="7" item-status="done">
+                    <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 cursor-move mb-4" id="done" item-id="10" item-status="done">
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-lg font-medium text-gray-100 tracking-wide">Change Alert Javascript</h2>
                         </div>
@@ -277,7 +277,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 cursor-move mb-4" id="drop" item-id="8" item-status="done">
+                    <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 cursor-move mb-4" id="done" item-id="11" item-status="done">
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-lg font-medium text-gray-100 tracking-wide">Change Alert Javascript</h2>
                         </div>
@@ -299,7 +299,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 cursor-move mb-4" id="drop" item-id="9" item-status="done">
+                    <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 cursor-move mb-4" id="done" item-id="12" item-status="done">
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-lg font-medium text-gray-100 tracking-wide">Change Alert Javascript</h2>
                         </div>
@@ -576,6 +576,14 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="module">
 $(document).ready(function() {
+    toastr.options ={
+        "closeButton" : true,
+        "progressBar" : true,
+        "positionClass" : "toast-bottom-right",
+        "preventDuplicates": false,
+        "showDuration": "300",
+        "hideDuration": "1000",
+    }
     $("#todo-drop").sortable({
         connectWith: ".draggableDiv",
         opacity: 0.5,
@@ -586,14 +594,29 @@ $(document).ready(function() {
             $(ui.item).removeClass("bg-yellow-600");
         },
         receive: function(ev, ui) {
-            $(ui.item).addClass('border-2 border-yellow-600');
+            var status = ui.item[0].attributes[3].value;
+            if (this === ui.item.parent()[0]) {
+                if(status === "progress"){
+                    $(ui.sender).sortable('cancel');
+                    toastr.error('Task is <b>In Progress</b> can\'t moved to <b>To Do</b>');
+                }else{
+                    $(ui.item).addClass('border-2 border-yellow-600');
+                }
+            }
         },
         update: function (event, ui) {
             var id = ui.item[0].attributes[2].value;
             var status = ui.item[0].attributes[3].value;
+            if (this === ui.item.parent()[0]) {
+                if(status === "done"){
+                    console.log("Done From To Do");
+                    toastr.success('Task Successfully moved in <b>To Do</b>');
+                }
+            }
             setTimeout(() => {
                 $(ui.item).removeClass('border-2 border-yellow-600 transition duration-300');
             }, 5000);
+            $(this).sortable("refresh");
         }
     });
 
@@ -607,16 +630,31 @@ $(document).ready(function() {
             $(ui.item).removeClass("bg-green-600");
         },
         receive: function(ev, ui) {
-            $(ui.item).addClass('border-2 border-yellow-600');
+            var status = ui.item[0].attributes[3].value;
+            if (this === ui.item.parent()[0]) {
+                if(status === "done"){
+                    $(ui.sender).sortable('cancel');
+                    toastr.error('Task is <b>Done</b> can\'t moved to <b>In Progress</b>')
+                }else{
+                    $(ui.item).addClass('border-2 border-yellow-600');
+                }
+            }
         },
         update: function (event, ui) {
             var id = ui.item[0].attributes[2].value;
             var status = ui.item[0].attributes[3].value;
+            if (this === ui.item.parent()[0]) {
+                if(status === "todo"){
+                    toastr.success('Task Successfully moved to In Progress From Todo');
+                }
+            }
             setTimeout(() => {
                 $(ui.item).removeClass('border-2 border-yellow-600 transition duration-300');
             }, 5000);
+            $(this).sortable("refresh");
         }
     });
+
     $("#done-drop").sortable({
         connectWith: ".draggableDiv",
         opacity: 0.5,
@@ -627,14 +665,31 @@ $(document).ready(function() {
             $(ui.item).removeClass("bg-teal-600");
         },
         receive: function(ev, ui) {
-            $(ui.item).addClass('border-2 border-teal-600');
+            var status = ui.item[0].attributes[3].value;
+            if (this === ui.item.parent()[0]) {
+                if(status === "todo"){
+                    $(ui.sender).sortable('cancel');
+                    toastr.error('Task is <b>To Do</b> can\'t moved to <b>Done</b>');
+                }else{
+                    $(ui.item).addClass('border-2 border-teal-600');
+                }
+            }
         },
         update: function (event, ui) {
             var id = ui.item[0].attributes[2].value;
             var status = ui.item[0].attributes[3].value;
+            if (this === ui.item.parent()[0]) {
+                if(status === "progress"){
+                    $(ui.sender).sortable('cancel');
+                    toastr.success('Task Successfully moved in <b>Done</b>');
+                }else{
+                    $(ui.item).addClass('border-2 border-teal-600');
+                }
+            }
             setTimeout(() => {
                 $(ui.item).removeClass('border-2 border-teal-600 transition duration-300');
             }, 5000);
+            $(this).sortable("refresh");
         }
     });
 });
