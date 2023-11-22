@@ -44,7 +44,7 @@
                     <span>To Do</span>
                 </h2>
                 <div class="min-h-[20rem] xl:min-h-[45rem] rounded draggableDiv" id="todo-drop">
-                    <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 cursor-move mb-4" id="mainDiv" item-id="1">
+                    <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 cursor-move mb-4" id="todo" item-id="1" item-status="todo">
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-lg font-medium text-gray-100 tracking-wide">Change Alert Javascript</h2>
                             <a href="#edit" data-modal-target="view_items" data-modal-toggle="view_items" class="text-gray-100 text-lg">
@@ -84,7 +84,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 mb-4">
+                    <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 cursor-move mb-4" id="todo" item-id="2" item-status="todo">
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-lg font-medium text-gray-100 tracking-wide">Change Alert Javascript</h2>
                             <a href="#edit" data-modal-target="view_items" data-modal-toggle="view_items" class="text-gray-100 text-lg">
@@ -124,7 +124,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 mb-4">
+                    <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 cursor-move mb-4" id="todo" item-id="3" item-status="todo">
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-lg font-medium text-gray-100 tracking-wide">Change Alert Javascript</h2>
                             <a href="#edit" data-modal-target="view_items" data-modal-toggle="view_items" class="text-gray-100 text-lg">
@@ -172,7 +172,7 @@
                     <span>In Progress</span>
                 </h2>
                 <div class="min-h-[20rem] xl:min-h-[45rem] rounded draggableDiv" id="progress-drop">
-                    <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 mb-4">
+                    <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 cursor-move mb-4" id="progress" item-id="4" item-status="progress">
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-lg font-medium text-gray-100 tracking-wide">Change Alert Javascript</h2>
                             <a href="#edit" data-modal-target="view_progress" data-modal-toggle="view_progress" class="text-gray-100 text-lg">
@@ -197,7 +197,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 mb-4">
+                    <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 cursor-move mb-4" id="progress" item-id="5" item-status="progress">
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-lg font-medium text-gray-100 tracking-wide">Change Alert Javascript</h2>
                             <a href="#edit" data-modal-target="view_progress" data-modal-toggle="view_progress" class="text-gray-100 text-lg">
@@ -222,7 +222,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 mb-4">
+                    <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 cursor-move mb-4" id="progress" item-id="6" item-status="progress">
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-lg font-medium text-gray-100 tracking-wide">Change Alert Javascript</h2>
                             <a href="#edit" data-modal-target="view_progress" data-modal-toggle="view_progress" class="text-gray-100 text-lg">
@@ -255,7 +255,7 @@
                     <span>Done</span>
                 </h2>
                 <div class="min-h-[20rem] xl:min-h-[45rem] rounded draggableDiv" id="done-drop">
-                    <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 mb-4">
+                    <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 cursor-move mb-4" id="drop" item-id="7" item-status="done">
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-lg font-medium text-gray-100 tracking-wide">Change Alert Javascript</h2>
                         </div>
@@ -277,7 +277,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 mb-4">
+                    <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 cursor-move mb-4" id="drop" item-id="8" item-status="done">
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-lg font-medium text-gray-100 tracking-wide">Change Alert Javascript</h2>
                         </div>
@@ -299,7 +299,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 mb-4">
+                    <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 cursor-move mb-4" id="drop" item-id="9" item-status="done">
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-lg font-medium text-gray-100 tracking-wide">Change Alert Javascript</h2>
                         </div>
@@ -579,18 +579,62 @@ $(document).ready(function() {
     $("#todo-drop").sortable({
         connectWith: ".draggableDiv",
         opacity: 0.5,
+        start: function( event, ui ) { 
+            $(ui.item).addClass("bg-yellow-600");
+        },
+        stop:function( event, ui ) { 
+            $(ui.item).removeClass("bg-yellow-600");
+        },
+        receive: function(ev, ui) {
+            $(ui.item).addClass('border-2 border-yellow-600');
+        },
+        update: function (event, ui) {
+            var id = ui.item[0].attributes[2].value;
+            var status = ui.item[0].attributes[3].value;
+            setTimeout(() => {
+                $(ui.item).removeClass('border-2 border-yellow-600 transition duration-300');
+            }, 5000);
+        }
     });
+
     $("#progress-drop").sortable({
         connectWith: ".draggableDiv",
         opacity: 0.5,
+        start: function( event, ui ) { 
+            $(ui.item).addClass("bg-green-600");
+        },
+        stop:function( event, ui ) { 
+            $(ui.item).removeClass("bg-green-600");
+        },
+        receive: function(ev, ui) {
+            $(ui.item).addClass('border-2 border-yellow-600');
+        },
+        update: function (event, ui) {
+            var id = ui.item[0].attributes[2].value;
+            var status = ui.item[0].attributes[3].value;
+            setTimeout(() => {
+                $(ui.item).removeClass('border-2 border-yellow-600 transition duration-300');
+            }, 5000);
+        }
     });
     $("#done-drop").sortable({
         connectWith: ".draggableDiv",
         opacity: 0.5,
+        start: function( event, ui ) { 
+            $(ui.item).addClass("bg-teal-600");
+        },
+        stop:function( event, ui ) { 
+            $(ui.item).removeClass("bg-teal-600");
+        },
         receive: function(ev, ui) {
-            if(ui.item.hasClass("number")){
-                ui.sender.sortable("cancel");
-            }
+            $(ui.item).addClass('border-2 border-teal-600');
+        },
+        update: function (event, ui) {
+            var id = ui.item[0].attributes[2].value;
+            var status = ui.item[0].attributes[3].value;
+            setTimeout(() => {
+                $(ui.item).removeClass('border-2 border-teal-600 transition duration-300');
+            }, 5000);
         }
     });
 });
