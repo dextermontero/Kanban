@@ -20,9 +20,23 @@ Route::middleware('guest')->group(function() {
 
 
 Route::middleware(['auth','nocache'])->group(function () {
+
     Route::get('/dashboard', function() {
         return view('dashboard.index')->with('title', 'Dashboard');
     })->name('auth.dashboard');
+
+    Route::get('/projects', function() {
+        return view('projects.index')->with('title', 'Project Lists');
+    })->name('auth.projects');
+
+    Route::get('/projects/{id}', function() {
+        return view('projects.view')->with('title', '');
+    })->name('auth.projects.id');
+
+
+
+
+
 
     Route::get('/lists', function() {
         return view('kanban.index')->with('title', 'Kanban Lists');

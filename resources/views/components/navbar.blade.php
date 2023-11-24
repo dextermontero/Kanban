@@ -6,7 +6,7 @@
                     <span class="sr-only">Open sidebar</span>
                     <i class="fa-solid fa-bars"></i>
                 </button>
-                <a href="/dashboard" class="flex ms-2 md:me-24">
+                <a href="{{ route('auth.dashboard') }}" class="flex ms-2 md:me-24">
                     <img src="" class="h-8 me-3" alt="">
                     <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-gray-100">Kanban Board</span>
                 </a>
@@ -44,7 +44,7 @@
                         </div>
                         <ul class="py-1" role="none">
                             <li>
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Dashboard</a>
+                                <a href="{{ route('auth.dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Dashboard</a>
                             </li>
                             <li>
                                 <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Settings</a>

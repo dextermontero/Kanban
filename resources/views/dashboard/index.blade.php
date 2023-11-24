@@ -190,7 +190,7 @@
                                     In Process
                                 </td>
                                 <td class="px-6 py-4">
-                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
+                                    <a href="{{ route('auth.projects.id', now()->timestamp) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
                                 </td>
                             </tr>
                             <tr class="odd:bg-gray-700 even:bg-gray-800 border-b border-gray-600 dark:border-gray-700">
@@ -209,7 +209,7 @@
                                     In Process
                                 </td>
                                 <td class="px-6 py-4">
-                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
+                                    <a href="{{ route('auth.projects.id', now()->timestamp) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
                                 </td>
                             </tr>
                             <tr class="odd:bg-gray-700 even:bg-gray-800 border-b border-gray-600 dark:border-gray-700">
@@ -228,7 +228,7 @@
                                     In Process
                                 </td>
                                 <td class="px-6 py-4">
-                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
+                                    <a href="{{ route('auth.projects.id', now()->timestamp) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
                                 </td>
                             </tr>
                             <tr class="odd:bg-gray-700 even:bg-gray-800 border-b border-gray-600 dark:border-gray-700">
@@ -247,7 +247,7 @@
                                     On Hold
                                 </td>
                                 <td class="px-6 py-4">
-                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
+                                    <a href="{{ route('auth.projects.id', now()->timestamp) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
                                 </td>
                             </tr>
                             <tr class="odd:bg-gray-700 even:bg-gray-800 border-b border-gray-600 dark:border-gray-700">
@@ -266,7 +266,7 @@
                                     Completed
                                 </td>
                                 <td class="px-6 py-4">
-                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
+                                    <a href="{{ route('auth.projects.id', now()->timestamp) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
                                 </td>
                             </tr>
                         </tbody>

@@ -15,6 +15,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 */
 
 require __DIR__.'/auth.php';
+
 Route::middleware('nocache')->group(function() {
     Route::get('/', function () {
         return view('welcome');
