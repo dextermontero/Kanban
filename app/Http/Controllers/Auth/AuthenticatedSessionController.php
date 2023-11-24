@@ -17,19 +17,27 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
-        return view('auth.login');
+        return view('welcome');
     }
 
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
-        $request->authenticate();
-
-        $request->session()->regenerate();
-
-        return redirect()->intended(RouteServiceProvider::HOME);
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required']
+        ],[
+            'email.required' => 'The email address field is required',
+            'password.required' => 'The password field is required',
+        ]);
+        
+        if(Auth::guard('web')->attempt($credentials)){
+            $request->session()->regenerate();
+            return redirect()->intended(RouteServiceProvider::HOME);
+        }
+        return redirect()->route('home')->with('error', 'Incorrect Credentials. Please try again!');
     }
 
     /**

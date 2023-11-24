@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
+use App\Models\UsersInformation;
 class RegisteredUserController extends Controller
 {
     /**
@@ -20,7 +21,7 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        return view('register');
     }
 
     /**
@@ -31,18 +32,32 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'firstname' => ['required', 'alpha', 'min:2'],
+            'lastname' => ['required', 'alpha', 'min:2'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'password' => 'required',
+
+        ],[
+            'firstname.required' => 'The First Name field is required.',
+            'lastname.required' => 'The Last Name field is required.',
+            'email.required' => 'The Email Address field is required.',
+            'password.required' => 'The Password field is required.',
         ]);
 
         $user = User::create([
-            'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        event(new Registered($user));
+        $userinfo = UsersInformation::create([
+            'uid' => $user['id'],
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname,
+            'email' => $request->email,
+            'position' => 'member'
+        ]);
+        
+        //event(new Registered($user));
 
         Auth::login($user);
 

@@ -634,7 +634,7 @@ $(document).ready(function() {
             if (this === ui.item.parent()[0]) {
                 if(status === "done"){
                     $(ui.sender).sortable('cancel');
-                    toastr.error('Task is <b>Done</b> can\'t moved to <b>In Progress</b>')
+                    toastr.error('Task is <b>Done</b> can\'t moved to <b>In Progress</b>');
                 }else{
                     $(ui.item).addClass('border-2 border-yellow-600');
                 }
@@ -680,10 +680,7 @@ $(document).ready(function() {
             var status = ui.item[0].attributes[3].value;
             if (this === ui.item.parent()[0]) {
                 if(status === "progress"){
-                    $(ui.sender).sortable('cancel');
                     toastr.success('Task Successfully moved in <b>Done</b>');
-                }else{
-                    $(ui.item).addClass('border-2 border-teal-600');
                 }
             }
             setTimeout(() => {
