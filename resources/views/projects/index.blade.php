@@ -5,50 +5,50 @@
             <div class="mb-2">
                 <h2 class="text-gray-100 text-3xl font-medium tracking-wider">Project Lists</h2>
             </div>
-            <div class="inline-flex items-center justify-center">
-                <button type="button" data-tooltip-target="add_project" data-modal-target="add_project_modal" data-modal-toggle="add_project_modal" data-tooltip-placement="bottom" class="border-2 border-dashed border-gray-200 rounded-full h-12 w-12">
-                    <i class="fa-solid fa-plus text-gray-100"></i>
-                </button>
-                <div id="add_project" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                    Add Project
-                    <div class="tooltip-arrow" data-popper-arrow></div>
+            @if ($projCount > 0)
+                <div class="inline-flex items-center justify-center">
+                    <button type="button" data-tooltip-target="add_project" data-modal-target="add_project_modal" data-modal-toggle="add_project_modal" data-tooltip-placement="bottom" class="border-2 border-dashed border-gray-200 rounded-full h-12 w-12">
+                        <i class="fa-solid fa-plus text-gray-100"></i>
+                    </button>
+                    <div id="add_project" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                        Add Project
+                        <div class="tooltip-arrow" data-popper-arrow></div>
+                    </div>
                 </div>
+            @endif
+        </div>
+        @if ($projCount > 0)
+            <div class="grid grid-cols-1 xl:grid-cols-3 gap-4 mb-4">
+                @foreach ($show as $projects)
+                    <a href="{{ route('auth.project.view', $projects->uuid) }}" class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4">
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-3xl font-medium text-gray-200 tracking-wider">{{ Str::ucfirst($projects->project_name) }}</h2>
+                        </div>
+                        <div class="mb-4 min-h-[3rem]">
+                            <p class="text-gray-100 tracking-wide">{{ Str::limit($projects->description, 125) }}</p>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="inline-flex items-center justify-center">
+                                <img src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="rounded-full h-8 w-8">
+                            </div>
+                            <div class="inline-flex items-center">
+                                <span class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-1 rounded dark:bg-gray-700 dark:text-gray-300">
+                                    <i class="fa-solid fa-clock mr-1"></i> {{ number_format(Carbon\Carbon::parse($projects->end_date)->diffInDays(now()->toDateString())) }} days left
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                @endforeach
             </div>
-        </div>
-        <div class="grid grid-cols-1 xl:grid-cols-3 gap-4 mb-4">
-            @foreach ($show as $projects)
-                <a href="{{ route('auth.projects.id', $projects->uuid) }}" class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4">
-                    <div class="flex items-center justify-between mb-4">
-                        <h2 class="text-3xl font-medium text-gray-200 tracking-wider">{{ Str::ucfirst($projects->project_name) }}</h2>
-                    </div>
-                    <div class="mb-4 min-h-[3rem]">
-                        <p class="text-gray-100 tracking-wide">{{ Str::limit($projects->description, 125) }}</p>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <div class="inline-flex items-center justify-center">
-                            <img data-tooltip-target="hover_img_1" data-tooltip-placement="bottom" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="rounded-full h-8 w-8">
-                        </div>
-                    </div>
-                </a>
-            @endforeach
-            <a href="{{ route('auth.projects.id', now()->timestamp) }}" class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-3xl font-medium text-gray-200 tracking-wider">Project Name </h2>
-                </div>
-                <div class="mb-4">
-                    <p class="text-gray-100 tracking-wide">{{ Str::limit('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 125) }}</p>
-                </div>
-                <div class="flex items-center justify-between">
-                    <div class="inline-flex items-center justify-center">
-                        <img data-tooltip-target="hover_img_1" data-tooltip-placement="bottom" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="rounded-full h-8 w-8">
-                        <div id="hover_img_1" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-600 rounded-lg shadow-sm opacity-0 tooltip tracking-wider">
-                            Juan Dela Cruz
-                            <div class="tooltip-arrow" data-popper-arrow></div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
+        @else
+            <button type="button" data-modal-target="add_project_modal" data-modal-toggle="add_project_modal" class="flex items-center w-full justify-center h-[42rem] xl:h-[45rem] mb-4 rounded border-2 border-gray-400 border-dashed dark:bg-gray-800">
+                <i class="fa-solid fa-plus text-gray-400" data-tooltip-target="add_project" data-tooltip-placement="bottom"></i>
+            </button>
+            <div id="add_project" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                Add Project
+                <div class="tooltip-arrow" data-popper-arrow></div>
+            </div>
+        @endif
     </div>
 </div>
 
@@ -106,6 +106,7 @@
     </div>
 </div>
 @vite('resources/js/datePicker')
+
 <script type="module">
 $(document).ready(function(){
     const datePicker = document.getElementsByClassName("datepicker");
@@ -115,6 +116,14 @@ $(document).ready(function(){
             datePicker[i].classList.replace('z-20', '!z-[60]');
         }
     }
+
+    $.ajax({
+        url: "{{ route('api.projects') }}",
+        type: "GET",
+        success: function(data){
+            console.log(data);
+        }
+    })
 
     /* document.getElementById("noRefreshForm").addEventListener("submit", function(e){
         e.preventDefault()

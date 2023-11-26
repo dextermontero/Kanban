@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('lastname');
             $table->string('email');
             $table->string('position')->nullable();
-            $table->string('status')->default('0');
+            $table->string('status')->default('active'); // Status : active | inactive | archived | deleted
             $table->timestamps();
         });
     }

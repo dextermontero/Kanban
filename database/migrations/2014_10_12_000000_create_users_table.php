@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('password');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('role')->default('member');
-            $table->string('status')->default('0');
+            $table->string('status')->default('active'); // Status : active | pending | inactive | archived | deleted
             $table->rememberToken();
             $table->timestamps();
         });

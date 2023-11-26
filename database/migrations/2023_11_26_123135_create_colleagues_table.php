@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('projects', function (Blueprint $table) {
+        Schema::create('colleagues', function (Blueprint $table) {
             $table->id();
-            $table->string('uuid');
-            $table->string('project_name');
-            $table->string('description');
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->string('status')->default("active"); // Status : active | inactive | archived | deleted
+            $table->integer('project_id');
+            $table->integer('member_id');
+            $table->string('status')->default('active'); // Status : active | inactive | complete | archived | deleted
             $table->timestamps();
         });
     }
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('projects');
+        Schema::dropIfExists('colleagues');
     }
 };

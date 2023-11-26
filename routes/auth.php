@@ -26,22 +26,15 @@ Route::middleware(['auth','nocache'])->group(function () {
         return view('dashboard.index')->with('title', 'Dashboard');
     })->name('auth.dashboard');
 
-    Route::get('/projects', function() {
-        return view('projects.index')->with('title', 'Project Lists');
-    })->name('auth.projects');
-
-    Route::get('/projects/{id}', function() {
-        return view('projects.view')->with('title', '');
-    })->name('auth.projects.id');
-
     Route::controller(ProjectController::class)->group(function() {
-        Route::get('/projects', 'showProjects')->name('auth.projects');
+        Route::get('/projects', 'listProjects')->name('auth.projects');
+        Route::get('/projects/{id}', 'viewProject')->name('auth.project.view');
         Route::post('/projects', 'create')->name('create.project');
     });
 
     Route::get('/lists', function() {
         return view('kanban.index')->with('title', 'Kanban Lists');
-    })->name('kb.lists');
+    })->name('auth.kanban');
     
     Route::get('/view', function() {
         return view('kanban.view')->with('title', 'Kanban View');

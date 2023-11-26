@@ -35,7 +35,6 @@
                         </div>
                     </div>
                     <div class="inline-flex items-center">
-
                         <span class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-1 rounded dark:bg-gray-700 dark:text-gray-300">
                             <i class="fa-solid fa-clock mr-1"></i> 5 days ago
                         </span>
