@@ -14,6 +14,7 @@ use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
 use App\Models\UsersInformation;
+use Illuminate\Support\Facades\Mail;
 class RegisteredUserController extends Controller
 {
     /**
@@ -31,6 +32,7 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        $token = sha1(now());
         $request->validate([
             'firstname' => ['required', 'alpha', 'min:2'],
             'lastname' => ['required', 'alpha', 'min:2'],
@@ -47,6 +49,7 @@ class RegisteredUserController extends Controller
         $user = User::create([
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'remember_token' => $token,
         ]);
 
         $userinfo = UsersInformation::create([
@@ -57,10 +60,13 @@ class RegisteredUserController extends Controller
             'position' => 'member'
         ]);
         
-        //event(new Registered($user));
+        $verify = User::select('email_verified_at')->where('email', $request->email)->first()->email_verified_at;
+        if($verify === null){
+            Mail::to($request->email)->send(new \App\Mail\RegisterVerify($userinfo, $token));
+            return redirect()->route('email.verify', $token);
+        }
 
         Auth::login($user);
-
         return redirect(RouteServiceProvider::HOME);
     }
 }

@@ -1,0 +1,56 @@
+<?php
+
+namespace App\Mail;
+
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Content;
+use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Queue\SerializesModels;
+
+class RegisterVerify extends Mailable implements ShouldQueue
+{
+    use Queueable, SerializesModels;
+
+    private $user;
+    private $token;
+    public function __construct($user, $token)
+    {
+        $this->user = $user;
+        $this->token = $token;
+    }
+
+    /**
+     * Get the message envelope.
+     */
+    public function envelope(): Envelope
+    {
+        return new Envelope(
+            from: 'no-reply@kanbanproject.com',
+            to: $this->user->email,
+            subject: 'Account Verification',
+        );
+    }
+
+    /**
+     * Get the message content definition.
+     */
+    public function content(): Content
+    {
+        return new Content(
+            view: 'mails.register',
+            with: ['firstname' => $this->user->firstname, 'lastname' => $this->user->lastname, 'token' => $this->token]
+        );
+    }
+
+    /**
+     * Get the attachments for the message.
+     *
+     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
+     */
+    public function attachments(): array
+    {
+        return [];
+    }
+}

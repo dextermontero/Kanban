@@ -20,7 +20,7 @@ Route::middleware('guest')->group(function() {
 });
 
 
-Route::middleware(['auth','nocache'])->group(function () {
+Route::middleware(['auth','nocache', 'verified'])->group(function () {
 
     Route::get('/dashboard', function() {
         return view('dashboard.index')->with('title', 'Dashboard');
