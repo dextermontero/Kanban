@@ -17,8 +17,9 @@
                 <div class="flex justify-center p-4">
                    <h2 class="text-4xl font-medium tracking-wider antialiased">Email Verification</h2>
                 </div>
-                <form action="{{ route('resend.verify', request()->route('id')) }}" method="POST" class="mb-4 p-4">
+                <form action="{{ route('email.resend', request()->route('id')) }}" method="POST" class="mb-4 p-4">
                     @csrf
+                    <input type="hidden" name="token" value="{{ request()->route('id') }}" >
                     <div class="mb-2">
                         <p>Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn't receive the email, we will gladly send you another.</p>
                     </div>
@@ -30,4 +31,30 @@
             </div>
         </div>
     </body>
+    <script type="module">
+        toastr.options ={
+           "closeButton" : true,
+           "progressBar" : true,
+           "positionClass" : "toast-bottom-right",
+           "preventDuplicates": false,
+           "showDuration": "300",
+           "hideDuration": "1000",
+       }
+
+       @if(Session::has('success'))
+           toastr.success("{{ session('success') }}");
+       @endif
+       
+       @if(Session::has('error'))
+           toastr.error("{{ session('error') }}");
+       @endif
+       
+       @if(Session::has('info'))
+           toastr.info("{{ session('info') }}");
+       @endif
+       
+       @if(Session::has('warning'))
+           toastr.warning("{{ session('warning') }}");
+       @endif
+       </script>
 </html>

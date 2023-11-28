@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -32,12 +33,23 @@ class AuthenticatedSessionController extends Controller
             'email.required' => 'The email address field is required',
             'password.required' => 'The password field is required',
         ]);
-        
-        if(Auth::guard('web')->attempt($credentials)){
-            $request->session()->regenerate();
-            return redirect()->intended(RouteServiceProvider::HOME);
+
+
+        $checkEmail = User::where('email', $request->email)->exists();
+        if($checkEmail){
+            $verify = User::select('email_verified_at', 'remember_token')->where('email', $request->email)->first();
+            if($verify->email_verified_at === null){
+                return redirect()->route('email.notice', $verify->remember_token);
+            }else{
+                if(Auth::guard('web')->attempt($credentials)){
+                    $request->session()->regenerate();
+                    return redirect()->intended(RouteServiceProvider::HOME);
+                }
+                return redirect()->route('home')->with('error', 'Incorrect Credentials. Please try again!');
+            }
         }
-        return redirect()->route('home')->with('error', 'Incorrect Credentials. Please try again!');
+
+        return redirect()->route('home')->with('info', 'Invalid account credentials!');
     }
 
     /**

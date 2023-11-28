@@ -13,11 +13,15 @@ class RegisterVerify extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-    private $user;
+    private $firstname;
+    private $lastname;
+    private $email;
     private $token;
-    public function __construct($user, $token)
+    public function __construct($firstname, $lastname, $email, $token)
     {
-        $this->user = $user;
+        $this->firstname = $firstname;
+        $this->lastname = $lastname;
+        $this->email = $email;
         $this->token = $token;
     }
 
@@ -28,7 +32,7 @@ class RegisterVerify extends Mailable implements ShouldQueue
     {
         return new Envelope(
             from: 'no-reply@kanbanproject.com',
-            to: $this->user->email,
+            to: $this->email,
             subject: 'Account Verification',
         );
     }
@@ -40,7 +44,7 @@ class RegisterVerify extends Mailable implements ShouldQueue
     {
         return new Content(
             view: 'mails.register',
-            with: ['firstname' => $this->user->firstname, 'lastname' => $this->user->lastname, 'token' => $this->token]
+            with: ['firstname' => $this->firstname, 'lastname' => $this->lastname, 'token' => $this->token]
         );
     }
 

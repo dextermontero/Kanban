@@ -24,13 +24,10 @@ Route::middleware('nocache')->group(function() {
         return view('welcome');
     })->name('home');
 
-    Route::get('/email/verify/{id}', function() {
-        return view('email-verify');
-    })->name('email.verify');
-    
     Route::controller(IndexController::class)->group(function() {
+        Route::get('/email/verify/{id}', 'emailNotice')->name('email.notice');
         Route::get('/email/verified/{id}', 'verified')->name('email.verified');
-        Route::post('/email/verify/{id}', 'resendVerify')->name('resend.verify');
+        Route::post('/email/verify/{id}', 'resendEmail')->name('email.resend');
     });
 });
 

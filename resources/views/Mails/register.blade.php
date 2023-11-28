@@ -33,7 +33,7 @@
                 
                 <p class="mt-8 text-gray-600 dark:text-gray-300">
                     Regards, <br>
-                    Kanban Project Team
+                    {{ config('app.name') }} Team
                 </p>
             </main>
             

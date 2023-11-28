@@ -62,8 +62,8 @@ class RegisteredUserController extends Controller
         
         $verify = User::select('email_verified_at')->where('email', $request->email)->first()->email_verified_at;
         if($verify === null){
-            Mail::to($request->email)->send(new \App\Mail\RegisterVerify($userinfo, $token));
-            return redirect()->route('email.verify', $token);
+            Mail::to($request->email)->send(new \App\Mail\RegisterVerify($userinfo['firstname'], $userinfo['lastname'], $userinfo['email'], $token));
+            return redirect()->route('email.notice', $token);
         }
 
         Auth::login($user);

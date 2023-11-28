@@ -20,9 +20,9 @@ class ProjectController extends Controller
     }
 
     public function listProjects(){ // auth.php
-        $checkID = UsersInformation::select('position')->where('id', Auth::id())->first();
+        $checkID = UsersInformation::select('position')->where('id', Auth::id())->first()->position;
 
-        if($checkID->position === 'member'){
+        if($checkID === 'member'){
             return redirect()->route('auth.kanban');
         }else{
             $show = Projects::all();
@@ -32,13 +32,19 @@ class ProjectController extends Controller
     }
 
     public function viewProject($id){ // auth.php
-        $exists = Projects::where('uuid', $id)->exists();
-        if($exists){
-            $data = Projects::where('uuid', $id)->first();
-            $members = UsersInformation::select('profile_img', 'firstname', 'lastname', 'position')->join('colleagues as C', 'C.member_id', 'users_information.uid')->where('project_id', $data->id)->get();
-            return view('projects.view', compact('data', 'members'))->with('title', $data->project_name);
+        $checkID = UsersInformation::select('position')->where('id', Auth::id())->first()->position;
+
+        if($checkID === 'member'){
+            return redirect()->route('auth.kanban');
+        }else{
+            $exists = Projects::where('uuid', $id)->exists();
+            if($exists){
+                $data = Projects::where('uuid', $id)->first();
+                $members = UsersInformation::select('profile_img', 'firstname', 'lastname', 'position')->join('colleagues as C', 'C.member_id', 'users_information.uid')->where('project_id', $data->id)->get();
+                return view('projects.view', compact('data', 'members'))->with('title', $data->project_name);
+            }
+            return redirect()->route('auth.projects')->with('error', 'The Project didn\'t exists data');
         }
-        return redirect()->route('auth.projects')->with('error', 'The Project didn\'t exists data');
     }
 
     public function create(ProjectRequest $request){ // auth.php create projects
@@ -57,6 +63,6 @@ class ProjectController extends Controller
             'member_id' => Auth::id()
         ]);
 
-        return redirect()->route('auth.projects');
+        return redirect()->route('auth.projects')->with('success', 'Add Projects Successfuly');
     }
 }
