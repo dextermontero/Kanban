@@ -47,7 +47,7 @@
                             <div class="py-1 text-red-600 tracking-wider">{{ $message }}</div>
                         @enderror
                     </div>
-                    <button type="submit" class="mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md w-full px-5 py-2.5 text-center">Register</button>
+                    <button type="submit" id="register_btn"class="mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md w-full px-5 py-2.5 text-center">Register</button>
                     <div class="flex justify-start items-center px-1 mt-2">
                         <span class="text-gray-300">Already have an account? <a href="{{ route('home') }}" class="text-gray-200 font-bold hover:text-gray-600">Sign In</a></span>
                     </div>
@@ -55,4 +55,6 @@
             </div>
         </div>
     </body>
+    <script>
+    </script>
 </html>

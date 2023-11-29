@@ -10,6 +10,8 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\WorkstationController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function() {
@@ -32,24 +34,18 @@ Route::middleware(['auth','nocache', 'verified'])->group(function () {
         Route::post('/projects', 'create')->name('create.project');
     });
 
-    Route::get('/lists', function() {
-        return view('kanban.index')->with('title', 'Kanban Lists');
-    })->name('auth.kanban');
-    
-    Route::get('/view', function() {
-        return view('kanban.view')->with('title', 'Kanban View');
+    Route::controller(WorkstationController::class)->group(function() {
+        Route::get('/workstation', 'listWorkstation')->name('auth.listWorkstation');
+        Route::get('/workstation/{id}', 'viewWorkstation')->name('auth.workstation');
     });
     
     Route::get('/users', function() {
         return view('users.index')->with('title', 'Organization Members');
     });
     
-    Route::get('/reports', function() {
-        return view('reports.index')->with('title', 'Reports');
-    })->name('reports.list');
-    
-    Route::get('/reports/{id}', function() {
-        return view('reports.view')->with('title', 'Reports');
+    Route::controller(ReportController::class)->group(function() {
+        Route::get('/reports', 'indexReport')->name('auth.report');
+        Route::get('/reports/{id}', 'viewReport')->name('auth.report.view');
     });
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('uuid');
             $table->string('project_name');
-            $table->string('description');
+            $table->text('description');
             $table->date('start_date');
             $table->date('end_date');
             $table->string('status')->default("active"); // Status : active | inactive | archived | deleted

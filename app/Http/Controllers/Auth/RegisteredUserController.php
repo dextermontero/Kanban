@@ -46,7 +46,7 @@ class RegisteredUserController extends Controller
             'password.required' => 'The Password field is required.',
         ]);
 
-        $user = User::create([
+/*         $user = User::create([
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'remember_token' => $token,
@@ -61,12 +61,10 @@ class RegisteredUserController extends Controller
         ]);
         
         $verify = User::select('email_verified_at')->where('email', $request->email)->first()->email_verified_at;
+
         if($verify === null){
             Mail::to($request->email)->send(new \App\Mail\RegisterVerify($userinfo['firstname'], $userinfo['lastname'], $userinfo['email'], $token));
             return redirect()->route('email.notice', $token);
-        }
-
-        Auth::login($user);
-        return redirect(RouteServiceProvider::HOME);
+        } */
     }
 }

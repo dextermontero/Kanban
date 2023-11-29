@@ -22,7 +22,7 @@
                 @foreach ($show as $projects)
                     <a href="{{ route('auth.project.view', $projects->uuid) }}" class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4">
                         <div class="flex items-center justify-between mb-4">
-                            <h2 class="text-3xl font-medium text-gray-200 tracking-wider">{{ Str::ucfirst($projects->project_name) }}</h2>
+                            <h2 class="text-2xl font-medium text-gray-200 tracking-wider">{{ Str::ucfirst($projects->project_name) }}</h2>
                         </div>
                         <div class="mb-4 min-h-[3rem]">
                             <p class="text-gray-100 tracking-wide">{{ Str::limit($projects->description, 125) }}</p>
