@@ -193,6 +193,8 @@
                     $('#emailError').html('');
                     $(this).removeClass('border-gray-400');
                     $(this).removeClass('focus:border-gray-700');
+                    $(this).removeClass('border-red-700');
+                    $(this).removeClass('focus:border-red-700');
                     $(this).addClass('border-green-400');
                     $(this).addClass('focus:border-green-400');
                 }else{
