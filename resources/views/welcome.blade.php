@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>Login | {{ config('app.name') }}</title>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
@@ -17,21 +18,15 @@
                 <div class="flex justify-center p-4">
                    <h2 class="text-4xl font-medium tracking-wider antialiased">Kanban Board</h2>
                 </div>
-                <form action="{{ route('login') }}" method="POST" class="mb-4 p-4">
+                <form class="mb-4 p-4">
                     @csrf
                     <div class="mb-2">
                         <label for="email" class="block mb-2 text-md font-medium text-gray-200">Email Address</label>
-                        <input type="email" id="email" name="email" value="{{ old('email') }}" class="bg-gray-600 border border-gray-400 text-gray-200 text-md focus:ring-gray-700 focus:border-gray-700 block rounded-lg w-full placeholder-gray-200" placeholder="email@kanban.com">
-                        @error('email')
-                            <div class="py-1 text-red-600 tracking-wider">{{ $message }}</div>
-                        @enderror
+                        <input type="email" id="email" name="email" class="bg-gray-600 border border-gray-400 text-gray-200 text-md focus:ring-gray-700 focus:border-gray-700 block rounded-lg w-full placeholder-gray-200" placeholder="email@kanban.com">
                     </div>
                     <div class="mb-2">
                         <label for="password" class="block mb-2 text-md font-medium text-gray-200">Password</label>
-                        <input type="password" id="password" name="password" value="{{ old('password') }}" class="bg-gray-600 border border-gray-400 text-gray-200 text-md focus:ring-gray-700 focus:border-gray-700 block rounded-lg w-full placeholder-gray-200" placeholder="••••••••••••••••">
-                        @error('password')
-                            <div class="py-1 text-red-600 tracking-wider">{{ $message }}</div>
-                        @enderror
+                        <input type="password" id="password" name="password" class="bg-gray-600 border border-gray-400 text-gray-200 text-md focus:ring-gray-700 focus:border-gray-700 block rounded-lg w-full placeholder-gray-200" placeholder="••••••••••••••••">
                     </div>
                     <div class="flex items-start justify-between mb-6">
                         <div class="flex items-center h-6">
@@ -40,35 +35,96 @@
                         </div>
                         <a href="{{ route('register') }}" class="ms-2 text-md font-medium text-gray-200 tracking-wider hover:underline">Register</a>
                     </div>
-                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md w-full px-5 py-2.5 text-center">Log In</button>
+                    <button type="submit" id="loginBtn" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md w-full px-5 py-2.5 text-center">Log In</button>
                 </form>
             </div>
         </div>
     </body>
+    <script>
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                }
+            })
+            $('#loginBtn').click(function(e) {
+                e.preventDefault();
+                var token = $('input[type="hidden"]').val();
+                var email = $('#email').val();
+                var pass = $('#password').val();
+                if(email.length >= 2 && email.length >=2){
+                    $(this).html('<i class="fas fa-spinner fa-spin"></i> Logging account');
+                    $.ajax({
+                        url: "{{ route('login') }}",
+                        type: "POST",
+                        data: {
+                            _token: token,
+                            email: email,
+                            password: pass
+                        },
+                        beforeSend: function(){
+                            $('#email').attr('disabled', 'disabled');
+                            $('#password').attr('disabled', 'disabled');
+                            $('#loginBtn').attr('disabled', 'disabled');
+                            $('#loginBtn').removeClass('hover:bg-blue-800');
+                            $('#loginBtn').addClass('disabled:opacity-25');
+                            $('input').addClass('disabled:opacity-25');
+                        },
+                        success: function(data){
+                            if(data.status === 'success'){
+                                toastr.success(data.message);
+                                setTimeout(() => {
+                                    location.reload();
+                                }, 3000);
+                            }else if(data.status === 'verify'){
+                                toastr.success(data.message);
+                                setTimeout(() => {
+                                    window.location = data.url
+                                }, 3000);
+                            }else{
+                                toastr.info(data.message);
+                            }
+                            setTimeout(() => {
+                                $('#loginBtn').html('Log In');
+                                $('#loginBtn').removeAttr('disabled', 'disabled');
+                                $('#loginBtn').addClass('hover:bg-blue-800');
+                                $('#loginBtn').removeClass('disabled:opacity-25');
+                                $('#email').removeAttr('disabled', 'disabled');
+                                $('#password').removeAttr('disabled', 'disabled');
+                                $('input').removeClass('disabled:opacity-25');
+                            }, 3000);
+                        }
+                    });
+                }else{
+                    toastr.info('Incorrect credentials! Please try again...');
+                }
+            });
+        });
+    </script>
     <script type="module">
          toastr.options ={
             "closeButton" : true,
             "progressBar" : true,
+            "timeOut" : 3000,
             "positionClass" : "toast-bottom-right",
             "preventDuplicates": false,
             "showDuration": "300",
             "hideDuration": "1000",
         }
-
         @if(Session::has('success'))
             toastr.success("{{ session('success') }}");
         @endif
-        
+
         @if(Session::has('error'))
             toastr.error("{{ session('error') }}");
         @endif
-        
+
         @if(Session::has('info'))
             toastr.info("{{ session('info') }}");
         @endif
-        
+
         @if(Session::has('warning'))
             toastr.warning("{{ session('warning') }}");
         @endif
-        </script>
+    </script>
 </html>

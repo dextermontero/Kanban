@@ -23,7 +23,7 @@ class IndexController extends Controller
                 Mail::to($user->email)->send(new \App\Mail\RegisterVerify($user->firstname, $user->lastname, $user->email, $user->remember_token));
                 return response()->json([
                     'status' => 'success',
-                    'message' => 'Resend Successfully. Check your Mail ',
+                    'message' => 'Resend Successfully. Check your Mail',
                     'url' => route('email.notice', $user->remember_token)
                 ]);
             }

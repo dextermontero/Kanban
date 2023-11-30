@@ -34,7 +34,7 @@ class RegisteredUserController extends Controller
             $userinfo = UsersInformation::create([
                 'uid' => $user['id'],
                 'firstname' => $request->firstname,
-                'lastname' => $request->firstname,
+                'lastname' => $request->lastname,
                 'email' => $request->email,
                 'position' => 'member'
             ]);
