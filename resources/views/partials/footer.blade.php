@@ -3,6 +3,7 @@
         {
             "closeButton" : true,
             "progressBar" : true,
+            "timeOut" : 3000,
             "positionClass" : "toast-bottom-right",
             "preventDuplicates": false,
             "showDuration": "300",

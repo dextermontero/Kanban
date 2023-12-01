@@ -34,6 +34,8 @@ Route::middleware(['auth','nocache', 'verified'])->group(function () {
         Route::get('/projects', 'listProjects')->name('auth.projects');
         Route::get('/projects/{id}', 'viewProject')->name('auth.project.view');
         Route::post('/projects', 'create')->name('create.project');
+
+        Route::post('/projects/remove/{id}', 'removeProject')->name('project.remove');
     });
 
     Route::controller(WorkstationController::class)->group(function() {

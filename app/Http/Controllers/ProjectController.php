@@ -47,22 +47,47 @@ class ProjectController extends Controller
         }
     }
 
-    public function create(ProjectRequest $request){ // auth.php create projects
-        $create = $request->validated();
-
+    public function create(Request $request){ // auth.php create projects
         $projects = Projects::create([
             'uuid' => $this->uuid,
-            'project_name' => $create['projectname'],
-            'description' => $create['description'],
-            'start_date' => $create['startDate'],
-            'end_date' => $create['endDate'],
+            'project_name' => $request->project_name,
+            'description' => 'asdas',
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
         ]);
 
-        Colleagues::create([
-            'project_id' => $projects['id'],
-            'member_id' => Auth::id()
-        ]);
+        if($projects->save()){
+            Colleagues::create([
+                'project_id' => $projects['id'],
+                'member_id' => Auth::id()
+            ]);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Add Project Successfully',
+            ]);
+        }else{
+            return response()->json([
+                'status' => 'invalid',
+                'message' => 'Add project failed! Please try again',
+            ]);
+        }
+    }
 
-        return redirect()->route('auth.projects')->with('success', 'Add Projects Successfuly');
+    public function removeProject(Request $request){
+
+        $project = Projects::where('id', $request->id)->delete();
+        $colleague = Colleagues::where('project_id', $request->id)->delete();
+
+        if($project && $colleague){
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Remove Project Successfully',
+            ]);
+        }else{
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Remove Project Failed! Please try again...',
+            ]);
+        }
     }
 }

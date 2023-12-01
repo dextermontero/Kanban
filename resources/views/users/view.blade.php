@@ -15,154 +15,191 @@
                 </div>
             </div>
         </div>
-        <div class="relative overflow-x-auto shadow-md  rounded-lg">
-            <table class="w-full text-xl text-gray-100 text-left">
-                <thead class="bg-gray-800 uppercase overflow-x-hidden text-gray-300">
-                    <tr>
-                        <th scope="col" class="py-3 px-4">Name</th>
-                        <th scope="col" class="py-3 px-4">Role</th>
-                        <th scope="col" class="py-3 px-4">Status</th>
-                        <th scope="col" class="py-3 px-4 text-center">Action</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y-[0.1rem] divide-gray-500">
-                    <tr class="odd:bg-gray-700 even:bg-gray-800">
-                        <th scope="row" class="py-3 px-4 font-medium">
-                            <div class="inline-flex items-center">
-                                <img src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="hidden xl:block mt-1 w-8 h-8 rounded-full mr-3">
-                                Juan Dela Cruz
-                            </div>
-                        </th>
-                        <td class="py-3 px-4">CEO</td>
-                        <td class="py-3 px-4">Accepted</td>
-                        <td class="py-3 px-4">
-                            <a href="#remove" class="text-red-700 mr-2 flex items-center justify-center text-md">
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr class="odd:bg-gray-700 even:bg-gray-800">
-                        <th scope="row" class="py-3 px-4 font-medium">
-                            <div class="inline-flex items-center">
-                                <img src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="hidden xl:block mt-1 w-8 h-8 rounded-full mr-3">
-                                Juan Dela Cruz
-                            </div>
-                        </th>
-                        <td class="py-3 px-4">Project Manager</td>
-                        <td class="py-3 px-4">Accepted</td>
-                        <td class="py-3 px-4">
-                            <a href="#remove" class="text-red-700 mr-2 flex items-center justify-center text-md">
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr class="odd:bg-gray-700 even:bg-gray-800">
-                        <th scope="row" class="py-3 px-4 font-medium">
-                            <div class="inline-flex items-center">
-                                <img src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="hidden xl:block mt-1 w-8 h-8 rounded-full mr-3">
-                                Juan Dela Cruz
-                            </div>
-                        </th>
-                        <td class="py-3 px-4">Supervisor</td>
-                        <td class="py-3 px-4">Accepted</td>
-                        <td class="py-3 px-4">
-                            <a href="#remove" class="text-red-700 mr-2 flex items-center justify-center text-md">
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr class="odd:bg-gray-700 even:bg-gray-800">
-                        <th scope="row" class="py-3 px-4 font-medium">
-                            <div class="inline-flex items-center">
-                                <img src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="hidden xl:block mt-1 w-8 h-8 rounded-full mr-3">
-                                Juan Dela Cruz
-                            </div>
-                        </th>
-                        <td class="py-3 px-4">Member</td>
-                        <td class="py-3 px-4">Accepted</td>
-                        <td class="py-3 px-4">
-                            <a href="#remove" class="text-red-700 mr-2 flex items-center justify-center text-md">
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr class="odd:bg-gray-700 even:bg-gray-800">
-                        <th scope="row" class="py-3 px-4 font-medium">
-                            <div class="inline-flex items-center">
-                                <img src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="hidden xl:block mt-1 w-8 h-8 rounded-full mr-3">
-                                Juan Dela Cruz
-                            </div>
-                        </th>
-                        <td class="py-3 px-4">Member</td>
-                        <td class="py-3 px-4">Accepted</td>
-                        <td class="py-3 px-4">
-                            <a href="#remove" class="text-red-700 mr-2 flex items-center justify-center text-md">
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr class="odd:bg-gray-700 even:bg-gray-800">
-                        <th scope="row" class="py-3 px-4 font-medium">
-                            <div class="inline-flex items-center">
-                                <img src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="hidden xl:block mt-1 w-8 h-8 rounded-full mr-3">
-                                Juan Dela Cruz
-                            </div>
-                        </th>
-                        <td class="py-3 px-4">Member</td>
-                        <td class="py-3 px-4">Accepted</td>
-                        <td class="py-3 px-4">
-                            <a href="#remove" class="text-red-700 mr-2 flex items-center justify-center text-md">
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr class="odd:bg-gray-700 even:bg-gray-800">
-                        <th scope="row" class="py-3 px-4 font-medium">
-                            <div class="inline-flex items-center">
-                                <img src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="hidden xl:block mt-1 w-8 h-8 rounded-full mr-3">
-                                Juan Dela Cruz
-                            </div>
-                        </th>
-                        <td class="py-3 px-4">Member</td>
-                        <td class="py-3 px-4">Accepted</td>
-                        <td class="py-3 px-4">
-                            <a href="#remove" class="text-red-700 mr-2 flex items-center justify-center text-md">
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr class="odd:bg-gray-700 even:bg-gray-800">
-                        <th scope="row" class="py-3 px-4 font-medium">
-                            <div class="inline-flex items-center">
-                                <img src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="hidden xl:block mt-1 w-8 h-8 rounded-full mr-3">
-                                Juan Dela Cruz
-                            </div>
-                        </th>
-                        <td class="py-3 px-4">Member</td>
-                        <td class="py-3 px-4">Accepted</td>
-                        <td class="py-3 px-4">
-                            <a href="#remove" class="text-red-700 mr-2 flex items-center justify-center text-md">
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr class="odd:bg-gray-700 even:bg-gray-800">
-                        <th scope="row" class="py-3 px-4 font-medium">
-                            <div class="inline-flex items-center whitespace-nowrap">
-                                <img src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="hidden xl:block mt-1 w-8 h-8 rounded-full mr-3">
-                                Juan Dela Cruz
-                            </div>
-                        </th>
-                        <td class="py-3 px-4">Member</td>
-                        <td class="py-3 px-4">Accepted</td>
-                        <td class="py-3 px-4">
-                            <a href="#remove" class="text-red-700 mr-2 flex items-center justify-center text-md">
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="flex-auto block py-8 pt-6 px-9 bg-gray-800 rounded-lg shadow">
+            <div class="overflow-x-auto">
+                <table class="w-full my-0 align-middle text-gray-200 border-neutral-200">
+                    <thead class="align-bottom">
+                        <tr class="font-semibold text-[0.95rem] tracking-wider uppercase">
+                            <th class="pb-3 text-start min-w-[170px]">Name</th>
+                            <th class="pb-3 text-center min-w-[120px]">Role</th>
+                            <th class="pb-3 text-center min-w-[120px]">Status</th>
+                            <th class="pb-3 text-end min-w-[50px]">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($lists as $list)
+                            <tr class="border-b border-dashed last:border-b-0">
+                                <td class="p-3 pl-0">
+                                    <div class="flex items-center">
+                                        <div id="td_image" class="relative inline-block shrink-0 rounded-2xl me-4">
+                                            <img src="{{ asset('assets/profiles/'. $list->profile_img) }}" class="w-[50px] h-[50px] inline-block shrink-0 rounded-2xl" alt="{{ Str::ucfirst($list->firstname) }} {{ Str::ucfirst($list->lastname) }}">
+                                        </div>
+                                        <div id="td_name" class="flex flex-col justify-start">
+                                            <h2 class="mb-1 font-medium transition-colors duration-200 ease-in-out text-lg tracking-wider">{{ Str::ucfirst($list->firstname) }} {{ Str::ucfirst($list->lastname) }}</h2>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td id="td_role" class="p-3 pr-0 text-center">
+                                    @if ($list->position === "ceo")
+                                        <span class="font-medium text-md/normal tracking-wider">C.E.O</span>
+                                    @elseif($list->position === "pm")
+                                        <span class="font-medium text-md/normal tracking-wider">Project Manager</span>
+                                    @else
+                                        <span class="font-medium text-md/normal tracking-wider">{{ ucwords($list->position) }}</span>
+                                    @endif
+                                </td>
+                                <td id="td_status" class="p-3 pr-0 text-center">
+                                    <span class="font-medium text-md/normal tracking-wider">{{ ucwords($list->status) }}</span>
+                                </td>
+                                <td id="td_action" class="p-3 pr-0 text-end">
+                                    <a href="#remove" data-id="{{ $list->id }}" class="text-red-600 hover:text-red-800 mr-2 justify-center text-lg">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                        
+                        <tr class="border-b border-dashed last:border-b-0">
+                            <td class="p-3 pl-0">
+                                <div class="flex items-center">
+                                    <div id="td_image" class="relative inline-block shrink-0 rounded-2xl me-4">
+                                        <img src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="w-[50px] h-[50px] inline-block shrink-0 rounded-2xl" alt="">
+                                    </div>
+                                    <div id="td_name" class="flex flex-col justify-start">
+                                        <h2 class="mb-1 font-medium transition-colors duration-200 ease-in-out text-lg tracking-wider">Juan Dela Cruz</h2>
+                                    </div>
+                                </div>
+                            </td>
+                            <td id="td_role" class="p-3 pr-0 text-center">
+                                <span class="font-medium text-md/normal tracking-wider">Project Manager</span>
+                            </td>
+                            <td id="td_status" class="p-3 pr-0 text-center">
+                                <span class="font-medium text-md/normal tracking-wider">Accepted</span>
+                            </td>
+                            <td id="td_action" class="p-3 pr-0 text-end">
+                                <a href="#remove" class="text-red-600 hover:text-red-800 mr-2 justify-center text-lg">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-dashed last:border-b-0">
+                            <td class="p-3 pl-0">
+                                <div class="flex items-center">
+                                    <div id="td_image" class="relative inline-block shrink-0 rounded-2xl me-4">
+                                        <img src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="w-[50px] h-[50px] inline-block shrink-0 rounded-2xl" alt="">
+                                    </div>
+                                    <div id="td_name" class="flex flex-col justify-start">
+                                        <h2 class="mb-1 font-medium transition-colors duration-200 ease-in-out text-lg tracking-wider">Juan Dela Cruz</h2>
+                                    </div>
+                                </div>
+                            </td>
+                            <td id="td_role" class="p-3 pr-0 text-center">
+                                <span class="font-medium text-md/normal tracking-wider">Immediate Supervisor</span>
+                            </td>
+                            <td id="td_status" class="p-3 pr-0 text-center">
+                                <span class="font-medium text-md/normal tracking-wider">Accepted</span>
+                            </td>
+                            <td id="td_action" class="p-3 pr-0 text-end">
+                                <a href="#remove" class="text-red-600 hover:text-red-800 mr-2 justify-center text-lg">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-dashed last:border-b-0">
+                            <td class="p-3 pl-0">
+                                <div class="flex items-center">
+                                    <div id="td_image" class="relative inline-block shrink-0 rounded-2xl me-4">
+                                        <img src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="w-[50px] h-[50px] inline-block shrink-0 rounded-2xl" alt="">
+                                    </div>
+                                    <div id="td_name" class="flex flex-col justify-start">
+                                        <h2 class="mb-1 font-medium transition-colors duration-200 ease-in-out text-lg tracking-wider">Juan Dela Cruz</h2>
+                                    </div>
+                                </div>
+                            </td>
+                            <td id="td_role" class="p-3 pr-0 text-center">
+                                <span class="font-medium text-md/normal tracking-wider">Member</span>
+                            </td>
+                            <td id="td_status" class="p-3 pr-0 text-center">
+                                <span class="font-medium text-md/normal tracking-wider">Accepted</span>
+                            </td>
+                            <td id="td_action" class="p-3 pr-0 text-end">
+                                <a href="#remove" class="text-red-600 hover:text-red-800 mr-2 justify-center text-lg">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-dashed last:border-b-0">
+                            <td class="p-3 pl-0">
+                                <div class="flex items-center">
+                                    <div id="td_image" class="relative inline-block shrink-0 rounded-2xl me-4">
+                                        <img src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="w-[50px] h-[50px] inline-block shrink-0 rounded-2xl" alt="">
+                                    </div>
+                                    <div id="td_name" class="flex flex-col justify-start">
+                                        <h2 class="mb-1 font-medium transition-colors duration-200 ease-in-out text-lg tracking-wider">Juan Dela Cruz</h2>
+                                    </div>
+                                </div>
+                            </td>
+                            <td id="td_role" class="p-3 pr-0 text-center">
+                                <span class="font-medium text-md/normal tracking-wider">Member</span>
+                            </td>
+                            <td id="td_status" class="p-3 pr-0 text-center">
+                                <span class="font-medium text-md/normal tracking-wider">Accepted</span>
+                            </td>
+                            <td id="td_action" class="p-3 pr-0 text-end">
+                                <a href="#remove" class="text-red-600 hover:text-red-800 mr-2 justify-center text-lg">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-dashed last:border-b-0">
+                            <td class="p-3 pl-0">
+                                <div class="flex items-center">
+                                    <div id="td_image" class="relative inline-block shrink-0 rounded-2xl me-4">
+                                        <img src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="w-[50px] h-[50px] inline-block shrink-0 rounded-2xl" alt="">
+                                    </div>
+                                    <div id="td_name" class="flex flex-col justify-start">
+                                        <h2 class="mb-1 font-medium transition-colors duration-200 ease-in-out text-lg tracking-wider">Juan Dela Cruz</h2>
+                                    </div>
+                                </div>
+                            </td>
+                            <td id="td_role" class="p-3 pr-0 text-center">
+                                <span class="font-medium text-md/normal tracking-wider">Member</span>
+                            </td>
+                            <td id="td_status" class="p-3 pr-0 text-center">
+                                <span class="font-medium text-md/normal tracking-wider">Accepted</span>
+                            </td>
+                            <td id="td_action" class="p-3 pr-0 text-end">
+                                <a href="#remove" class="text-red-600 hover:text-red-800 mr-2 justify-center text-lg">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-dashed last:border-b-0">
+                            <td class="p-3 pl-0">
+                                <div class="flex items-center">
+                                    <div id="td_image" class="relative inline-block shrink-0 rounded-2xl me-4">
+                                        <img src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="w-[50px] h-[50px] inline-block shrink-0 rounded-2xl" alt="">
+                                    </div>
+                                    <div id="td_name" class="flex flex-col justify-start">
+                                        <h2 class="mb-1 font-medium transition-colors duration-200 ease-in-out text-lg tracking-wider">Juan Dela Cruz</h2>
+                                    </div>
+                                </div>
+                            </td>
+                            <td id="td_role" class="p-3 pr-0 text-center">
+                                <span class="font-medium text-md/normal tracking-wider">Member</span>
+                            </td>
+                            <td id="td_status" class="p-3 pr-0 text-center">
+                                <span class="font-medium text-md/normal tracking-wider">Accepted</span>
+                            </td>
+                            <td id="td_action" class="p-3 pr-0 text-end">
+                                <a href="#remove" class="text-red-600 hover:text-red-800 mr-2 justify-center text-lg">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
@@ -184,6 +221,14 @@
                 <form>
                     @csrf
                     <div class="mb-4">
+                        <label for="invite_firstname" class="block mb-2 text-md font-medium text-gray-200">First Name</label>
+                        <input type="text" id="invite_firstname" name="invite_firstname" class="bg-gray-600 border border-gray-400 text-gray-200 text-md focus:ring-gray-700 focus:border-gray-700 block rounded-lg w-full placeholder-gray-200" placeholder="First Name">
+                    </div>
+                    <div class="mb-4">
+                        <label for="invite_lastname" class="block mb-2 text-md font-medium text-gray-200">Last Name</label>
+                        <input type="text" id="invite_lastname" name="invite_lastname" class="bg-gray-600 border border-gray-400 text-gray-200 text-md focus:ring-gray-700 focus:border-gray-700 block rounded-lg w-full placeholder-gray-200" placeholder="Last Name">
+                    </div>
+                    <div class="mb-4">
                         <label for="invite_email" class="block mb-2 text-md font-medium text-gray-200">Email Address</label>
                         <input type="email" id="invite_email" class="bg-gray-600 border border-gray-400 text-gray-200 text-md focus:ring-gray-700 focus:border-gray-700 block rounded-lg w-full placeholder-gray-200" placeholder="email@kanban.com">
                     </div>
@@ -193,4 +238,16 @@
         </div>
     </div>
 </div>
+<script type="module">  
+    document.onreadystatechange  = () => {
+        if(document.readyState === 'interactive'){
+            $('tbody tr').addClass('animate-pulse');
+            $('tbody tr #td_image').html('<div class="w-[50px] h-[50px] inline-block shrink-0 rounded-2xl bg-gray-700"></div>');
+            $('tbody tr #td_name').html('<div class="bg-gray-700 h-4 w-44 rounded-2xl mb-2"></div><div class="bg-gray-700 h-4 w-80 rounded-2xl"></div>');
+            $('tbody tr #td_role').html('<div class="bg-gray-700 h-4 rounded-2xl"></div>');
+            $('tbody tr #td_status').html('<div class="bg-gray-700 h-4 rounded-2xl"></div>');
+            $('tbody tr #td_action').html('<div class="bg-gray-700 h-4 rounded-2xl"></div>');
+        }
+    };
+    </script>
 @include("partials.footer")

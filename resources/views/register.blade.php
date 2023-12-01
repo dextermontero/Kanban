@@ -178,7 +178,7 @@
                 }
                 if(firstname === null){
                     ln = 0;
-                    $('#lnError').html('<p class="pt-1 text-red-600 font-normal">The last name must have 21 or more letters</p>');
+                    $('#lnError').html('<p class="pt-1 text-red-600 font-normal">The last name must have 2 or more letters</p>');
                     $(this).removeClass('border-green-400');
                     $(this).removeClass('focus:border-green-400');
                     $(this).addClass('border-gray-400');
