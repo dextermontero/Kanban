@@ -23,7 +23,7 @@ class ProjectController extends Controller
         $checkID = UsersInformation::select('position')->where('id', Auth::id())->first()->position;
 
         if($checkID === 'member'){
-            return redirect()->route('auth.kanban');
+            return redirect()->route('auth.listWorkstation');
         }else{
             $show = Projects::all();
             $projCount = Projects::where('status', 'active')->count();
@@ -35,7 +35,7 @@ class ProjectController extends Controller
         $checkID = UsersInformation::select('position')->where('id', Auth::id())->first()->position;
 
         if($checkID === 'member'){
-            return redirect()->route('auth.kanban');
+            return redirect()->route('auth.listWorkstation');
         }else{
             $exists = Projects::where('uuid', $id)->exists();
             if($exists){

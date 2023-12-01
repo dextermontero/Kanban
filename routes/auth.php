@@ -9,6 +9,8 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\ColleagueController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\WorkstationController;
@@ -24,9 +26,9 @@ Route::middleware('guest')->group(function() {
 
 Route::middleware(['auth','nocache', 'verified'])->group(function () {
 
-    Route::get('/dashboard', function() {
-        return view('dashboard.index')->with('title', 'Dashboard');
-    })->name('auth.dashboard');
+    Route::controller(DashboardController::class)->group(function() {
+        Route::get('/dashboard', 'index')->name('auth.dashboard');
+    });
 
     Route::controller(ProjectController::class)->group(function() {
         Route::get('/projects', 'listProjects')->name('auth.projects');
@@ -39,13 +41,15 @@ Route::middleware(['auth','nocache', 'verified'])->group(function () {
         Route::get('/workstation/{id}', 'viewWorkstation')->name('auth.workstation');
     });
     
-    Route::get('/users', function() {
-        return view('users.index')->with('title', 'Organization Members');
+    Route::controller(ColleagueController::class)->group(function() {
+        Route::get('/organization', 'indexMember')->name('auth.organization');
+        Route::get('/manage/{id}', 'manageMember')->name('auth.organization.view');
     });
-    
+
     Route::controller(ReportController::class)->group(function() {
         Route::get('/reports', 'indexReport')->name('auth.report');
         Route::get('/reports/{id}', 'viewReport')->name('auth.report.view');
+        Route::get('/reports/item/{id}', 'viewReportItem')->name('auth.report.item');
     });
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');

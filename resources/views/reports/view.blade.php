@@ -2,7 +2,7 @@
 <div class="p-4 xl:ml-64">
     <div class="py-4 rounded-lg dark:border-gray-700 mt-14">
         <div class="flex flex-row justify-between items-center mb-5">
-            <a href="{{ route('reports.list') }}" class="mb-2 inline-flex items-center justify-center group">
+            <a href="{{ url()->previous() }}" class="mb-2 inline-flex items-center justify-center group">
                 <svg class="flex-shrink-0 w-7 h-7 text-gray-100 mr-2 transition duration-75 group-hover:text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 448 512">
                     <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
                 </svg>

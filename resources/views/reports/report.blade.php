@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="grid grid-cols-1 xl:grid-cols-3 gap-4 mb-4">
-            <a href="" class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4">
+            <a href="{{ route('auth.report.item', '1231312') }}" class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4">
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="block text-lg font-medium text-gray-200 hover:underline tracking-wide">Change Alert Javascript</h2>
                 </div>

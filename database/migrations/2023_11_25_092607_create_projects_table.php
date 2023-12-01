@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('description');
             $table->date('start_date');
             $table->date('end_date');
-            $table->string('status')->default("active"); // Status : active | inactive | archived | deleted
+            $table->string('status')->default("active"); // Status : active | inactive | done | archived | deleted
             $table->timestamps();
         });
     }
