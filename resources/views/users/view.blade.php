@@ -3,7 +3,7 @@
     <div class="py-4 rounded-lg mt-14">
         <div class="flex justify-between items-start xl:items-center mb-5">
             <div class="mb-2">
-                <h2 class="text-gray-100 text-3xl font-medium tracking-wider">{{ $data }} Members</h2>
+                <h2 class="text-gray-100 text-3xl font-medium tracking-wider">{{ ucwords($data) }} Members</h2>
             </div>
             <div class="inline-flex items-center justify-center">
                 <button type="button" data-modal-target="invite-modal" data-modal-toggle="invite-modal" data-tooltip-target="invite_member" data-tooltip-placement="bottom" class="border-2 border-dashed border-gray-200 rounded-full h-12 w-12">
@@ -32,10 +32,10 @@
                                 <td class="p-3 pl-0">
                                     <div class="flex items-center">
                                         <div id="td_image" class="relative inline-block shrink-0 rounded-2xl me-4">
-                                            <img src="{{ asset('assets/profiles/'. $list->profile_img) }}" class="w-[50px] h-[50px] inline-block shrink-0 rounded-2xl" alt="{{ Str::ucfirst($list->firstname) }} {{ Str::ucfirst($list->lastname) }}">
+                                            <img src="{{ asset('assets/profiles/'. $list->profile_img) }}" class="w-[50px] h-[50px] inline-block shrink-0 rounded-2xl" alt="{{ ucwords($list->firstname) }} {{ ucwords($list->lastname) }}">
                                         </div>
                                         <div id="td_name" class="flex flex-col justify-start">
-                                            <h2 class="mb-1 font-medium transition-colors duration-200 ease-in-out text-lg tracking-wider">{{ Str::ucfirst($list->firstname) }} {{ Str::ucfirst($list->lastname) }}</h2>
+                                            <h2 class="mb-1 font-medium transition-colors duration-200 ease-in-out text-lg tracking-wider">{{ ucwords($list->firstname) }} {{ ucwords($list->lastname) }}</h2>
                                         </div>
                                     </div>
                                 </td>
@@ -232,7 +232,7 @@
                         <label for="invite_email" class="block mb-2 text-md font-medium text-gray-200">Email Address</label>
                         <input type="email" id="invite_email" class="bg-gray-600 border border-gray-400 text-gray-200 text-md focus:ring-gray-700 focus:border-gray-700 block rounded-lg w-full placeholder-gray-200" placeholder="email@kanban.com">
                     </div>
-                   <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md w-full px-5 py-2.5 text-center">Invite</button>
+                   <button type="button" id="inviteMember"class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md w-full px-5 py-2.5 text-center">Invite</button>
                 </form>
             </div>
         </div>
@@ -249,5 +249,41 @@
             $('tbody tr #td_action').html('<div class="bg-gray-700 h-4 rounded-2xl"></div>');
         }
     };
-    </script>
+</script>
+<script>
+    $(document).ready(function(){
+        $('#inviteMember').click(function(e){
+            e.preventDefault();
+            var token = $('input[type="hidden"]').val();
+            var firstname = $('#invite_firstname').val();
+            var lastname = $('#invite_lastname').val();
+            var email = $('#invite_email').val();
+            if(email !== ""){
+                $.ajax({
+                    url: "{{ route('invite.member') }}",
+                    type: "POST",
+                    header: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                    data: {
+                        _token: token,
+                        firstname: firstname,
+                        lastname: lastname,
+                        email: email,
+                    },
+                    success:function(data){
+                        console.log(data);
+                        if(data.status === "success"){
+                            toastr.success(data.message);
+                        }else if(data.status === "info"){
+                            toastr.info(data.message);
+                        }else{
+                            toastr.warning(data.message);
+                        }
+                    }
+                });
+            }else{
+                toastr.error('The <b>email address</b> must not be empty!');
+            }
+        });
+    });
+</script>
 @include("partials.footer")

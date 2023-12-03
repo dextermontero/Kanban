@@ -19,6 +19,6 @@ class ReportController extends Controller
     }
 
     public function viewReportItem($id){
-        return view('reports.view')->with('title', 'Project Reports');
+        return view('reports.reportview')->with('title', 'Project Reports');
     }
 }

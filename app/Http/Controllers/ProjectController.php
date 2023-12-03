@@ -40,7 +40,7 @@ class ProjectController extends Controller
             $exists = Projects::where('uuid', $id)->exists();
             if($exists){
                 $data = Projects::where('uuid', $id)->first();
-                $members = UsersInformation::select('profile_img', 'firstname', 'lastname', 'position')->join('colleagues as C', 'C.member_id', 'users_information.uid')->where('project_id', $data->id)->get();
+                $members = UsersInformation::select('users_information.profile_img', 'users_information.firstname', 'users_information.lastname', 'users_information.position', 'users_information.status')->join('colleagues as C', 'C.member_id', 'users_information.uid')->where('project_id', $data->id)->get();
                 return view('projects.view', compact('data', 'members'))->with('title', $data->project_name);
             }
             return redirect()->route('auth.projects')->with('error', 'The Project didn\'t exists data');

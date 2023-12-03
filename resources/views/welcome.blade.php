@@ -81,8 +81,10 @@
                                 setTimeout(() => {
                                     window.location = data.url
                                 }, 3000);
-                            }else{
+                            }else if(data.status === 'info') {
                                 toastr.info(data.message);
+                            }else{
+                                toastr.error(data.message);
                             }
                             setTimeout(() => {
                                 $('#loginBtn').html('Log In');
@@ -96,7 +98,7 @@
                         }
                     });
                 }else{
-                    toastr.info('Incorrect credentials! Please try again...');
+                    toastr.error('Invalid Credentials! Please try again...');
                 }
             });
         });

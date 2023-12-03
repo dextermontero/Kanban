@@ -115,16 +115,20 @@
             </div>
             <!-- Modal body -->
             <div class="p-4 md:p-5 space-y-4">
-                <div class="inline-flex items-center justify-center text-gray-100 font-medium text-lg tracking-wider">
-                    <i class="fa-solid fa-file-lines mr-3 text-gray-100"></i>
-                    Description
-                </div>
                 <form>
+                    <div class="mb-3">
+                        <label for="report_title" class="block mb-2 text-gray-200 tracking-wider text-lg font-medium">Report Title</label>
+                        <input type="text" id="report_title" name="report_title" class="w-full rounded-md bg-gray-600 text-gray-200 placeholder-gray-200 focus:ring-gray-600 focus:border-gray-400" placeholder="Report Title">
+                    </div>
+                    <div class="inline-flex items-center justify-center text-gray-100 font-medium text-lg tracking-wider mb-3">
+                        <i class="fa-solid fa-file-lines mr-3 text-gray-100"></i>
+                        Description
+                    </div>
                     <p class="text-base leading-relaxed text-gray-300">
-                        <textarea rows="10" name="description" class="block w-full rounded-md bg-gray-600 text-gray-200 placeholder-gray-200 focus:ring-gray-600 focus:border-gray-400" placeholder="Report Description"></textarea>
+                        <textarea rows="10" name="description" class="block w-full rounded-md bg-gray-600 text-gray-200 placeholder-gray-200 focus:ring-gray-600 focus:border-gray-400 resize-none" placeholder="Report Description"></textarea>
                     </p>
                     <div class="mt-3">
-                        <label for="file-upload" class="text-gray-200 inline-flex items-center group mb-2">
+                        <label for="file-upload" class="text-gray-200 inline-flex items-center group mb-2 hover:cursor-pointer">
                             <svg class="flex-shrink-0 w-5 h-5 mr-2 text-gray-500 transition duration-75 group-hover:text-gray-100" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 448 512">
                                 <path d="M364.2 83.8c-24.4-24.4-64-24.4-88.4 0l-184 184c-42.1 42.1-42.1 110.3 0 152.4s110.3 42.1 152.4 0l152-152c10.9-10.9 28.7-10.9 39.6 0s10.9 28.7 0 39.6l-152 152c-64 64-167.6 64-231.6 0s-64-167.6 0-231.6l184-184c46.3-46.3 121.3-46.3 167.6 0s46.3 121.3 0 167.6l-176 176c-28.6 28.6-75 28.6-103.6 0s-28.6-75 0-103.6l144-144c10.9-10.9 28.7-10.9 39.6 0s10.9 28.7 0 39.6l-144 144c-6.7 6.7-6.7 17.7 0 24.4s17.7 6.7 24.4 0l176-176c24.4-24.4 24.4-64 0-88.4z"/>
                             </svg> 
@@ -134,7 +138,7 @@
                         <div id="files-area" class="mb-2 min-h-0 max-h-14 xl:min-h-0 xl:max-h-32 overflow-y-auto">
                             <span id="filesList"></span>
                         </div>
-                        <button type="submit" class="mt-2 block w-full rounded-md bg-blue-600 font-md font-medium text-gray-200 hover:bg-blue-700 px-2 py-2.5">Upload</button>
+                        <button type="button" id="addReport" class="mt-2 block w-full rounded-md bg-blue-600 font-md font-medium text-gray-200 hover:bg-blue-700 px-2 py-2.5">Upload</button>
                     </div>
                 </form>
             </div>
