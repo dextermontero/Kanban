@@ -30,10 +30,10 @@
                     </div>
                     <div class="flex items-start justify-between mb-6">
                         <div class="flex items-center h-6">
-                            <input id="remember" type="checkbox" name="checkbox" value="" class="w-4 h-4 border border-gray-500 rounded bg-gray-50 focus:ring-3 focus:ring-gray-500">
+                            <input id="remember" type="checkbox" id="checkbox" name="checkbox" value="" class="w-4 h-4 border border-gray-500 rounded bg-gray-50 focus:ring-3 focus:ring-gray-500">
                             <label for="remember" class="ms-2 text-md font-medium text-gray-200 tracking-wider">Remember me</label>
                         </div>
-                        <a href="{{ route('register') }}" class="ms-2 text-md font-medium text-gray-200 tracking-wider hover:underline">Register</a>
+                        <a href="{{ route('register') }}" id="regBtn" class="ms-2 text-md font-medium text-gray-200 tracking-wider hover:underline">Register</a>
                     </div>
                     <button type="submit" id="loginBtn" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md w-full px-5 py-2.5 text-center">Log In</button>
                 </form>
@@ -54,6 +54,7 @@
                 var pass = $('#password').val();
                 if(email.length >= 2 && email.length >=2){
                     $(this).html('<i class="fas fa-spinner fa-spin"></i> Logging account');
+                    
                     $.ajax({
                         url: "{{ route('login') }}",
                         type: "POST",
@@ -65,6 +66,8 @@
                         beforeSend: function(){
                             $('#email').attr('disabled', 'disabled');
                             $('#password').attr('disabled', 'disabled');
+                            $('#remember').attr('disabled', 'disabled');
+                            $('#regBtn').addClass('pointer-events-none');
                             $('#loginBtn').attr('disabled', 'disabled');
                             $('#loginBtn').removeClass('hover:bg-blue-800');
                             $('#loginBtn').addClass('disabled:opacity-25');
@@ -72,29 +75,31 @@
                         },
                         success: function(data){
                             if(data.status === 'success'){
-                                toastr.success(data.message);
+                                toastr.success(data.message, '', {timeOut: 3000});
                                 setTimeout(() => {
                                     location.reload();
                                 }, 3000);
                             }else if(data.status === 'verify'){
-                                toastr.success(data.message);
+                                toastr.success(data.message, '', {timeOut: 3000});
                                 setTimeout(() => {
                                     window.location = data.url
                                 }, 3000);
                             }else if(data.status === 'info') {
-                                toastr.info(data.message);
+                                toastr.info(data.message, '', {timeOut: 5000});
                             }else{
-                                toastr.error(data.message);
+                                toastr.error(data.message, '', {timeOut: 3000});
                             }
                             setTimeout(() => {
                                 $('#loginBtn').html('Log In');
                                 $('#loginBtn').removeAttr('disabled', 'disabled');
+                                $('#remember').removeAttr('disabled', 'disabled');
+                                $('#regBtn').removeClass('pointer-events-none');
                                 $('#loginBtn').addClass('hover:bg-blue-800');
                                 $('#loginBtn').removeClass('disabled:opacity-25');
                                 $('#email').removeAttr('disabled', 'disabled');
                                 $('#password').removeAttr('disabled', 'disabled');
                                 $('input').removeClass('disabled:opacity-25');
-                            }, 3000);
+                            }, 4000);
                         }
                     });
                 }else{
@@ -107,7 +112,6 @@
          toastr.options ={
             "closeButton" : true,
             "progressBar" : true,
-            "timeOut" : 3000,
             "positionClass" : "toast-bottom-right",
             "preventDuplicates": false,
             "showDuration": "300",

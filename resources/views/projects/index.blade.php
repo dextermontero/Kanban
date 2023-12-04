@@ -49,7 +49,10 @@
             </div>
         @else
             <button type="button" data-modal-target="add_project_modal" data-modal-toggle="add_project_modal" class="flex items-center w-full justify-center h-[42rem] xl:h-[45rem] mb-4 rounded border-2 border-gray-400 border-dashed dark:bg-gray-800">
-                <i class="fa-solid fa-plus text-gray-400" data-tooltip-target="add_project" data-tooltip-placement="bottom"></i>
+                <div class="flex flex-col items-center justify-center">
+                    <i class="fa-solid fa-plus text-gray-400" data-tooltip-target="add_project" data-tooltip-placement="bottom"></i>
+                    <p class="text-gray-400 tracking-wider mt-2 text-lg">Click to add Project</p>
+                </div>
             </button>
             <div id="add_project" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
                 Add Project
@@ -68,7 +71,7 @@
                 <h3 class="text-xl font-semibold text-gray-100 tracking-wider">
                     Add Project
                 </h3>
-                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="add_project_modal">
+                <button type="button" id="modal_close" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="add_project_modal">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                     </svg>
@@ -198,6 +201,13 @@ $(document).ready(function(){
             $('#createProjectcreateProject').removeClass('hover:bg-blue-800');
         }
     })
+
+    // Reset modal fiedls
+    $('#modal_close').click(function(e) {
+        $('form').each(function() {
+            this.reset();
+        });
+    });
 
     // Remove Project
     $('button[id="removeProject"]').bind('click', function(e) {

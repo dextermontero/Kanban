@@ -174,107 +174,112 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="odd:bg-gray-700 even:bg-gray-800 border-b border-gray-600 dark:border-gray-700">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    <div class="flex items-center justify-start">
-                                        <img class="w-10 h-10 rounded-full mr-3" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" alt="user photo">
-                                        <p class="text-lg text-gray-200">Project Title</p>
-                                    </div>
-                                </th>
-                                <td class="px-6 py-4">
-                                    <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
-                                        <div class="bg-gray-400 text-xs font-medium text-gray-100 text-center p-0.5 leading-none rounded-full" style="width: 25%"> 25%</div>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 text-green-400">
-                                    In Process
-                                </td>
-                                <td class="px-6 py-4">
-                                    <a href="{{ route('auth.project.view', now()->timestamp) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
-                                </td>
-                            </tr>
-                            <tr class="odd:bg-gray-700 even:bg-gray-800 border-b border-gray-600 dark:border-gray-700">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    <div class="flex items-center justify-start">
-                                        <img class="w-10 h-10 rounded-full mr-3" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" alt="user photo">
-                                        <p class="text-lg text-gray-200">Project Title</p>
-                                    </div>
-                                </th>
-                                <td class="px-6 py-4">
-                                    <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
-                                        <div class="bg-orange-400 text-xs font-medium text-gray-100 text-center p-0.5 leading-none rounded-full" style="width: 45%"> 45%</div>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 text-green-400">
-                                    In Process
-                                </td>
-                                <td class="px-6 py-4">
-                                    <a href="{{ route('auth.project.view', now()->timestamp) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
-                                </td>
-                            </tr>
-                            <tr class="odd:bg-gray-700 even:bg-gray-800 border-b border-gray-600 dark:border-gray-700">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    <div class="flex items-center justify-start">
-                                        <img class="w-10 h-10 rounded-full mr-3" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" alt="user photo">
-                                        <p class="text-lg text-gray-200">Project Title</p>
-                                    </div>
-                                </th>
-                                <td class="px-6 py-4">
-                                    <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
-                                        <div class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style="width: 65%"> 65%</div>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 text-green-400">
-                                    In Process
-                                </td>
-                                <td class="px-6 py-4">
-                                    <a href="{{ route('auth.project.view', now()->timestamp) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
-                                </td>
-                            </tr>
-                            <tr class="odd:bg-gray-700 even:bg-gray-800 border-b border-gray-600 dark:border-gray-700">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    <div class="flex items-center justify-start">
-                                        <img class="w-10 h-10 rounded-full mr-3" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" alt="user photo">
-                                        <p class="text-lg text-gray-200">Project Title</p>
-                                    </div>
-                                </th>
-                                <td class="px-6 py-4">
-                                    <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
-                                        <div class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style="width: 65%"> 65%</div>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 text-orange-400">
-                                    On Hold
-                                </td>
-                                <td class="px-6 py-4">
-                                    <a href="{{ route('auth.project.view', now()->timestamp) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
-                                </td>
-                            </tr>
-                            <tr class="odd:bg-gray-700 even:bg-gray-800 border-b border-gray-600 dark:border-gray-700">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    <div class="flex items-center justify-start">
-                                        <img class="w-10 h-10 rounded-full mr-3" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" alt="user photo">
-                                        <p class="text-lg text-gray-200">Project Title</p>
-                                    </div>
-                                </th>
-                                <td class="px-6 py-4">
-                                    <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
-                                        <div class="bg-green-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style="width: 100%"> 100%</div>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 text-blue-500">
-                                    Completed
-                                </td>
-                                <td class="px-6 py-4">
-                                    <a href="{{ route('auth.project.view', now()->timestamp) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
-                                </td>
-                            </tr>
+                            @if ($pCount > 0)
+                                <tr class="odd:bg-gray-700 even:bg-gray-800 border-b border-gray-600 dark:border-gray-700">
+                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <div class="flex items-center justify-start">
+                                            <img class="w-10 h-10 rounded-full mr-3" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" alt="user photo">
+                                            <p class="text-lg text-gray-200">Project Title</p>
+                                        </div>
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+                                            <div class="bg-gray-400 text-xs font-medium text-gray-100 text-center p-0.5 leading-none rounded-full" style="width: 25%"> 25%</div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-green-400">
+                                        In Process
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <a href="{{ route('auth.project.view', now()->timestamp) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
+                                    </td>
+                                </tr>
+                                <tr class="odd:bg-gray-700 even:bg-gray-800 border-b border-gray-600 dark:border-gray-700">
+                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <div class="flex items-center justify-start">
+                                            <img class="w-10 h-10 rounded-full mr-3" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" alt="user photo">
+                                            <p class="text-lg text-gray-200">Project Title</p>
+                                        </div>
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+                                            <div class="bg-orange-400 text-xs font-medium text-gray-100 text-center p-0.5 leading-none rounded-full" style="width: 45%"> 45%</div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-green-400">
+                                        In Process
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <a href="{{ route('auth.project.view', now()->timestamp) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
+                                    </td>
+                                </tr>
+                                <tr class="odd:bg-gray-700 even:bg-gray-800 border-b border-gray-600 dark:border-gray-700">
+                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <div class="flex items-center justify-start">
+                                            <img class="w-10 h-10 rounded-full mr-3" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" alt="user photo">
+                                            <p class="text-lg text-gray-200">Project Title</p>
+                                        </div>
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+                                            <div class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style="width: 65%"> 65%</div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-green-400">
+                                        In Process
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <a href="{{ route('auth.project.view', now()->timestamp) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
+                                    </td>
+                                </tr>
+                                <tr class="odd:bg-gray-700 even:bg-gray-800 border-b border-gray-600 dark:border-gray-700">
+                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <div class="flex items-center justify-start">
+                                            <img class="w-10 h-10 rounded-full mr-3" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" alt="user photo">
+                                            <p class="text-lg text-gray-200">Project Title</p>
+                                        </div>
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+                                            <div class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style="width: 65%"> 65%</div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-orange-400">
+                                        On Hold
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <a href="{{ route('auth.project.view', now()->timestamp) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
+                                    </td>
+                                </tr>
+                                <tr class="odd:bg-gray-700 even:bg-gray-800 border-b border-gray-600 dark:border-gray-700">
+                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <div class="flex items-center justify-start">
+                                            <img class="w-10 h-10 rounded-full mr-3" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" alt="user photo">
+                                            <p class="text-lg text-gray-200">Project Title</p>
+                                        </div>
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+                                            <div class="bg-green-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style="width: 100%"> 100%</div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-blue-500">
+                                        Completed
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <a href="{{ route('auth.project.view', now()->timestamp) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
+                                    </td>
+                                </tr>
+                            @else
+                                <tr>
+                                    <td colspan="4" class=" text-white text-center text-lg p-5">No Available Projects</td>
+                                </tr>
+                            @endif
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-        asdasda
     </div>
 </div>
 @vite('resources/js/lineChart')

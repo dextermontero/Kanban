@@ -3,10 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
-use App\Models\Invitation;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,25 +25,21 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(Request $request)
     {
-        $status = Invitation::where('email', $request->email)->where('status', 0)->exists();
 
-        if($status){
-            return response()->json([
-                'status' => 'info',
-                'message' => 'Create your account',
-            ]);
-        }else{
-            $newToken = sha1(now());
-            $checkEmail = User::where('email', $request->email)->first();
+        $chkExists = User::where('email', $request->email)->exists();
 
-            if(!$checkEmail){
+        if($chkExists){
+            $chkInvite = User::select('on_invite')->where('email', $request->email)->first()->on_invite;
+            if($chkInvite === 1){
                 return response()->json([
                     'status' => 'info',
-                    'message' => 'Account doesn\'t exists!',
+                    'message' => 'This email address was invited, Check your mail!',
                 ]);
             }else{
-                $verify = User::select('email_verified_at', 'remember_token')->where('email', $request->email)->first();
-                if($verify->email_verified_at === null){
+                $newToken = sha1(now());
+                $chkVerify = User::select('email_verified_at')->where('email', $request->email)->first()->email_verified_at;
+
+                if($chkVerify === null){
                     User::where('email', $request->email)->update(['remember_token' => $newToken]);
                     $user = User::select('ui.firstname', 'ui.lastname', 'users.email', 'users.remember_token')->leftJoin('users_information as ui', 'ui.uid', 'users.id')->where('users.remember_token', $newToken)->where('users.email', $request->email)->first();
                     Mail::to($user->email)->send(new \App\Mail\RegisterVerify($user->firstname, $user->lastname, $user->email, $user->remember_token));
@@ -70,6 +63,11 @@ class AuthenticatedSessionController extends Controller
                     }
                 }
             }
+        }else{
+            return response()->json([
+                'status' => 'info',
+                'message' => 'Account doesn\'t exists!',
+            ]);
         }
     }
 

@@ -245,15 +245,15 @@
             return validChars.test(keyChar) ? keyChar : false; 
         }
     </script>
-        <script type="module">
-            toastr.options ={
-               "closeButton" : true,
-               "timeOut" : 2000,
-               "progressBar" : true,
-               "positionClass" : "toast-bottom-right",
-               "preventDuplicates": false,
-               "showDuration": "300",
-               "hideDuration": "1000",
-           }
-        </script>
+    <script type="module">
+        toastr.options ={
+            "closeButton" : true,
+            "timeOut" : 2000,
+            "progressBar" : true,
+            "positionClass" : "toast-bottom-right",
+            "preventDuplicates": false,
+            "showDuration": "300",
+            "hideDuration": "1000",
+        }
+    </script>
 </html>

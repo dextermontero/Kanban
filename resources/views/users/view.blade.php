@@ -3,7 +3,12 @@
     <div class="py-4 rounded-lg mt-14">
         <div class="flex justify-between items-start xl:items-center mb-5">
             <div class="mb-2">
-                <h2 class="text-gray-100 text-3xl font-medium tracking-wider">{{ ucwords($data) }} Members</h2>
+                <a href="{{ route('auth.organization') }}" class="mb-2 inline-flex items-center justify-center group">
+                    <svg class="flex-shrink-0 w-6 h-6 text-gray-100 mr-2 transition duration-75 group-hover:text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 448 512">
+                        <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
+                    </svg>
+                    <h2 class="text-gray-100 text-3xl font-medium tracking-wider">{{ ucwords($data) }} Members</h2>
+                </a>
             </div>
             <div class="inline-flex items-center justify-center">
                 <button type="button" data-modal-target="invite-modal" data-modal-toggle="invite-modal" data-tooltip-target="invite_member" data-tooltip-placement="bottom" class="border-2 border-dashed border-gray-200 rounded-full h-12 w-12">
@@ -49,7 +54,12 @@
                                     @endif
                                 </td>
                                 <td id="td_status" class="p-3 pr-0 text-center">
-                                    <span class="font-medium text-md/normal tracking-wider">{{ ucwords($list->status) }}</span>
+                                    @if ($list->status === 'pending')
+                                        <span class="font-medium text-md/normal tracking-wider text-orange-400">Pending</span>
+                                    @else
+                                    <span class="font-medium text-md/normal tracking-wider text-green-400">{{ ucwords($list->status) }}</span>
+                                    @endif
+                                    
                                 </td>
                                 <td id="td_action" class="p-3 pr-0 text-end">
                                     <a href="#remove" data-id="{{ $list->id }}" class="text-red-600 hover:text-red-800 mr-2 justify-center text-lg">
@@ -58,145 +68,6 @@
                                 </td>
                             </tr>
                         @endforeach
-                        
-                        <tr class="border-b border-dashed last:border-b-0">
-                            <td class="p-3 pl-0">
-                                <div class="flex items-center">
-                                    <div id="td_image" class="relative inline-block shrink-0 rounded-2xl me-4">
-                                        <img src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="w-[50px] h-[50px] inline-block shrink-0 rounded-2xl" alt="">
-                                    </div>
-                                    <div id="td_name" class="flex flex-col justify-start">
-                                        <h2 class="mb-1 font-medium transition-colors duration-200 ease-in-out text-lg tracking-wider">Juan Dela Cruz</h2>
-                                    </div>
-                                </div>
-                            </td>
-                            <td id="td_role" class="p-3 pr-0 text-center">
-                                <span class="font-medium text-md/normal tracking-wider">Project Manager</span>
-                            </td>
-                            <td id="td_status" class="p-3 pr-0 text-center">
-                                <span class="font-medium text-md/normal tracking-wider">Accepted</span>
-                            </td>
-                            <td id="td_action" class="p-3 pr-0 text-end">
-                                <a href="#remove" class="text-red-600 hover:text-red-800 mr-2 justify-center text-lg">
-                                    <i class="fa-solid fa-trash"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr class="border-b border-dashed last:border-b-0">
-                            <td class="p-3 pl-0">
-                                <div class="flex items-center">
-                                    <div id="td_image" class="relative inline-block shrink-0 rounded-2xl me-4">
-                                        <img src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="w-[50px] h-[50px] inline-block shrink-0 rounded-2xl" alt="">
-                                    </div>
-                                    <div id="td_name" class="flex flex-col justify-start">
-                                        <h2 class="mb-1 font-medium transition-colors duration-200 ease-in-out text-lg tracking-wider">Juan Dela Cruz</h2>
-                                    </div>
-                                </div>
-                            </td>
-                            <td id="td_role" class="p-3 pr-0 text-center">
-                                <span class="font-medium text-md/normal tracking-wider">Immediate Supervisor</span>
-                            </td>
-                            <td id="td_status" class="p-3 pr-0 text-center">
-                                <span class="font-medium text-md/normal tracking-wider">Accepted</span>
-                            </td>
-                            <td id="td_action" class="p-3 pr-0 text-end">
-                                <a href="#remove" class="text-red-600 hover:text-red-800 mr-2 justify-center text-lg">
-                                    <i class="fa-solid fa-trash"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr class="border-b border-dashed last:border-b-0">
-                            <td class="p-3 pl-0">
-                                <div class="flex items-center">
-                                    <div id="td_image" class="relative inline-block shrink-0 rounded-2xl me-4">
-                                        <img src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="w-[50px] h-[50px] inline-block shrink-0 rounded-2xl" alt="">
-                                    </div>
-                                    <div id="td_name" class="flex flex-col justify-start">
-                                        <h2 class="mb-1 font-medium transition-colors duration-200 ease-in-out text-lg tracking-wider">Juan Dela Cruz</h2>
-                                    </div>
-                                </div>
-                            </td>
-                            <td id="td_role" class="p-3 pr-0 text-center">
-                                <span class="font-medium text-md/normal tracking-wider">Member</span>
-                            </td>
-                            <td id="td_status" class="p-3 pr-0 text-center">
-                                <span class="font-medium text-md/normal tracking-wider">Accepted</span>
-                            </td>
-                            <td id="td_action" class="p-3 pr-0 text-end">
-                                <a href="#remove" class="text-red-600 hover:text-red-800 mr-2 justify-center text-lg">
-                                    <i class="fa-solid fa-trash"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr class="border-b border-dashed last:border-b-0">
-                            <td class="p-3 pl-0">
-                                <div class="flex items-center">
-                                    <div id="td_image" class="relative inline-block shrink-0 rounded-2xl me-4">
-                                        <img src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="w-[50px] h-[50px] inline-block shrink-0 rounded-2xl" alt="">
-                                    </div>
-                                    <div id="td_name" class="flex flex-col justify-start">
-                                        <h2 class="mb-1 font-medium transition-colors duration-200 ease-in-out text-lg tracking-wider">Juan Dela Cruz</h2>
-                                    </div>
-                                </div>
-                            </td>
-                            <td id="td_role" class="p-3 pr-0 text-center">
-                                <span class="font-medium text-md/normal tracking-wider">Member</span>
-                            </td>
-                            <td id="td_status" class="p-3 pr-0 text-center">
-                                <span class="font-medium text-md/normal tracking-wider">Accepted</span>
-                            </td>
-                            <td id="td_action" class="p-3 pr-0 text-end">
-                                <a href="#remove" class="text-red-600 hover:text-red-800 mr-2 justify-center text-lg">
-                                    <i class="fa-solid fa-trash"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr class="border-b border-dashed last:border-b-0">
-                            <td class="p-3 pl-0">
-                                <div class="flex items-center">
-                                    <div id="td_image" class="relative inline-block shrink-0 rounded-2xl me-4">
-                                        <img src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="w-[50px] h-[50px] inline-block shrink-0 rounded-2xl" alt="">
-                                    </div>
-                                    <div id="td_name" class="flex flex-col justify-start">
-                                        <h2 class="mb-1 font-medium transition-colors duration-200 ease-in-out text-lg tracking-wider">Juan Dela Cruz</h2>
-                                    </div>
-                                </div>
-                            </td>
-                            <td id="td_role" class="p-3 pr-0 text-center">
-                                <span class="font-medium text-md/normal tracking-wider">Member</span>
-                            </td>
-                            <td id="td_status" class="p-3 pr-0 text-center">
-                                <span class="font-medium text-md/normal tracking-wider">Accepted</span>
-                            </td>
-                            <td id="td_action" class="p-3 pr-0 text-end">
-                                <a href="#remove" class="text-red-600 hover:text-red-800 mr-2 justify-center text-lg">
-                                    <i class="fa-solid fa-trash"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr class="border-b border-dashed last:border-b-0">
-                            <td class="p-3 pl-0">
-                                <div class="flex items-center">
-                                    <div id="td_image" class="relative inline-block shrink-0 rounded-2xl me-4">
-                                        <img src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="w-[50px] h-[50px] inline-block shrink-0 rounded-2xl" alt="">
-                                    </div>
-                                    <div id="td_name" class="flex flex-col justify-start">
-                                        <h2 class="mb-1 font-medium transition-colors duration-200 ease-in-out text-lg tracking-wider">Juan Dela Cruz</h2>
-                                    </div>
-                                </div>
-                            </td>
-                            <td id="td_role" class="p-3 pr-0 text-center">
-                                <span class="font-medium text-md/normal tracking-wider">Member</span>
-                            </td>
-                            <td id="td_status" class="p-3 pr-0 text-center">
-                                <span class="font-medium text-md/normal tracking-wider">Accepted</span>
-                            </td>
-                            <td id="td_action" class="p-3 pr-0 text-end">
-                                <a href="#remove" class="text-red-600 hover:text-red-800 mr-2 justify-center text-lg">
-                                    <i class="fa-solid fa-trash"></i>
-                                </a>
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -273,6 +144,9 @@
                         console.log(data);
                         if(data.status === "success"){
                             toastr.success(data.message);
+                            setTimeout(() => {
+                                location.reload();
+                            }, 3000);
                         }else if(data.status === "info"){
                             toastr.info(data.message);
                         }else{

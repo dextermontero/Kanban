@@ -19,7 +19,8 @@ class DashboardController extends Controller
             $pCount = Projects::where('status', 'active')->count(); // Project Count active
             $mCount = Colleagues::where('status', 'active')->count(); // Member Count
             $cCount = Projects::where('status', 'done')->count(); // Project Count Complete
-            return view('dashboard.index', compact('pCount', 'mCount', 'cCount'))->with('title', 'Dashboard');
+            $prjLists = Projects::where('status', 'active')->get(); // Display all Projects
+            return view('dashboard.index', compact('pCount', 'mCount', 'cCount', 'prjLists'))->with('title', 'Dashboard');
         }
     }
 }

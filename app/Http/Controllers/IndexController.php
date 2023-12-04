@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UsersInformation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
 class IndexController extends Controller
@@ -50,5 +53,46 @@ class IndexController extends Controller
             return redirect()->route('home')->with('info', 'Account was already verified');
         }
         return redirect()->route('home')->with('info', 'Invalid email verification token');
+    }
+
+
+    public function getInvite($id){
+        $chkHash = User::where('remember_token', $id)->exists();
+
+        if($chkHash){
+            $info = User::select('ui.firstname', 'ui.lastname', 'ui.email', 'ui.position', 'project.project_name')->leftJoin('users_information as ui', 'ui.uid', 'users.id')
+                ->join(DB::raw("(SELECT p.project_name, i.hash FROM projects as p left join invitations as i on i.project_id = p.id) as project"), function($join){
+                    $join->on('project.hash', '=', 'users.remember_token');
+                })->where('users.remember_token', $id)->first();
+            return view('invite', compact('info'));
+        }else{
+            return redirect()->route('home')->with('info', 'Invalid Invitation Linked');
+        }
+    }
+
+    public function completeInvite(Request $request){
+        $chkHash = User::where('remember_token',$request->id)->exists();
+
+        if($chkHash){
+            $getID = User::select('id')->where('remember_token', $request->id)->first()->id;
+            $updateUInfo = UsersInformation::where('uid', $getID)->update(['status' => 'active']);
+            $updateUser = User::where('id', $getID)->update(['password'=> Hash::make($request->password),'email_verified_at' => now(), 'on_invite' => 0, 'status' => 'active', 'remember_token' => null]);
+            if($updateUInfo === 1 && $updateUser === 1){
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Successfully setup invitation',
+                ]);
+            }else{
+                return response()->json([
+                    'status' => 'warning',
+                    'message' => 'Something went wrong! Contact administrator',
+                ]);
+            }
+        }else{
+            return response()->json([
+                'status' => 'info',
+                'message' => 'Invalid Invitation Linked',
+            ]);
+        }
     }
 }

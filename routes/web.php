@@ -29,6 +29,10 @@ Route::middleware('nocache')->group(function() {
         Route::get('/email/verify/{id}', 'emailNotice')->name('email.notice');
         Route::get('/email/verified/{id}', 'verified')->name('email.verified');
         Route::post('/email/verify/{id}', 'resendEmail')->name('email.resend');
+
+        //Invite
+        Route::get('/invite/{id}', 'getinvite')->name('user.invite');
+        Route::post('/invite/{id}', 'completeInvite')->name('complete.invite');
     });
 });
 
