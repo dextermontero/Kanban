@@ -18,15 +18,13 @@
                         </div>
                         <div class="flex items-center justify-between">
                             <div class="inline-flex items-center justify-center">
-                                <img data-tooltip-target="hover_img_1" data-tooltip-placement="bottom" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="rounded-full h-8 w-8">
-                                <div id="hover_img_1" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-600 rounded-lg shadow-sm opacity-0 tooltip tracking-wider">
-                                    Juan Dela Cruz
-                                    <div class="tooltip-arrow" data-popper-arrow></div>
-                                </div>
+                                @if ($project->status === "active")
+                                    <span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full">On Process</span>
+                                @endif
                             </div>
                             <div class="inline-flex items-center">
                                 <span class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-1 rounded dark:bg-gray-700 dark:text-gray-300">
-                                    <i class="fa-solid fa-clock mr-1"></i> {{ number_format(Carbon\Carbon::parse($project->end_date)->diffInDays(now()->toDateString())) }} days left
+                                    <i class="fa-solid fa-clock mr-1"></i> {{ number_format(Carbon\Carbon::now()->diffInDays($project->end_date)) }} days left
                                 </span>
                             </div>
                         </div>

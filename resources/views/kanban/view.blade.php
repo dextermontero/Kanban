@@ -3,7 +3,7 @@
     <div class="py-4 rounded-lg dark:border-gray-700 mt-14">
         <div class="flex flex-col xl:flex-row justify-start xl:justify-between items-start xl:items-center mb-5">
             <div class="mb-2">
-                <h2 class="text-gray-100 text-3xl font-medium tracking-wider">Kanban Project (3 years)</h2>
+                <h2 class="text-gray-100 text-3xl font-medium tracking-wider">{{ $data->project_name }} ({{ Carbon\Carbon::now()->diffInDays($data->end_date) }} days left)</h2>
             </div>
             <div class="inline-flex items-center justify-center">
                 <div class="inline-flex items-center justify-center mr-3">

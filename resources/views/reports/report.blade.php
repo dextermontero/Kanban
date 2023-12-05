@@ -7,7 +7,7 @@
                     <svg class="flex-shrink-0 w-6 h-6 text-gray-100 mr-2 transition duration-75 group-hover:text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 448 512">
                         <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
                     </svg>
-                    <h2 class="text-gray-100 text-3xl font-medium tracking-wider">Reports</h2>
+                    <h2 class="text-gray-100 text-3xl font-medium tracking-wider">{{ $data }} Reports</h2>
                 </a>
             </div>
             <div class="inline-flex items-center justify-center">

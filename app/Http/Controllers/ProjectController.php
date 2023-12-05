@@ -25,9 +25,9 @@ class ProjectController extends Controller
         if($checkID === 'member'){
             return redirect()->route('auth.listWorkstation');
         }else{
-            $show = Projects::all();
+            $list = Projects::select('projects.uuid', 'projects.project_name', 'projects.description', 'projects.end_date', 'projects.status')->leftjoin('colleagues as c', 'c.project_id', 'projects.id')->where('c.member_id', Auth::id())->get();
             $projCount = Projects::where('status', 'active')->count();
-            return view('projects.index', compact('show', 'projCount'))->with('title', 'Project Lists');
+            return view('projects.index', compact('list', 'projCount'))->with('title', 'Project Lists');
         }
     }
 

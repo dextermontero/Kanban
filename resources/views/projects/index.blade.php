@@ -19,7 +19,7 @@
         </div>
         @if ($projCount > 0)
             <div class="grid grid-cols-1 xl:grid-cols-3 gap-4 mb-4" id="projectCard">
-                @foreach ($show as $projects)
+                @foreach ($list as $projects)
                     <div id="project-card" class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 shadow-md">
                         <div class="flex items-center justify-between px-8 pt-5">
                             <h2 class="text-2xl font-medium text-gray-200 tracking-wider">{{ Str::ucfirst($projects->project_name) }}</h2>
@@ -35,11 +35,13 @@
                             </div>
                             <div class="flex items-center justify-between">
                                 <div class="inline-flex items-center justify-center">
-                                    <img src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="rounded-full h-8 w-8">
+                                    @if ($projects->status === "active")
+                                        <span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full">On Process</span>
+                                    @endif
                                 </div>
                                 <div class="inline-flex items-center">
                                     <span class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-1 rounded dark:bg-gray-700 dark:text-gray-300">
-                                        <i class="fa-solid fa-clock mr-1"></i> {{ number_format(Carbon\Carbon::parse($projects->end_date)->diffInDays(now()->toDateString())) }} days left
+                                        <i class="fa-solid fa-clock mr-1"></i> {{ number_format(Carbon\Carbon::now()->diffInDays($projects->end_date)) }} days left
                                     </span>
                                 </div>
                             </div>
