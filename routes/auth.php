@@ -50,6 +50,7 @@ Route::middleware(['auth','nocache', 'verified'])->group(function () {
         //Search Member
         Route::post('/member/search', 'searchMember')->name('search.member');
         Route::post('/member/add', 'addMember')->name('add.member');
+        Route::post('/manage/delete', 'removeMember')->name('remove.member');
     });
 
     Route::controller(ReportController::class)->group(function() {

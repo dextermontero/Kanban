@@ -215,21 +215,39 @@ $(document).ready(function(){
         var id = $(this).attr('data-id');
         var url = "{{ route('project.remove',':id') }}";
         url = url.replace(':id', id);
-        $.ajax({
-            url: url,
-            type: "POST",
-            date: id,
-            success:function(data){
-                if(data.status === "success"){
-                    toastr.success(data.message);
-                    setTimeout(() => {
-                        location.reload();
-                    }, 3000);
-                }else{
-                    toastr.info(data.message);
-                }
+        Swal.fire({
+            title: '',
+            text: "Are you sure you want to archive this project?",
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, archive it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: id,
+                    success:function(data){
+                        if(data.status === "success"){
+                            Swal.fire({
+                                icon: "success",
+                                title: 'Archived!',
+                                text: "Your project has been archived.",
+                                showConfirmButton: false,
+                                timer: 3000
+                            })
+                            setTimeout(() => {
+                                location.reload();
+                            }, 3000);
+                        }else{
+                            toastr.info(data.message);
+                        }
+                    }
+                })
             }
-        })
+        });
     });
 })
 </script>

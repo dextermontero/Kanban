@@ -23,9 +23,11 @@ class ColleagueController extends Controller
     public function manageMember($id){
         $exists = Projects::where('uuid', $id)->exists();
         if($exists){
-            $data = Projects::where('uuid', $id)->first()->project_name;
+            $data = Projects::select('project_name', 'id')->where('uuid', $id)->first();
             $lists = Colleagues::select('ui.profile_img', 'ui.firstname', 'ui.lastname', 'ui.position', 'ui.status', 'ui.uid')->leftJoin('users_information as ui', 'ui.uid', 'colleagues.member_id')->leftJoin('projects as p', 'p.id', 'colleagues.project_id')->where('p.uuid', $id)->get();
-            return view('users.view', compact('data', 'lists'))->with('title', $data.' Management');
+            return view('users.view', compact('data', 'lists'))->with('title', $data->project_name.' Management');
+        }else{
+            return redirect()->route('auth.organization')->with('error', 'The Project didn\'t exists data');
         }
     }
 
@@ -118,6 +120,22 @@ class ColleagueController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'Add member successfully'
+            ]);
+        }else{
+            return response()->json([
+                'status' => 'warning',
+                'message' => 'Something went wrong! Contact administrator',
+            ]);
+        }
+    }
+
+    public function removeMember(Request $request){
+
+        $remove = Colleagues::where('member_id', $request->uid)->where('project_id', $request->id)->delete();
+        if($remove === 1){
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Successfully remove member'
             ]);
         }else{
             return response()->json([
