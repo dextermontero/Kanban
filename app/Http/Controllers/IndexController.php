@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Mail;
 
 class IndexController extends Controller
 {
+
+    public function home() {
+        return view('welcome');
+    }
+
     public function emailNotice(){
         return view('email-verify');
     }
@@ -80,7 +85,8 @@ class IndexController extends Controller
             if($updateUInfo === 1 && $updateUser === 1){
                 return response()->json([
                     'status' => 'success',
-                    'message' => 'Successfully setup invitation',
+                    'message' => 'Successfully setup invitation! Please wait...',
+                    'url' =>  route('home')
                 ]);
             }else{
                 return response()->json([

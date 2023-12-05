@@ -47,6 +47,9 @@ Route::middleware(['auth','nocache', 'verified'])->group(function () {
         Route::get('/organization', 'indexMember')->name('auth.organization');
         Route::get('/manage/{id}', 'manageMember')->name('auth.organization.view');
         Route::post('/manage/invite', 'invite')->name('invite.member');
+        //Search Member
+        Route::post('/member/search', 'searchMember')->name('search.member');
+        Route::post('/member/add', 'addMember')->name('add.member');
     });
 
     Route::controller(ReportController::class)->group(function() {

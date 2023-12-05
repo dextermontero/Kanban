@@ -176,7 +176,7 @@ $(document).ready(function(){
                         $('textarea').removeClass('disabled:opacity-25');
                         $('#createProject').removeAttr('disabled', 'disabled');
                         $('#createProject').addClass('hover:bg-blue-800');
-                        $('#createProject').remoevClass('disabled:opacity-25');
+                        $('#createProject').removeClass('disabled:opacity-25');
                     }, 3000);
                 }
             })

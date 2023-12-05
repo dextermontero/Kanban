@@ -21,11 +21,11 @@ use Illuminate\Support\Facades\Mail;
 require __DIR__.'/auth.php';
 
 Route::middleware('nocache')->group(function() {
-    Route::get('/', function () {
+/*     Route::get('/', function () {
         return view('welcome');
-    })->name('home');
-
+    }) */
     Route::controller(IndexController::class)->group(function() {
+        Route::get('/', 'home')->name('home');
         Route::get('/email/verify/{id}', 'emailNotice')->name('email.notice');
         Route::get('/email/verified/{id}', 'verified')->name('email.verified');
         Route::post('/email/verify/{id}', 'resendEmail')->name('email.resend');

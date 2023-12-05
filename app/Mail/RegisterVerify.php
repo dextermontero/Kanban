@@ -17,6 +17,7 @@ class RegisterVerify extends Mailable implements ShouldQueue
     private $lastname;
     private $email;
     private $token;
+    
     public function __construct($firstname, $lastname, $email, $token)
     {
         $this->firstname = $firstname;

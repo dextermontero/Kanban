@@ -89,7 +89,33 @@
                 </button>
             </div>
             <div class="p-4 md:p-5 space-y-4">
-                <form>
+                <form id="search_member">
+                    @csrf
+                    <div>
+                        <label for="search_name" class="block mb-2 text-md font-medium text-gray-200">Search Name</label>
+                        <input type="text" id="search_name" name="search_name" class="bg-gray-600 border border-gray-400 text-gray-200 text-md focus:ring-gray-700 focus:border-gray-700 block rounded-lg w-full placeholder-gray-200" placeholder="Search Member">
+                    </div>
+                </form>
+                <div class="mb-2 hidden" id="search_info">
+                    <div class="h-80 overflow-y-auto mb-4 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100 scrollbar-rounded-full">
+                        <span id="displaySearch"></span>
+                    </div>
+                    <button id="inviteNew" data-tooltip-target="view_more" class="flex justify-end ml-auto text-right">
+                        <svg class="flex-shrink-0 w-5 h-5 text-blue-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-100 dark:group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 320 512">
+                            <path d="M182.6 137.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-9.2 9.2-11.9 22.9-6.9 34.9s16.6 19.8 29.6 19.8H288c12.9 0 24.6-7.8 29.6-19.8s2.2-25.7-6.9-34.9l-128-128z"/>
+                        </svg>
+                        <div id="view_more" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-600 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                            view more
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div>
+                    </button>
+                </div>
+                <form id="new_invite">
+                    <div class="relative py-2 flex items-center">
+                        <div class="flex-grow border-t border-gray-400"></div>
+                            <span class="flex-shrink mx-4 text-gray-400">or</span>
+                        <div class="flex-grow border-t border-gray-400"></div>
+                    </div>
                     @csrf
                     <div class="mb-4">
                         <label for="invite_firstname" class="block mb-2 text-md font-medium text-gray-200">First Name</label>
@@ -123,6 +149,128 @@
 </script>
 <script>
     $(document).ready(function(){
+        $("#search_name" ).click(function(e) {
+            e.preventDefault();
+            $('#new_invite').attr('hidden', 'hidden');
+            $('#search_info').removeClass('hidden');
+            search();
+        });
+
+        function search(){
+            var id = "{{ request()->route('id') }}"
+            var keyword = $('#search_name').val();
+            var token = $('input[type="hidden"]').val();
+            $.post("{{ route('search.member') }}",
+            {
+                _token: token,
+                id: id,
+                search: keyword
+            },
+            function(list){
+                displayUser(list);
+            });
+        }
+
+        $('#search_name').keyup(function(e) {
+            e.preventDefault();
+            search()
+        });
+
+        function displayUser(list){
+            let data = '';
+            if(list.users.length <= 0){
+                data+= `
+                <div class="flex items-center justify-center h-56 mb-4 rounded  dark:bg-gray-800">
+                    <p class="text-2xl text-gray-400 dark:text-gray-500">
+                        User not found
+                    </p>
+                </div>`;
+            }
+
+            list.users.forEach((u) => {
+                u.action = list.projectID.some(p => p.member_id === u.id);
+            });
+
+            for(let i = 0; i < list.users.length; i++){
+                if(list.users[i].action){
+                    data += 
+                    `<div class="group mb-1">
+                        <div class="flex items-center w-full rounded-md group-hover:bg-gray-500 p-2">
+                            <div class="relative inline-block shrink-0 rounded-2xl me-3">
+                                <img src="{{ asset('assets/profiles')}}/`+list.users[i].profile_img+`" class="w-[50px] h-[50px] inline-block shrink-0 rounded-2xl" alt="`+list.users[i].firstname+` `+list.users[i].lastname+`">
+                            </div>
+                            <div class="flex justify-between items-center w-full">
+                                <div class="">
+                                    <h2 class="font-medium transition-colors duration-200 ease-in-out text-lg tracking-wider text-gray-200 capitalize">`+list.users[i].firstname+` `+list.users[i].lastname+`</h2>
+                                </div>
+                                <div class="text-blue-500 mr-3 font-medium p-2 whitespace-nowrap tracking-wider group-hover:text-blue-400">
+                                    Added
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+                }else{
+                    data += 
+                    `<div id="hello" class="group mb-1">
+                        <div class="flex items-center w-full rounded-md group-hover:bg-gray-500 p-2">
+                            <div class="relative inline-block shrink-0 rounded-2xl me-3">
+                                <img src="{{ asset('assets/profiles')}}/`+list.users[i].profile_img+`" class="w-[50px] h-[50px] inline-block shrink-0 rounded-2xl" alt="`+list.users[i].firstname+` `+list.users[i].lastname+`">
+                            </div>
+                            <div class="flex justify-between items-center w-full">
+                                <div class="">
+                                    <h2 class="font-medium transition-colors duration-200 ease-in-out text-lg tracking-wider text-gray-200 capitalize">`+list.users[i].firstname+` `+list.users[i].lastname+`</h2>
+                                </div>
+                                <button type="button" id="addMember" data-id="`+list.users[i].id+`" class="bg-blue-700 text-center rounded-md w-16 text-blue-200 mr-3 font-medium p-2 whitespace-nowrap tracking-wider hover:text-blue-300 group-hover:bg-blue-800">
+                                    Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>`;
+                }
+            }
+
+            $('#displaySearch').html(data);
+        }
+
+        $(function() {
+            $(document).on("click", "#addMember", function() {
+                var id = "{{ request()->route('id') }}";
+                var userId = $(this).attr("data-id");
+                $.ajax({
+                    url: "{{ route('add.member') }}",
+                    type: "POST",
+                    header: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                    data: {
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                        id: id,
+                        userID: userId,
+                    },
+                    beforeSend: function() {
+                        $('#addMember').attr('disabled', 'disabled');
+                        $('#addMember').attr('disabled', 'disabled');
+                        $('#addMember').removeClass('hover:bg-blue-800');
+                        $('#addMember').addClass('disabled:opacity-25');
+                    },
+                    success: function(data){
+                        if(data.status === "success"){
+                            toastr.success(data.message);
+                            setTimeout(() => {
+                                location.reload();
+                            }, 3000);
+                        }else{
+                            toastr.warning(data.message);
+                        }
+                    }
+                });
+            });
+        });
+
+        $('#inviteNew').click(function(e) {
+            $('#new_invite').removeAttr('hidden', 'hidden');
+            $('#search_info').addClass('hidden');
+            $('#search_name').val('');
+        });
+
         $('#inviteMember').click(function(e){
             e.preventDefault();
             var token = $('input[type="hidden"]').val();

@@ -63,6 +63,7 @@
                 var token = $('input[type="hidden"]').val();
                 var password = $('#password').val();
                 if(password.length >= 6){
+                    $(this).html('<i class="fas fa-spinner fa-spin"></i> Saving Information');
                     var url = "{{ route('complete.invite',':id') }}";
                     var id = "{{ request()->route('id') }}";
                     url = url.replace(':id', id);
@@ -76,17 +77,30 @@
                             password: password
                         },
                         beforeSend: function(){
-
+                            $('#password').attr('disabled', 'disabled');
+                            $('input').addClass('disabled:opacity-25');
+                            $('#completeBtn').attr('disabled', 'disabled');
+                            $('#completeBtn').removeClass('hover:bg-blue-800');
+                            $('#completeBtn').addClass('disabled:opacity-25');
                         },
                         success: function(data){
-                            console.log(data);
                             if(data.status === "success"){
                                 toastr.success(data.message, '', {"timeOut" : 5000,});
+                                setTimeout(() => {
+                                    window.location = data.url;
+                                }, 5000);
                             }else if(data.status === "info"){
                                 toastr.info(data.message, '', {"timeOut" : 5000,});
                             }else{
                                 toastr.warning(data.message, '', {"timeOut" : 5000,});
                             }
+                            setTimeout(() => {
+                                $('#password').removeAttr('disabled', 'disabled');
+                                $('input').removeClass('disabled:opacity-25');
+                                $('#completeBtn').removeAttr('disabled', 'disabled');
+                                $('#completeBtn').addClass('hover:bg-blue-800');
+                                $('#completeBtn').removeClass('disabled:opacity-25');
+                            }, 5000);
                         }
                     });
                 }else{

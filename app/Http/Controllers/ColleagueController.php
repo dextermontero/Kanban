@@ -21,7 +21,6 @@ class ColleagueController extends Controller
     }
 
     public function manageMember($id){
-
         $exists = Projects::where('uuid', $id)->exists();
         if($exists){
             $data = Projects::where('uuid', $id)->first()->project_name;
@@ -87,6 +86,43 @@ class ColleagueController extends Controller
             return response()->json([
                 'status' => 'info',
                 'message' => 'The email address was already invited!',
+            ]);
+        }
+    }
+
+    public function searchMember(Request $request){
+        $listUser = User::select('users.id', 'ui.profile_img', 'ui.firstname', 'ui.lastname', 'ui.position')->leftjoin('users_information as ui', 'ui.uid', 'users.id')->get();
+
+        $prjID = Colleagues::select('colleagues.member_id')->leftjoin('projects as p', 'p.id', 'colleagues.project_id')->where('p.uuid', $request->id)->get();
+
+        if($request->search !== ''){
+            $listUser = User::select('users.id', 'ui.profile_img', 'ui.firstname', 'ui.lastname', 'ui.position')->leftjoin('users_information as ui', 'ui.uid', 'users.id')->where('ui.firstname', 'iLIKE', '%'.$request->search.'%')->orWhere('ui.lastname', 'iLIKE', '%'.$request->search.'%')->orWhere('ui.email', 'iLIKE', '%'.$request->search.'%')->get();
+        }
+
+        return response()->json([
+            'projectID' => $prjID,
+            'users' => $listUser
+        ]);
+    }
+
+    public function addMember(Request $request){
+        $projectId = Projects::select('id')->where('uuid', $request->id)->first()->id;
+
+        $c = Colleagues::create([
+            'project_id' => $projectId,
+            'member_id' => $request->userID,
+            'status' => 'active'
+        ]);
+
+        if($c->save()){
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Add member successfully'
+            ]);
+        }else{
+            return response()->json([
+                'status' => 'warning',
+                'message' => 'Something went wrong! Contact administrator',
             ]);
         }
     }
