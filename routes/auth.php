@@ -41,6 +41,8 @@ Route::middleware(['auth','nocache', 'verified'])->group(function () {
     Route::controller(WorkstationController::class)->group(function() {
         Route::get('/workstation', 'listWorkstation')->name('auth.listWorkstation');
         Route::get('/workstation/{id}', 'viewWorkstation')->name('auth.workstation');
+        Route::post('/workstation/add', 'addTask')->name('add.task');
+        Route::post('/workstation/update', 'updateTask')->name('update.task');
     });
     
     Route::controller(ColleagueController::class)->group(function() {

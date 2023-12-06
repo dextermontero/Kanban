@@ -39,131 +39,54 @@
         </div>
         <div class="grid grid-cols-1 xl:grid-cols-3 gap-4 mb-4">
             <div class="todoContainer">
-                <h2 class="inline-flex items-center text-gray-100 mb-3 font-medium tracking-wider">
-                    <i class="fa-solid fa-list text-2xl mr-3"></i>
-                    <span>To Do</span>
+                <h2 class="flex justify-between mb-3 text-gray-100 font-medium tracking-wider">
+                    <div class="">
+                        <i class="fa-solid fa-list text-2xl mr-3"></i>
+                        <span>To Do</span>
+                    </div>
                 </h2>
                 <div class="min-h-[20rem] xl:min-h-[45rem] rounded draggableDiv" id="todo-drop">
-                    <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 cursor-move mb-4" id="todo" item-id="1" item-status="todo">
-                        <div class="flex items-center justify-between mb-4">
-                            <h2 class="text-lg font-medium text-gray-100 tracking-wide">Change Alert Javascript</h2>
-                            <a href="#edit" data-modal-target="view_items" data-modal-toggle="view_items" class="text-gray-100 text-lg">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
-                        </div>
-                        <div class="mb-4">
-                            <p class="text-gray-100 tracking-wide">{{ Str::limit('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 125) }}</p>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <div class="inline-flex items-center justify-center">
-                                <img data-tooltip-target="todo_1" data-tooltip-placement="bottom" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="rounded-full h-8 w-8 -mr-2 z-30">
-                                <img data-tooltip-target="todo_2" data-tooltip-placement="bottom" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="rounded-full h-8 w-8 -mr-2 z-20">
-                                <img data-tooltip-target="todo_3" data-tooltip-placement="bottom" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="rounded-full h-8 w-8 -mr-2 z-10">
-                                <img data-tooltip-target="todo_4" data-tooltip-placement="bottom" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="rounded-full h-8 w-8">                            
-                                <div id="todo_1" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-700 rounded-lg shadow-sm opacity-0 tooltip">
-                                    Member 1
-                                    <div class="tooltip-arrow" data-popper-arrow></div>
-                                </div>
-                                <div id="todo_2" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-700 rounded-lg shadow-sm opacity-0 tooltip">
-                                    Member 2
-                                    <div class="tooltip-arrow" data-popper-arrow></div>
-                                </div>
-                                <div id="todo_3" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-700 rounded-lg shadow-sm opacity-0 tooltip">
-                                    Member 3
-                                    <div class="tooltip-arrow" data-popper-arrow></div>
-                                </div>
-                                <div id="todo_4" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-700 rounded-lg shadow-sm opacity-0 tooltip">
-                                    Member 4
-                                    <div class="tooltip-arrow" data-popper-arrow></div>
-                                </div>
+                    @if (count($todo) > 0)
+                        <button type="button" data-modal-target="add_task_modal" data-modal-toggle="add_task_modal" class="flex items-center w-full h-16 justify-center mb-4 rounded border-2 border-gray-400 border-dashed dark:bg-gray-800">
+                            <div class="flex flex-col items-center justify-center">
+                                <i class="fa-solid fa-plus text-gray-400"></i>
                             </div>
-                            <div class="">
-                                <span class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-1 rounded dark:bg-gray-700 dark:text-gray-300">
-                                    <i class="fa-solid fa-clock mr-1"></i> 5 days left
-                                </span>
+                        </button>
+                        @foreach ($todo as $item)
+                            <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 cursor-move mb-4" id="todo" item-id="{{ $item->id }}" item-status="{{ $item->item_status }}">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h2 class="text-lg font-medium text-gray-100 tracking-wide">{{ ucwords($item->task_name) }}</h2>
+                                </div>
+                                <div class="mb-4">
+                                    <p class="text-gray-100 tracking-wide">{{ Str::limit($item->description, 125) }}</p>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div class="inline-flex items-center justify-center">
+                                        @if ($item->status === "High Priority")
+                                            <span class="bg-pink-100 text-pink-800 text-sm font-medium me-2 px-2.5 py-1 rounded border border-pink-400">
+                                                High Priority
+                                            </span>
+                                        @elseif($item->status === "Medium Priority")
+                                            <span class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-1 rounded border border-yellow-300">
+                                                Medium Priority
+                                            </span>
+                                        @else
+                                            <span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-1 rounded border border-green-400">
+                                                Low Priority
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>                           
+                        @endforeach
+                    @else
+                        <button type="button" data-modal-target="add_task_modal" data-modal-toggle="add_task_modal" class="flex items-center w-full justify-center h-[20rem] xl:h-[45rem] mb-4 rounded border-2 border-gray-400 border-dashed dark:bg-gray-800">
+                            <div class="flex flex-col items-center justify-center">
+                                <i class="fa-solid fa-plus text-gray-400"></i>
+                                <p class="text-gray-400 tracking-wider mt-2 text-lg">Click to add task</p>
                             </div>
-                        </div>
-                    </div>
-                    <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 cursor-move mb-4" id="todo" item-id="2" item-status="todo">
-                        <div class="flex items-center justify-between mb-4">
-                            <h2 class="text-lg font-medium text-gray-100 tracking-wide">Change Alert Javascript</h2>
-                            <a href="#edit" data-modal-target="view_items" data-modal-toggle="view_items" class="text-gray-100 text-lg">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
-                        </div>
-                        <div class="mb-4">
-                            <p class="text-gray-100 tracking-wide">{{ Str::limit('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 125) }}</p>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <div class="inline-flex items-center justify-center">
-                                <img data-tooltip-target="todo_5" data-tooltip-placement="bottom" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="rounded-full h-8 w-8 -mr-2 z-30">
-                                <img data-tooltip-target="todo_6" data-tooltip-placement="bottom" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="rounded-full h-8 w-8 -mr-2 z-20">
-                                <img data-tooltip-target="todo_7" data-tooltip-placement="bottom" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="rounded-full h-8 w-8 -mr-2 z-10">
-                                <img data-tooltip-target="todo_8" data-tooltip-placement="bottom" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="rounded-full h-8 w-8">                            
-                                <div id="todo_5" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-700 rounded-lg shadow-sm opacity-0 tooltip">
-                                    Member 5
-                                    <div class="tooltip-arrow" data-popper-arrow></div>
-                                </div>
-                                <div id="todo_6" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-700 rounded-lg shadow-sm opacity-0 tooltip">
-                                    Member 6
-                                    <div class="tooltip-arrow" data-popper-arrow></div>
-                                </div>
-                                <div id="todo_7" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-700 rounded-lg shadow-sm opacity-0 tooltip">
-                                    Member 7
-                                    <div class="tooltip-arrow" data-popper-arrow></div>
-                                </div>
-                                <div id="todo_8" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-700 rounded-lg shadow-sm opacity-0 tooltip">
-                                    Member 8
-                                    <div class="tooltip-arrow" data-popper-arrow></div>
-                                </div>
-                            </div>
-                            <div class="">
-                                <span class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-1 rounded dark:bg-gray-700 dark:text-gray-300">
-                                    <i class="fa-solid fa-clock mr-1"></i> 5 days left
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 cursor-move mb-4" id="todo" item-id="3" item-status="todo">
-                        <div class="flex items-center justify-between mb-4">
-                            <h2 class="text-lg font-medium text-gray-100 tracking-wide">Change Alert Javascript</h2>
-                            <a href="#edit" data-modal-target="view_items" data-modal-toggle="view_items" class="text-gray-100 text-lg">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
-                        </div>
-                        <div class="mb-4">
-                            <p class="text-gray-100 tracking-wide">{{ Str::limit('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 125) }}</p>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <div class="inline-flex items-center justify-center">
-                                <img data-tooltip-target="todo_9" data-tooltip-placement="bottom" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="rounded-full h-8 w-8 -mr-2 z-30">
-                                <img data-tooltip-target="todo_10" data-tooltip-placement="bottom" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="rounded-full h-8 w-8 -mr-2 z-20">
-                                <img data-tooltip-target="todo_11" data-tooltip-placement="bottom" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="rounded-full h-8 w-8 -mr-2 z-10">
-                                <img data-tooltip-target="todo_12" data-tooltip-placement="bottom" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="rounded-full h-8 w-8">                            
-                                <div id="todo_9" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-700 rounded-lg shadow-sm opacity-0 tooltip">
-                                    Member 9
-                                    <div class="tooltip-arrow" data-popper-arrow></div>
-                                </div>
-                                <div id="todo_10" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-700 rounded-lg shadow-sm opacity-0 tooltip">
-                                    Member 10
-                                    <div class="tooltip-arrow" data-popper-arrow></div>
-                                </div>
-                                <div id="todo_11" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-700 rounded-lg shadow-sm opacity-0 tooltip">
-                                    Member 11
-                                    <div class="tooltip-arrow" data-popper-arrow></div>
-                                </div>
-                                <div id="todo_12" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-700 rounded-lg shadow-sm opacity-0 tooltip">
-                                    Member 12
-                                    <div class="tooltip-arrow" data-popper-arrow></div>
-                                </div>
-                            </div>
-                            <div class="">
-                                <span class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-1 rounded dark:bg-gray-700 dark:text-gray-300">
-                                    <i class="fa-solid fa-clock mr-1"></i> 5 days left
-                                </span>
-                            </div>
-                        </div>
-                    </div>
+                        </button>
+                    @endif
                 </div>
             </div>
             <div class="progressContainer">
@@ -172,81 +95,41 @@
                     <span>In Progress</span>
                 </h2>
                 <div class="min-h-[20rem] xl:min-h-[45rem] rounded draggableDiv" id="progress-drop">
-                    <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 cursor-move mb-4" id="progress" item-id="4" item-status="progress">
-                        <div class="flex items-center justify-between mb-4">
-                            <h2 class="text-lg font-medium text-gray-100 tracking-wide">Change Alert Javascript</h2>
-                            <a href="#edit" data-modal-target="view_progress" data-modal-toggle="view_progress" class="text-gray-100 text-lg">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
-                        </div>
-                        <div class="mb-4">
-                            <p class="text-gray-100 tracking-wide">{{ Str::limit('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 125) }}</p>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <div class="inline-flex items-center justify-center">
-                                <img data-tooltip-target="progress_1" data-tooltip-placement="bottom" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="rounded-full h-8 w-8">                            
-                                <div id="progress_1" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-700 rounded-lg shadow-sm opacity-0 tooltip">
-                                    Member 1
-                                    <div class="tooltip-arrow" data-popper-arrow></div>
+                    @if (count($progress) > 0)
+                        @foreach ($progress as $item)
+                            <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 cursor-move mb-4" id="progress" item-id="{{ $item->id }}" item-status="{{ $item->item_status }}">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h2 class="text-lg font-medium text-gray-100 tracking-wide">{{ ucwords($item->task_name) }}</h2>
                                 </div>
-                            </div>
-                            <div class="">
-                                <span class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-1 rounded dark:bg-gray-700 dark:text-gray-300">
-                                    <i class="fa-solid fa-clock mr-1"></i> 5 days left
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 cursor-move mb-4" id="progress" item-id="5" item-status="progress">
-                        <div class="flex items-center justify-between mb-4">
-                            <h2 class="text-lg font-medium text-gray-100 tracking-wide">Change Alert Javascript</h2>
-                            <a href="#edit" data-modal-target="view_progress" data-modal-toggle="view_progress" class="text-gray-100 text-lg">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
-                        </div>
-                        <div class="mb-4">
-                            <p class="text-gray-100 tracking-wide">{{ Str::limit('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 125) }}</p>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <div class="inline-flex items-center justify-center">
-                                <img data-tooltip-target="progress_2" data-tooltip-placement="bottom" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="rounded-full h-8 w-8">                            
-                                <div id="progress_2" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-700 rounded-lg shadow-sm opacity-0 tooltip">
-                                    Member 2
-                                    <div class="tooltip-arrow" data-popper-arrow></div>
+                                <div class="mb-4">
+                                    <p class="text-gray-100 tracking-wide">{{ Str::limit($item->description, 125) }}</p>
                                 </div>
-                            </div>
-                            <div class="">
-                                <span class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-1 rounded dark:bg-gray-700 dark:text-gray-300">
-                                    <i class="fa-solid fa-clock mr-1"></i> 5 days left
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 cursor-move mb-4" id="progress" item-id="6" item-status="progress">
-                        <div class="flex items-center justify-between mb-4">
-                            <h2 class="text-lg font-medium text-gray-100 tracking-wide">Change Alert Javascript</h2>
-                            <a href="#edit" data-modal-target="view_progress" data-modal-toggle="view_progress" class="text-gray-100 text-lg">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
-                        </div>
-                        <div class="mb-4">
-                            <p class="text-gray-100 tracking-wide">{{ Str::limit('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 125) }}</p>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <div class="inline-flex items-center justify-center">
-                                <img data-tooltip-target="progress_3" data-tooltip-placement="bottom" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="rounded-full h-8 w-8">                            
-                                <div id="progress_3" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-700 rounded-lg shadow-sm opacity-0 tooltip">
-                                    Member 3
-                                    <div class="tooltip-arrow" data-popper-arrow></div>
+                                <div class="flex items-center justify-between">
+                                    <div class="inline-flex items-center justify-center">
+                                        @if ($item->status === "High Priority")
+                                            <span class="bg-pink-100 text-pink-800 text-sm font-medium me-2 px-2.5 py-1 rounded border border-pink-400">
+                                                High Priority
+                                            </span>
+                                        @elseif($item->status === "Medium Priority")
+                                            <span class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-1 rounded border border-yellow-300">
+                                                Medium Priority
+                                            </span>
+                                        @else
+                                            <span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-1 rounded border border-green-400">
+                                                Low Priority
+                                            </span>
+                                        @endif
+                                    </div>
                                 </div>
+                            </div>                           
+                        @endforeach
+                    @else
+                        <button type="button" data-modal-target="add_task_modal" data-modal-toggle="add_task_modal" class="flex items-center w-full justify-center h-[20rem] xl:h-[45rem] mb-4 rounded border-2 border-gray-400 border-dashed dark:bg-gray-800">
+                            <div class="flex flex-col items-center justify-center">
+                                <p class="text-gray-400 tracking-wider mt-2 text-lg">Drop To Do here</p>
                             </div>
-                            <div class="">
-                                <span class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-1 rounded dark:bg-gray-700 dark:text-gray-300">
-                                    <i class="fa-solid fa-clock mr-1"></i> 5 days left
-                                </span>
-                            </div>
-                        </div>
-                    </div>
+                        </button>
+                    @endif
                 </div>
             </div>
             <div class="doneContainer">
@@ -255,72 +138,41 @@
                     <span>Done</span>
                 </h2>
                 <div class="min-h-[20rem] xl:min-h-[45rem] rounded draggableDiv" id="done-drop">
-                    <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 cursor-move mb-4" id="done" item-id="10" item-status="done">
-                        <div class="flex items-center justify-between mb-4">
-                            <h2 class="text-lg font-medium text-gray-100 tracking-wide">Change Alert Javascript</h2>
-                        </div>
-                        <div class="mb-4">
-                            <p class="text-gray-100 tracking-wide">{{ Str::limit('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 125) }}</p>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <div class="inline-flex items-center justify-center">
-                                <img data-tooltip-target="done_1" data-tooltip-placement="bottom" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="rounded-full h-8 w-8">                            
-                                <div id="done_1" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-700 rounded-lg shadow-sm opacity-0 tooltip">
-                                    Member 1
-                                    <div class="tooltip-arrow" data-popper-arrow></div>
+                    @if (count($done) > 0)
+                        @foreach ($done as $item)
+                            <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 cursor-move mb-4" id="done" item-id="{{ $item->id }}" item-status="{{ $item->item_status }}">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h2 class="text-lg font-medium text-gray-100 tracking-wide">{{ ucwords($item->task_name) }}</h2>
                                 </div>
-                            </div>
-                            <div class="">
-                                <span class="bg-green-100 text-green-800 text-sm font-medium me-2 px-2.5 py-1 rounded dark:bg-green-700 dark:text-green-300">
-                                    <i class="fa-solid fa-check mr-1"></i> Done
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 cursor-move mb-4" id="done" item-id="11" item-status="done">
-                        <div class="flex items-center justify-between mb-4">
-                            <h2 class="text-lg font-medium text-gray-100 tracking-wide">Change Alert Javascript</h2>
-                        </div>
-                        <div class="mb-4">
-                            <p class="text-gray-100 tracking-wide">{{ Str::limit('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 125) }}</p>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <div class="inline-flex items-center justify-center">
-                                <img data-tooltip-target="done_2" data-tooltip-placement="bottom" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="rounded-full h-8 w-8">                            
-                                <div id="done_2" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-700 rounded-lg shadow-sm opacity-0 tooltip">
-                                    Member 2
-                                    <div class="tooltip-arrow" data-popper-arrow></div>
+                                <div class="mb-4">
+                                    <p class="text-gray-100 tracking-wide">{{ Str::limit($item->description, 125) }}</p>
                                 </div>
-                            </div>
-                            <div class="">
-                                <span class="bg-green-100 text-green-800 text-sm font-medium me-2 px-2.5 py-1 rounded dark:bg-green-700 dark:text-green-300">
-                                    <i class="fa-solid fa-check mr-1"></i> Done
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4 cursor-move mb-4" id="done" item-id="12" item-status="done">
-                        <div class="flex items-center justify-between mb-4">
-                            <h2 class="text-lg font-medium text-gray-100 tracking-wide">Change Alert Javascript</h2>
-                        </div>
-                        <div class="mb-4">
-                            <p class="text-gray-100 tracking-wide">{{ Str::limit('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 125) }}</p>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <div class="inline-flex items-center justify-center">
-                                <img data-tooltip-target="done_3" data-tooltip-placement="bottom" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="rounded-full h-8 w-8">                            
-                                <div id="done_3" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-700 rounded-lg shadow-sm opacity-0 tooltip">
-                                    Member 3
-                                    <div class="tooltip-arrow" data-popper-arrow></div>
+                                <div class="flex items-center justify-between">
+                                    <div class="inline-flex items-center justify-center">
+                                        @if ($item->status === "High Priority")
+                                            <span class="bg-pink-100 text-pink-800 text-sm font-medium me-2 px-2.5 py-1 rounded border border-pink-400">
+                                                High Priority
+                                            </span>
+                                        @elseif($item->status === "Medium Priority")
+                                            <span class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-1 rounded border border-yellow-300">
+                                                Medium Priority
+                                            </span>
+                                        @else
+                                            <span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-1 rounded border border-green-400">
+                                                Low Priority
+                                            </span>
+                                        @endif
+                                    </div>
                                 </div>
+                            </div>                           
+                        @endforeach
+                    @else
+                        <button type="button" data-modal-target="add_task_modal" data-modal-toggle="add_task_modal" class="flex items-center w-full justify-center h-[20rem] xl:h-[45rem] mb-4 rounded border-2 border-gray-400 border-dashed dark:bg-gray-800">
+                            <div class="flex flex-col items-center justify-center">
+                                <p class="text-gray-400 tracking-wider mt-2 text-lg">Drop In Progress here</p>
                             </div>
-                            <div class="">
-                                <span class="bg-green-100 text-green-800 text-sm font-medium me-2 px-2.5 py-1 rounded dark:bg-green-700 dark:text-green-300">
-                                    <i class="fa-solid fa-check mr-1"></i> Done
-                                </span>
-                            </div>
-                        </div>
-                    </div>
+                        </button>
+                    @endif
                 </div>
             </div>
         </div>
@@ -427,16 +279,16 @@
     </div>
 </div>
 
-<div id="view_items" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div class="relative p-4 w-full max-w-2xl max-h-full">
-    <!-- Modal content -->
+<div id="add_task_modal" data-modal-backdrop="static" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative w-full max-w-md max-h-full">
+        <!-- Modal content -->
         <div class="relative bg-gray-800 rounded-lg shadow dark:bg-gray-700">
-        <!-- Modal header -->
-            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
+            <!-- Modal header -->
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                 <h3 class="text-xl font-semibold text-gray-100 tracking-wider">
-                    To Do
+                    Add Task
                 </h3>
-                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="view_items">
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="add_task_modal">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                     </svg>
@@ -445,134 +297,33 @@
             </div>
             <!-- Modal body -->
             <div class="p-4 md:p-5 space-y-4">
-                <div class="flex flex-col items-start justify-start">
-                    <h2 class="text-gray-100 text-2xl font-bold tracking-wide mb-2">Change Alert Javascript</h2>
-                    <p class="text-gray-300 font-medium">Added by <span class="hover:underline text-blue-600 cursor-pointer">Juan Dela Cruz</span>, 1 day ago</p>
-                </div>
-
-                <div class="flex flex-row justify-start text-gray-100 font-medium text-lg tracking-wider">
-                    <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded">Image 1</span>
-                    <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded">Image 2</span>
-                    <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded">Image 3</span>
-                    <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded">Image 4</span>
-                </div>
-
-                <div class="inline-flex items-center justify-center text-gray-100 font-medium text-lg tracking-wider">
-                    <i class="fa-solid fa-file-lines mr-3 text-gray-100"></i>
-                    Description
-                </div>
-
-                <p class="text-base leading-relaxed text-gray-300">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                </p>
-            </div>
-            <!-- Modal footer -->
-            <div class="flex items-center justify-between p-4 md:p-5 rounded-b">
-                <div class="inline-flex items-center justify-center">
-                    <img data-tooltip-target="view_modal_todo_4" data-tooltip-placement="bottom" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="rounded-full h-8 w-8 -mr-2 z-30">
-                    <img data-tooltip-target="view_modal_todo_3" data-tooltip-placement="bottom" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="rounded-full h-8 w-8 -mr-2 z-20">
-                    <img data-tooltip-target="view_modal_todo_2" data-tooltip-placement="bottom" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="rounded-full h-8 w-8 -mr-2 z-10">
-                    <img data-tooltip-target="view_modal_todo_1" data-tooltip-placement="bottom" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="rounded-full h-8 w-8">                            
-                    <div id="view_modal_todo_1" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-700 rounded-lg shadow-sm opacity-0 tooltip">
-                        Member 1
-                        <div class="tooltip-arrow" data-popper-arrow></div>
+                <form>
+                    @csrf
+                    <div class="mb-3">
+                        <label for="task_name" class="block mb-2 text-gray-200 tracking-wider text-lg font-medium">Task Name</label>
+                        <input type="text" id="task_name" name="task_name" class="w-full rounded-md bg-gray-600 text-gray-200 placeholder-gray-200 focus:ring-gray-600 focus:border-gray-400" placeholder="Task Name">
                     </div>
-                    <div id="view_modal_todo_2" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-700 rounded-lg shadow-sm opacity-0 tooltip">
-                        Member 2
-                        <div class="tooltip-arrow" data-popper-arrow></div>
+                    <div class="inline-flex items-center justify-center text-gray-100 font-medium text-lg tracking-wider mb-3">
+                        <i class="fa-solid fa-file-lines mr-3 text-gray-100"></i>
+                        Description
                     </div>
-                    <div id="view_modal_todo_3" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-700 rounded-lg shadow-sm opacity-0 tooltip">
-                        Member 3
-                        <div class="tooltip-arrow" data-popper-arrow></div>
+                    <p class="text-base leading-relaxed text-gray-300 mb-3">
+                        <textarea rows="10" id="task_description" name="task_description" class="block w-full rounded-md bg-gray-600 text-gray-200 placeholder-gray-200 focus:ring-gray-600 focus:border-gray-400 resize-none" placeholder="Description"></textarea>
+                    </p>
+                    <div class="mb-3">
+                        <select id="priority" class="w-full rounded-md bg-gray-600 text-gray-200 placeholder-gray-200 focus:ring-gray-600 focus:border-gray-400">
+                            <option value="Low Priority" selected>Low Priority</option>
+                            <option value="Medium Priority">Medium Priority</option>
+                            <option value="High Priority">High Priority</option>
+                        </select>
                     </div>
-                    <div id="view_modal_todo_4" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-700 rounded-lg shadow-sm opacity-0 tooltip">
-                        Member 4
-                        <div class="tooltip-arrow" data-popper-arrow></div>
-                    </div>
-                </div>
-                <button id="ddList" data-dropdown-toggle="dropdownMove" data-dropdown-trigger="hover" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center" type="button">
-                    Move 
-                    <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-                    </svg>
-                </button>
-                <div id="dropdownMove" class="z-10 hidden bg-gray-700 divide-y divide-gray-100 rounded-lg shadow w-44">
-                    <ul class="py-2 text-sm text-gray-200" aria-labelledby="dropdownHoverButton">
-                        <li>
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-600 hover:text-white">In Progress</a>
-                        </li>
-                    </ul>
-                </div>
+                    <button type="button" id="addTask" class="w-full rounded-md bg-blue-600 text-gray-200 placeholder-gray-200 focus:ring-gray-600 focus:border-gray-400 py-2.5 hover:bg-blue-700">Add Task</button>
+                </form>
             </div>
         </div>
     </div>
 </div>
 
-<div id="view_progress" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div class="relative p-4 w-full max-w-2xl max-h-full">
-    <!-- Modal content -->
-        <div class="relative bg-gray-800 rounded-lg shadow dark:bg-gray-700">
-        <!-- Modal header -->
-            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
-                <h3 class="text-xl font-semibold text-gray-100 tracking-wider">
-                    In Progress
-                </h3>
-                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="view_progress">
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                    </svg>
-                    <span class="sr-only">Close modal</span>
-                </button>
-            </div>
-            <!-- Modal body -->
-            <div class="p-4 md:p-5 space-y-4">
-                <div class="flex flex-col items-start justify-start">
-                    <h2 class="text-gray-100 text-2xl font-bold tracking-wide mb-2">Change Alert Javascript</h2>
-                    <p class="text-gray-300 font-medium">Added by <span class="hover:underline text-blue-600 cursor-pointer">Juan Dela Cruz</span>, 1 day ago</p>
-                </div>
-
-                <div class="flex flex-row justify-start text-gray-100 font-medium text-lg tracking-wider">
-                    <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded">Image 1</span>
-                    <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded">Image 2</span>
-                    <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded">Image 3</span>
-                    <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded">Image 4</span>
-                </div>
-
-                <div class="inline-flex items-center justify-center text-gray-100 font-medium text-lg tracking-wider">
-                    <i class="fa-solid fa-file-lines mr-3 text-gray-100"></i>
-                    Description
-                </div>
-
-                <p class="text-base leading-relaxed text-gray-300">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                </p>
-            </div>
-            <!-- Modal footer -->
-            <div class="flex items-center justify-between p-4 md:p-5 rounded-b">
-                <div class="inline-flex items-center justify-center">
-                    <img data-tooltip-target="user_1" data-tooltip-placement="bottom" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="rounded-full h-8 w-8 z-30">
-                    <div id="user_1" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-700 rounded-lg shadow-sm opacity-0 tooltip">
-                        Member 1
-                        <div class="tooltip-arrow" data-popper-arrow></div>
-                    </div>
-                </div>
-                <button id="ddProgress" data-dropdown-toggle="dropdownProgress" data-dropdown-trigger="hover" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center" type="button">
-                    Move 
-                    <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-                    </svg>
-                </button>
-                <div id="dropdownProgress" class="z-10 hidden bg-gray-700 divide-y divide-gray-100 rounded-lg shadow w-44">
-                    <ul class="py-2 text-sm text-gray-200" aria-labelledby="dropdownHoverButton">
-                        <li>
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-600 hover:text-white">Done</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="module">
 $(document).ready(function() {
@@ -606,11 +357,30 @@ $(document).ready(function() {
         },
         update: function (event, ui) {
             var id = ui.item[0].attributes[2].value;
-            var status = ui.item[0].attributes[3].value;
+            var item_status = ui.item[0].attributes[3].value;
+            var status = "todo";
             if (this === ui.item.parent()[0]) {
-                if(status === "done"){
-                    console.log("Done From To Do");
-                    toastr.success('Task Successfully moved in <b>To Do</b>');
+                if(item_status === "done"){
+                    $.ajax({
+                        url: "{{ route('update.task') }}",
+                        type: "POST",
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                        data: {
+                            _token: $('meta[name="csrf-token"]').attr('content'),
+                            id: id,
+                            status: status,
+                        },
+                        success: function(data){
+                            if(data.status === "success"){
+                                toastr.success('Task Successfully moved in <b>To Do</b>', '', {"timeOut": 3000});
+                            }else{
+                                toastr.info(data.message);
+                            }
+                            setTimeout(() => {
+                                location.reload();
+                            }, 3000);
+                        }
+                    });
                 }
             }
             setTimeout(() => {
@@ -642,10 +412,30 @@ $(document).ready(function() {
         },
         update: function (event, ui) {
             var id = ui.item[0].attributes[2].value;
-            var status = ui.item[0].attributes[3].value;
+            var item_status = ui.item[0].attributes[3].value;
+            var status = "progress";
             if (this === ui.item.parent()[0]) {
-                if(status === "todo"){
-                    toastr.success('Task Successfully moved to In Progress From Todo');
+                if(item_status === "todo"){
+                    $.ajax({
+                        url: "{{ route('update.task') }}",
+                        type: "POST",
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                        data: {
+                            _token: $('meta[name="csrf-token"]').attr('content'),
+                            id: id,
+                            status: status,
+                        },
+                        success: function(data){
+                            if(data.status === "success"){
+                                toastr.success('Task Successfully moved to In Progress from Todo', '', {"timeOut": 3000});
+                            }else{
+                                toastr.info(data.message);
+                            }
+                            setTimeout(() => {
+                                location.reload();
+                            }, 3000);
+                        }
+                    });
                 }
             }
             setTimeout(() => {
@@ -677,10 +467,30 @@ $(document).ready(function() {
         },
         update: function (event, ui) {
             var id = ui.item[0].attributes[2].value;
-            var status = ui.item[0].attributes[3].value;
+            var item_status = ui.item[0].attributes[3].value;
+            var status = "done";
             if (this === ui.item.parent()[0]) {
-                if(status === "progress"){
-                    toastr.success('Task Successfully moved in <b>Done</b>');
+                if(item_status === "progress"){
+                    $.ajax({
+                        url: "{{ route('update.task') }}",
+                        type: "POST",
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                        data: {
+                            _token: $('meta[name="csrf-token"]').attr('content'),
+                            id: id,
+                            status: status,
+                        },
+                        success: function(data){
+                            if(data.status === "success"){
+                                toastr.success('Task Successfully moved in <b>Done</b>', '', {"timeOut": 3000});
+                            }else{
+                                toastr.info(data.message);
+                            }
+                            setTimeout(() => {
+                                location.reload();
+                            }, 3000);
+                        }
+                    });
                 }
             }
             setTimeout(() => {
@@ -690,5 +500,63 @@ $(document).ready(function() {
         }
     });
 });
+</script>
+<script>
+    $(document).ready(function() {
+        $('#addTask').click(function(e) {
+            e.preventDefault();
+            var token = $('input[type="hidden"]').val();
+            var id = "{{ $data->id }}";
+            var task_name = $('#task_name').val();
+            var description = $('#task_description').val();
+            var priority = $('#priority').val();
+            if(task_name !== "" && description !== "" && priority !== null){
+                $.ajax({
+                    url: "{{ route('add.task') }}",
+                    type: "POST",
+                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                    data: {
+                        _token: token,
+                        id: id,
+                        task_name: task_name,
+                        description: description,
+                        priority: priority
+                    },
+                    beforeSend: function() {
+                        $('input').addClass('disabled:opacity-25');
+                        $('textarea').addClass('disabled:opacity-25');
+                        $('select').addClass('disabled:opacity-25');
+                        $('#task_name').attr('disabled', 'disabled');
+                        $('#task_description').attr('disabled', 'disabled');
+                        $('#priority').attr('disabled', 'disabled');
+                        $('#addTask').attr('disabled', 'disabled');
+                        $('#addTask').removeClass('hover:bg-blue-800');
+                        $('#addTask').addClass('disabled:opacity-25');
+                    },
+                    success: function(data) {
+                        if(data.status === "success"){
+                            toastr.success(data.message, '', {"timeOut": 3000});
+                            setTimeout(() => {
+                                location.reload();
+                            }, 3000);
+                        }else{
+                            toastr.info(data.message, '', {"timeOut": 4000});
+                        }
+                        setTimeout(() => {
+                            $('input').removeClass('disabled:opacity-25');
+                            $('textarea').removeClass('disabled:opacity-25');
+                            $('select').removeClass('disabled:opacity-25');
+                            $('#task_name').removeAttr('disabled', 'disabled');
+                            $('#task_description').removeAttr('disabled', 'disabled');
+                            $('#priority').removeAttr('disabled', 'disabled');
+                            $('#addTask').removeAttr('disabled', 'disabled');
+                            $('#addTask').addClass('hover:bg-blue-800');
+                            $('#addTask').removeClass('disabled:opacity-25');
+                        }, 4000);
+                    }
+                })
+            }
+        })
+    })
 </script>
 @include("partials.footer")

@@ -61,11 +61,7 @@
                                     @endif
                                 </td>
                                 <td id="td_action" class="p-3 pr-0 text-end">
-                                    @if ($list->position === "ceo" || $list->position ==="owner")
-                                        
-                                    @else
-                                        <button type="button" id="removeUser" data-id="{{ $list->uid }}" class="text-red-600 hover:text-red-800 mr-2 justify-center text-lg"><i class="fa-solid fa-trash"></i></button>
-                                    @endif
+                                    <button type="button" id="removeUser" data-id="{{ $list->uid }}" class="text-red-600 hover:text-red-800 mr-2 justify-center text-lg"><i class="fa-solid fa-trash"></i></button>
                                 </td>
                             </tr>
                         @endforeach
