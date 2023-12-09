@@ -7,6 +7,7 @@ use App\Models\Projects;
 use App\Models\UsersInformation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -19,7 +20,7 @@ class DashboardController extends Controller
             $pCount = Projects::where('status', 'active')->count(); // Project Count active
             $mCount = Colleagues::where('status', 'active')->count(); // Member Count
             $cCount = Projects::where('status', 'done')->count(); // Project Count Complete
-            $prjLists = Projects::where('status', 'active')->get(); // Display all Projects
+            $prjLists = Projects::select('uuid', 'project_name', 'status')->addSelect(DB::raw("(SELECT COUNT(*) FROM workstations where item_status = 'done' and project_id = projects.id) as complete"))->where('status', 'active')->addSelect(DB::raw("(SELECT COUNT(*) FROM workstations WHERE project_id = projects.id) as task_total"))->where('status', 'active')->get();
             return view('dashboard.index', compact('pCount', 'mCount', 'cCount', 'prjLists'))->with('title', 'Dashboard');
         }
     }

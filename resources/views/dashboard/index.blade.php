@@ -8,7 +8,7 @@
                         <path d="M184 48H328c4.4 0 8 3.6 8 8V96H176V56c0-4.4 3.6-8 8-8zm-56 8V96H64C28.7 96 0 124.7 0 160v96H192 320 512V160c0-35.3-28.7-64-64-64H384V56c0-30.9-25.1-56-56-56H184c-30.9 0-56 25.1-56 56zM512 288H320v32c0 17.7-14.3 32-32 32H224c-17.7 0-32-14.3-32-32V288H0V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V288z"/>
                     </svg>
                     <div class="flex flex-col items-center justify-center mt-1 xl:mt-0">
-                        <h2 class="text-gray-100 text-2xl xl:text-3xl leading-relaxed font-bold font-mono mr-2 xl:mr-0">{{ number_format($pCount) }}</h2>
+                        <h2 id="project_count" class="text-gray-100 text-2xl xl:text-3xl leading-relaxed font-bold font-mono mr-2 xl:mr-0">{{ number_format($pCount) }}</h2>
                         <span class="text-gray-100 leading-relaxed text-xl font-medium">Projects</span>
                     </div>
                 </div>
@@ -175,101 +175,63 @@
                         </thead>
                         <tbody>
                             @if ($pCount > 0)
-                                <tr class="odd:bg-gray-700 even:bg-gray-800 border-b border-gray-600 dark:border-gray-700">
-                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        <div class="flex items-center justify-start">
-                                            <img class="w-10 h-10 rounded-full mr-3" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" alt="user photo">
-                                            <p class="text-lg text-gray-200">Project Title</p>
-                                        </div>
-                                    </th>
-                                    <td class="px-6 py-4">
-                                        <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
-                                            <div class="bg-gray-400 text-xs font-medium text-gray-100 text-center p-0.5 leading-none rounded-full" style="width: 25%"> 25%</div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 text-green-400">
-                                        In Process
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <a href="{{ route('auth.project.view', now()->timestamp) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
-                                    </td>
-                                </tr>
-                                <tr class="odd:bg-gray-700 even:bg-gray-800 border-b border-gray-600 dark:border-gray-700">
-                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        <div class="flex items-center justify-start">
-                                            <img class="w-10 h-10 rounded-full mr-3" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" alt="user photo">
-                                            <p class="text-lg text-gray-200">Project Title</p>
-                                        </div>
-                                    </th>
-                                    <td class="px-6 py-4">
-                                        <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
-                                            <div class="bg-orange-400 text-xs font-medium text-gray-100 text-center p-0.5 leading-none rounded-full" style="width: 45%"> 45%</div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 text-green-400">
-                                        In Process
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <a href="{{ route('auth.project.view', now()->timestamp) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
-                                    </td>
-                                </tr>
-                                <tr class="odd:bg-gray-700 even:bg-gray-800 border-b border-gray-600 dark:border-gray-700">
-                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        <div class="flex items-center justify-start">
-                                            <img class="w-10 h-10 rounded-full mr-3" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" alt="user photo">
-                                            <p class="text-lg text-gray-200">Project Title</p>
-                                        </div>
-                                    </th>
-                                    <td class="px-6 py-4">
-                                        <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
-                                            <div class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style="width: 65%"> 65%</div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 text-green-400">
-                                        In Process
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <a href="{{ route('auth.project.view', now()->timestamp) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
-                                    </td>
-                                </tr>
-                                <tr class="odd:bg-gray-700 even:bg-gray-800 border-b border-gray-600 dark:border-gray-700">
-                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        <div class="flex items-center justify-start">
-                                            <img class="w-10 h-10 rounded-full mr-3" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" alt="user photo">
-                                            <p class="text-lg text-gray-200">Project Title</p>
-                                        </div>
-                                    </th>
-                                    <td class="px-6 py-4">
-                                        <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
-                                            <div class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style="width: 65%"> 65%</div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 text-orange-400">
-                                        On Hold
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <a href="{{ route('auth.project.view', now()->timestamp) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
-                                    </td>
-                                </tr>
-                                <tr class="odd:bg-gray-700 even:bg-gray-800 border-b border-gray-600 dark:border-gray-700">
-                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        <div class="flex items-center justify-start">
-                                            <img class="w-10 h-10 rounded-full mr-3" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" alt="user photo">
-                                            <p class="text-lg text-gray-200">Project Title</p>
-                                        </div>
-                                    </th>
-                                    <td class="px-6 py-4">
-                                        <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
-                                            <div class="bg-green-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style="width: 100%"> 100%</div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 text-blue-500">
-                                        Completed
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <a href="{{ route('auth.project.view', now()->timestamp) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
-                                    </td>
-                                </tr>
+                                @foreach ($prjLists as $project)
+                                    <tr class="odd:bg-gray-700 even:bg-gray-800 border-b border-gray-600 dark:border-gray-700">
+                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            <div class="flex items-center justify-start">
+                                                <img class="w-10 h-10 rounded-full mr-3" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" alt="user photo">
+                                                <p class="text-lg text-gray-200">{{ ucwords($project->project_name) }}</p>
+                                            </div>
+                                        </th>
+                                        <td class="px-6 py-4">
+                                            @if($project->task_total === 0)
+                                                <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+                                                    <div class="text-xs font-medium text-gray-800 text-center p-0.5 leading-none rounded-full" style="width: 0%">0%</div>
+                                                </div>
+                                            @else
+                                                @if ($project->complete/$project->task_total*100 === 0)
+                                                    <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+                                                        <div class="text-xs font-medium text-gray-800 text-center p-0.5 leading-none rounded-full" style="width: 0%">0%</div>
+                                                    </div>
+                                                @elseif($project->complete/$project->task_total*100 <= 25 && $project->complete/$project->task_total*100 >= 1)
+                                                    <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+                                                        <div class="bg-gray-400 text-xs font-medium text-gray-100 text-center p-0.5 leading-none rounded-full" style="width: {{ $project->complete / $project->task_total * 100}}%"> {{ $project->complete / $project->task_total * 100 }}%</div>
+                                                    </div>
+                                                @elseif($project->complete/$project->task_total*100 <= 49 && $project->complete/$project->task_total*100 >= 26)
+                                                    <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+                                                        <div class="bg-orange-400 text-xs font-medium text-gray-100 text-center p-0.5 leading-none rounded-full" style="width: {{ $project->complete / $project->task_total * 100}}%"> {{ $project->complete / $project->task_total * 100 }}%</div>
+                                                    </div>
+                                                @elseif($project->complete/$project->task_total*100 <= 79 && $project->complete/$project->task_total*100 >= 50)
+                                                    <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+                                                        <div class="bg-purple-500 text-xs font-medium text-gray-100 text-center p-0.5 leading-none rounded-full" style="width: {{ $project->complete / $project->task_total * 100}}%"> {{ $project->complete / $project->task_total * 100}}%</div>
+                                                    </div>
+                                                @elseif($project->complete/$project->task_total*100 <= 99 && $project->complete/$project->task_total*100 >= 80)
+                                                    <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+                                                        <div class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style="width: {{ $project->complete / $project->task_total * 100}}%"> {{ $project->complete / $project->task_total * 100 }}%</div>
+                                                    </div>
+                                                @else
+                                                    <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+                                                        <div class="bg-green-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style="width: {{ $project->complete / $project->task_total * 100 }}%"> {{ $project->complete/$project->task_total*100 }}%</div>
+                                                    </div>
+                                                @endif
+                                            @endif
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            @if ($project->status === "active")
+                                                <span class=" text-green-400">In Process</span>
+                                            @elseif($project->status === "hold") 
+                                                <span class="text-orange-400">On Hold</span>
+                                            @elseif($project->status === "complete") 
+                                                <span class="text-blue-500">Completed</span>
+                                            @else
+                                                <span class="text-red-400">On Hold</span>
+                                            @endif
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <a href="{{ route('auth.project.view', $project->uuid) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             @else
                                 <tr>
                                     <td colspan="4" class=" text-white text-center text-lg p-5">No Available Projects</td>

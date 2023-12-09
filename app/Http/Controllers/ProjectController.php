@@ -6,6 +6,7 @@ use App\Http\Requests\ProjectRequest;
 use App\Models\Colleagues;
 use App\Models\Projects;
 use App\Models\UsersInformation;
+use App\Models\Workstation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -39,8 +40,11 @@ class ProjectController extends Controller
                 return redirect()->route('auth.listWorkstation');
             }else{
                 $data = Projects::where('uuid', $id)->first();
-                $members = UsersInformation::select('users_information.profile_img', 'users_information.firstname', 'users_information.lastname', 'users_information.position', 'users_information.status')->join('colleagues as C', 'C.member_id', 'users_information.uid')->where('project_id', $data->id)->get();
-                return view('projects.view', compact('data', 'members'))->with('title', $data->project_name);
+                $tCounts = Workstation::where('project_id', $data->id)->count(); // Task Counts
+                $mCounts = Colleagues::where('project_id', $data->id)->count(); // Member Counts
+
+                $members = UsersInformation::select('users_information.profile_img', 'users_information.firstname', 'users_information.lastname', 'users_information.position', 'users_information.status')->join('colleagues as C', 'C.member_id', 'users_information.uid')->where('project_id', $data->id)->orderBy('users_information.id', 'desc')->limit(5)->get();
+                return view('projects.view', compact('data', 'tCounts', 'mCounts', 'members'))->with('title', $data->project_name);
             }
         }else{
             return redirect()->route('auth.projects')->with('error', 'The Project didn\'t exists data');
