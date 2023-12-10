@@ -7,7 +7,7 @@
                     <svg class="flex-shrink-0 w-6 h-6 text-gray-100 mr-2 transition duration-75 group-hover:text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 448 512">
                         <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
                     </svg>
-                    <h2 class="text-gray-100 text-3xl font-medium tracking-wider">{{ $data }} Reports</h2>
+                    <h2 class="text-gray-100 text-3xl font-medium tracking-wider">{{ $data->project_name }} Reports</h2>
                 </a>
             </div>
             <div class="inline-flex items-center justify-center">
@@ -106,7 +106,7 @@
                 <h3 class="text-xl font-semibold text-gray-100 tracking-wider">
                     Add Report
                 </h3>
-                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="add_report_modal">
+                <button type="button" id="close_modal" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="add_report_modal">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                     </svg>
@@ -116,6 +116,7 @@
             <!-- Modal body -->
             <div class="p-4 md:p-5 space-y-4">
                 <form>
+                    @csrf
                     <div class="mb-3">
                         <label for="report_title" class="block mb-2 text-gray-200 tracking-wider text-lg font-medium">Report Title</label>
                         <input type="text" id="report_title" name="report_title" class="w-full rounded-md bg-gray-600 text-gray-200 placeholder-gray-200 focus:ring-gray-600 focus:border-gray-400" placeholder="Report Title">
@@ -125,7 +126,7 @@
                         Description
                     </div>
                     <p class="text-base leading-relaxed text-gray-300">
-                        <textarea rows="10" name="description" class="block w-full rounded-md bg-gray-600 text-gray-200 placeholder-gray-200 focus:ring-gray-600 focus:border-gray-400 resize-none" placeholder="Report Description"></textarea>
+                        <textarea rows="10" id="description" name="description" class="block w-full rounded-md bg-gray-600 text-gray-200 placeholder-gray-200 focus:ring-gray-600 focus:border-gray-400 resize-none" placeholder="Report Description"></textarea>
                     </p>
                     <div class="mt-3">
                         <label for="file-upload" class="text-gray-200 inline-flex items-center group mb-2 hover:cursor-pointer">
@@ -209,30 +210,113 @@
 </div>
 <script>
 const dt = new DataTransfer();
-$('#file-upload').on('change', function() {
-    for(var i = 0; i < this.files.length; i++){
-        let FileLists = $('<div/>', {class: 'inline-flex items-center justify-center mr-2 text-gray-200 border border-gray-50 px-2 py-1 rounded-md mb-2'}), fileName = $('<span/>', {class: 'mr-2',text: this.files.item(i).name});
-        FileLists.append(fileName).append('<span class="file-delete hover:text-red-600 hover:cursor-pointer"><i class="fa-solid fa-xmark text-sm"></i></span>');
-        $("#filesList").append(FileLists);
-    }
+$("#file-upload").on('change', function(e){
+	for(var i = 0; i < this.files.length; i++){
+		let fileBloc = $('<div/>', {class: 'flex flex-wrap items-center justify-center mr-2 text-gray-200 border border-gray-50 px-2 py-1 rounded-md mb-2'}),
+        fileName = $('<span/>', {class: 'name mr-2', text: this.files.item(i).name});
+        fileBloc.append('<span class="file-delete hover:text-red-600 hover:cursor-pointer order-last"><i class="fa-solid fa-xmark text-sm"></i></span>').append(fileName);
+		$("#files-area > #filesList").append(fileBloc);
+	};
 
     for (let file of this.files) {
 		dt.items.add(file);
 	}
 
-    this.files = dt.files;
+	this.files = dt.files;
 
     $('span.file-delete').click(function(){
-		let name = $(this).next('span.name').text()
-		$(this).parent().remove();
-		for(let i = 0; i < dt.items.length; i++){
-			if(name === dt.items[i].getAsFile().name){
-				dt.items.remove(i);
-				continue;
-			}
-		}
-		document.getElementById('file-upload').files = dt.files;
-	});
+        let name = $(this).next('span.name').text()
+        $(this).parent().remove();
+        for(let i = 0; i < dt.items.length; i++){
+            if(name === dt.items[i].getAsFile().name){
+                dt.items.remove(i);
+                continue;
+            }
+        }
+        // Mise à jour des fichiers de l'input file après suppression
+        document.getElementById('file-upload').files = dt.files;
+    }); 
+});
+
+$(document).ready(function() {
+    $('#addReport').click(function(e) {
+        e.preventDefault();
+        var formData = new FormData();
+        var totalImages = dt.files.length;
+        var token = $('input[type="hidden"]').val();
+        var id = "{{ $data->id }}";
+        var uuid = "{{ $data->uuid }}";
+        var report = $('#report_title').val();
+        var description = $('#description').val();
+        let files = $('#file-upload')[0];
+        for (let i = 0; i < totalImages; i++) {
+            formData.append('files' + i, files.files[i]);
+        }
+        formData.append('totalImages', totalImages);
+        formData.append('_token', token);
+        formData.append('id', id);
+        formData.append('uuid', uuid);
+        formData.append('report', report);
+        formData.append('description', description);
+
+        $.ajax({
+            type: 'POST',
+            url: "{{ route('add.report') }}",
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: 'json',
+            beforeSend: function() {
+                $('input').addClass('disabled:opacity-25');
+                $('textarea').addClass('disabled:opacity-25');
+                $('#report_title').attr('disabled', 'disabled');
+                $('#description').attr('disabled', 'disabled');
+                $('#file-upload').attr('disabled', 'disabled');
+                $('#addReport').attr('disabled', 'disabled');
+                $('#addReport').removeClass('hover:bg-blue-800');
+                $('#addReport').addClass('disabled:opacity-25');
+                $('#close_modal').addClass('disabled:opacity-25');
+                $('#close_modal').attr('disabled', 'disabled');
+            },
+            success: function(data){
+                if(data.status === "success"){
+                    toastr.success(data.message);
+                        setTimeout(() => {
+                            location.reload();
+                        }, 3000);
+                }else{
+                    toastr.warning(data.message);
+                }
+                setTimeout(() => {
+                    $('input').removeClass('disabled:opacity-25');
+                    $('textarea').removeClass('disabled:opacity-25');
+                    $('#report_title').removeAttr('disabled', 'disabled');
+                    $('#description').removeAttr('disabled', 'disabled');
+                    $('#file-upload').removeAttr('disabled', 'disabled');
+                    $('#addReport').removeAttr('disabled', 'disabled');
+                    $('#addReport').addClass('hover:bg-blue-800');
+                    $('#addReport').removeClass('disabled:opacity-25');
+                    $('#close_modal').removeClass('disabled:opacity-25');
+                    $('#close_modal').removeAttr('disabled', 'disabled');
+                }, 3000);
+            }
+        });
+        /* 
+        $.ajax({
+            url: "{{ route('add.report') }}",
+            type: "POST",
+            header: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            data: formData,
+            beforeSend: function() {
+
+            },
+            success: function(data){
+                console.log(data);
+            }
+
+        }) */
+    });
 });
 </script>
 @include("partials.footer")

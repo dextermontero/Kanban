@@ -19,7 +19,7 @@
                         <div class="flex items-center justify-between">
                             <div class="inline-flex items-center justify-center">
                                 @if ($project->status === "active")
-                                    <span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full">In Process</span>
+                                    <span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full">In Progress</span>
                                 @endif
                             </div>
                             <div class="inline-flex items-center">

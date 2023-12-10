@@ -218,7 +218,7 @@
                                         </td>
                                         <td class="px-6 py-4">
                                             @if ($project->status === "active")
-                                                <span class=" text-green-400">In Process</span>
+                                                <span class=" text-green-400">In Progress</span>
                                             @elseif($project->status === "hold") 
                                                 <span class="text-orange-400">On Hold</span>
                                             @elseif($project->status === "complete") 

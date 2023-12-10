@@ -20,7 +20,7 @@ class DashboardController extends Controller
             $pCount = Projects::where('status', 'active')->count(); // Project Count active
             $mCount = Colleagues::where('status', 'active')->count(); // Member Count
             $cCount = Projects::where('status', 'done')->count(); // Project Count Complete
-            $prjLists = Projects::select('uuid', 'project_name', 'status')->addSelect(DB::raw("(SELECT COUNT(*) FROM workstations where item_status = 'done' and project_id = projects.id) as complete"))->where('status', 'active')->addSelect(DB::raw("(SELECT COUNT(*) FROM workstations WHERE project_id = projects.id) as task_total"))->where('status', 'active')->get();
+            $prjLists = Projects::select('uuid', 'project_name', 'status')->addSelect(DB::raw("(SELECT COUNT(*) FROM workstations where item_status = 'done' and project_id = projects.id) as complete"))->where('status', 'active')->addSelect(DB::raw("(SELECT COUNT(*) FROM workstations WHERE project_id = projects.id) as task_total"))->get();
             return view('dashboard.index', compact('pCount', 'mCount', 'cCount', 'prjLists'))->with('title', 'Dashboard');
         }
     }

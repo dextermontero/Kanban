@@ -59,6 +59,8 @@ Route::middleware(['auth','nocache', 'verified'])->group(function () {
         Route::get('/reports', 'indexReport')->name('auth.report');
         Route::get('/reports/{id}', 'viewReport')->name('auth.report.view');
         Route::get('/reports/item/{id}', 'viewReportItem')->name('auth.report.item');
+
+        Route::post('/reports/add', 'addReport')->name('add.report');
     });
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
