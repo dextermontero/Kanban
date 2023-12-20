@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Mail;
 class ColleagueController extends Controller
 {
     public function indexMember(){
-        $count = Projects::where('status', 'active')->count();
+        $count = Projects::leftJoin('colleagues as c', 'c.project_id', 'projects.id')->where('projects.status', 'active')->where('c.member_id', Auth::id())->count();
         $list = Projects::select('projects.uuid', 'projects.project_name', 'projects.description', 'projects.end_date', 'projects.status')->leftjoin('colleagues as c', 'c.project_id', 'projects.id')->where('c.member_id', Auth::id())->get();
         return view('users.index', compact('list', 'count'))->with('title', 'Project Management');
     }

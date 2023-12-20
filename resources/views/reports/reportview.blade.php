@@ -2,27 +2,29 @@
 <div class="p-4 xl:ml-64">
     <div class="py-4 rounded-lg dark:border-gray-700 mt-14">
         <div class="flex flex-row justify-between items-center mb-5">
-            <a href="{{ url()->previous() }}" class="mb-2 inline-flex items-center justify-center group">
+            <a href="{{ route('auth.report.view', $items->uuid) }}" class="mb-2 inline-flex items-center justify-center group">
                 <svg class="flex-shrink-0 w-7 h-7 text-gray-100 mr-2 transition duration-75 group-hover:text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 448 512">
                     <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
                 </svg>
-                <h2 class="text-gray-100 text-3xl font-medium tracking-wider group-hover:text-gray-300">Reports</h2>
+                <h2 class="text-gray-100 text-3xl font-medium tracking-wider group-hover:text-gray-300">{{ ucwords($items->project_name) }}</h2>
             </a>
         </div>
         <div class="grid grid-cols-1 gap-4 mb-4">
             <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4">
                 <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-3xl font-medium text-gray-200 hover:underline tracking-wide">Change Alert Javascript</h2>
+                    <h2 class="text-3xl font-medium text-gray-200 hover:underline tracking-wide m-2">{{ ucwords($items->title) }}</h2>
                 </div>
                 <div class="mb-4">
-                    <p class="text-gray-100 tracking-wide text-lg">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                    <p class="text-gray-100 tracking-wide text-lg text-justify m-2">{{ $items->description }} </p>
                 </div>
                 <div class="mb-4">
                     <div class="flex flex-wrap items-start justify-start">
-                        <img class="xl:h-36 w-1/4 xl:w-1/6 rounded-lg m-2" src="https://flowbite-svelte.com/images/examples/image-1@2x.jpg">
-                        <img class="xl:h-36 w-1/4 xl:w-1/6 rounded-lg m-2" src="https://flowbite-svelte.com/images/examples/image-1@2x.jpg">
-                        <img class="xl:h-36 w-1/4 xl:w-1/6 rounded-lg m-2" src="https://flowbite-svelte.com/images/examples/image-1@2x.jpg">
-                        <img class="xl:h-36 w-1/4 xl:w-1/6 rounded-lg m-2" src="https://flowbite-svelte.com/images/examples/image-1@2x.jpg">
+                        @php
+                            $image = explode(',', $items->images)
+                        @endphp
+                        @foreach ($image as $item)
+                            <img class="xl:h-36 w-[45%] md:w-1/4 xl:w-1/6 rounded-lg m-2 border border-gray-600" src="{{ asset('assets/projects/reports/'. $item) }}" alt="{{ $item }}">
+                        @endforeach
                     </div>
                 </div>
                 <div class="mb-4 px-0 xl:px-20">

@@ -20,80 +20,42 @@
                 </div>
             </div>
         </div>
-        <div class="grid grid-cols-1 xl:grid-cols-3 gap-4 mb-4">
-            <a href="{{ route('auth.report.item', '1231312') }}" class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="block text-lg font-medium text-gray-200 hover:underline tracking-wide">Change Alert Javascript</h2>
-                </div>
-                <div class="mb-4">
-                    <p class="text-gray-100 tracking-wide">{{ Str::limit('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 125) }}</p>
-                </div>
-                <div class="flex items-center justify-between">
-                    <div class="inline-flex items-center justify-center">
-                        <img data-tooltip-target="hover_img_1" data-tooltip-placement="bottom" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="rounded-full h-8 w-8">
-                        <div id="hover_img_1" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-600 rounded-lg shadow-sm opacity-0 tooltip tracking-wider">
-                            Juan Dela Cruz
-                            <div class="tooltip-arrow" data-popper-arrow></div>
+        
+        @if (count($items) > 0)
+            <div class="grid grid-cols-1 xl:grid-cols-3 gap-4 mb-4">
+                @foreach ($items as $item)
+                    <a href="{{ route('auth.report.item', $item->id) }}" class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4">
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="block text-lg font-medium text-gray-200 hover:underline tracking-wide">{{ ucwords($item->title) }}</h2>
                         </div>
-                    </div>
-                    <div class="inline-flex items-center">
-                        <span class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-1 rounded dark:bg-gray-700 dark:text-gray-300">
-                            <i class="fa-solid fa-clock mr-1"></i> 5 days ago
-                        </span>
-                    </div>
-                </div>
-            </a>
-            <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4">
-                <div class="flex items-center justify-between mb-4">
-                    <a href="/reports/2" class="text-lg font-medium text-gray-200 hover:underline tracking-wide">Change Alert Javascript</a>
-                    <a href="#edit" data-modal-target="view_reports" data-modal-toggle="view_reports" class="text-gray-100 text-lg hover:bg-gray-600 hover:text-gray-400 px-2 py-1 rounded-lg">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                    </a>
-                </div>
-                <div class="mb-4">
-                    <p class="text-gray-100 tracking-wide">{{ Str::limit('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 125) }}</p>
-                </div>
-                <div class="flex items-center justify-between">
-                    <div class="inline-flex items-center justify-center">
-                        <img data-tooltip-target="hover_img_2" data-tooltip-placement="bottom" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="rounded-full h-8 w-8">
-                        <div id="hover_img_2" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-600 rounded-lg shadow-sm opacity-0 tooltip tracking-wider">
-                            Juan Dela Cruz
-                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        <div class="mb-4">
+                            <p class="text-gray-100 tracking-wide">{{ Str::limit($item->description, 125) }}</p>
                         </div>
-                    </div>
-                    <div class="">
-                        <span class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-1 rounded dark:bg-gray-700 dark:text-gray-300">
-                            <i class="fa-solid fa-clock mr-1"></i> 5 days ago
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="min-h-[6rem] rounded bg-gray-800 dark:bg-gray-800 p-4">
-                <div class="flex items-center justify-between mb-4">
-                    <a href="/reports/3" class="text-lg font-medium text-gray-200 hover:underline tracking-wide">Change Alert Javascript</a>
-                    <a href="#edit" data-modal-target="view_reports" data-modal-toggle="view_reports" class="text-gray-100 text-lg hover:bg-gray-600 hover:text-gray-400 px-2 py-1 rounded-lg">
-                        <i class="fa-solid fa-pen-to-square"></i>
+                        <div class="flex items-center justify-between">
+                            <div class="inline-flex items-center justify-center">
+                                <img data-tooltip-target="hover_img_{{$item->id}}" data-tooltip-placement="bottom" src="{{ asset('assets/profiles/'. $item->profile_img)}}" class="rounded-full h-8 w-8">
+                                <div id="hover_img_{{$item->id}}" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-600 rounded-lg shadow-sm opacity-0 tooltip tracking-wider">
+                                    {{ ucwords($item->firstname) }} {{ ucwords($item->lastname) }}
+                                    <div class="tooltip-arrow" data-popper-arrow></div>
+                                </div>
+                            </div>
+                            <div class="inline-flex items-center">
+                                <span class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-1 rounded dark:bg-gray-700 dark:text-gray-300">
+                                    <i class="fa-solid fa-clock mr-1"></i> {{ $item->updated_at->diffForHumans() }}
+                                </span>
+                            </div>
+                        </div>
                     </a>
-                </div>
-                <div class="mb-4">
-                    <p class="text-gray-100 tracking-wide">{{ Str::limit('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 125) }}</p>
-                </div>
-                <div class="flex items-center justify-between">
-                    <div class="inline-flex items-center justify-center">
-                        <img data-tooltip-target="hover_img_3" data-tooltip-placement="bottom" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="rounded-full h-8 w-8">
-                        <div id="hover_img_3" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-600 rounded-lg shadow-sm opacity-0 tooltip tracking-wider">
-                            Juan Dela Cruz
-                            <div class="tooltip-arrow" data-popper-arrow></div>
-                        </div>                       
-                    </div>
-                    <div class="">
-                        <span class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-1 rounded dark:bg-gray-700 dark:text-gray-300">
-                            <i class="fa-solid fa-clock mr-1"></i> 5 days ago
-                        </span>
-                    </div>
-                </div>
+                @endforeach
             </div>
-        </div>
+            {{ $items->links() }}
+        @else
+            <div class="flex items-center justify-center h-[30rem] mb-4 rounded dark:bg-gray-800">
+                <p class="text-2xl text-gray-400 dark:text-gray-500">
+                    No available reports
+                </p>
+            </div>
+        @endif
     </div>
 </div>
 
@@ -118,12 +80,12 @@
                 <form>
                     @csrf
                     <div class="mb-3">
-                        <label for="report_title" class="block mb-2 text-gray-200 tracking-wider text-lg font-medium">Report Title</label>
+                        <label for="report_title" class="block mb-2 text-gray-200 tracking-wider text-lg font-medium">Report Title <span class="text-red-500">*</span></label>
                         <input type="text" id="report_title" name="report_title" class="w-full rounded-md bg-gray-600 text-gray-200 placeholder-gray-200 focus:ring-gray-600 focus:border-gray-400" placeholder="Report Title">
                     </div>
                     <div class="inline-flex items-center justify-center text-gray-100 font-medium text-lg tracking-wider mb-3">
                         <i class="fa-solid fa-file-lines mr-3 text-gray-100"></i>
-                        Description
+                        Description&nbsp;<span class="text-red-500">*</span>
                     </div>
                     <p class="text-base leading-relaxed text-gray-300">
                         <textarea rows="10" id="description" name="description" class="block w-full rounded-md bg-gray-600 text-gray-200 placeholder-gray-200 focus:ring-gray-600 focus:border-gray-400 resize-none" placeholder="Report Description"></textarea>
@@ -135,7 +97,7 @@
                             </svg> 
                             Attach File
                         </label>
-                        <input type="file" id="file-upload" name='reportFiles[]' class="hidden" multiple> 
+                        <input type="file" id="file-upload" name='reportFiles[]' class="hidden" multiple > 
                         <div id="files-area" class="mb-2 min-h-0 max-h-14 xl:min-h-0 xl:max-h-32 overflow-y-auto">
                             <span id="filesList"></span>
                         </div>
@@ -147,74 +109,13 @@
     </div>
 </div>
 
-<div id="view_reports" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div class="relative p-4 w-full max-w-2xl max-h-full">
-    <!-- Modal content -->
-        <div class="relative bg-gray-800 rounded-lg shadow dark:bg-gray-700">
-        <!-- Modal header -->
-            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
-                <h3 class="text-xl font-semibold text-gray-100 tracking-wider">
-                    Edit Report
-                </h3>
-                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="view_reports">
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                    </svg>
-                    <span class="sr-only">Close modal</span>
-                </button>
-            </div>
-            <!-- Modal body -->
-            <div class="p-4 md:p-5 space-y-4">
-                <div class="flex flex-col items-start justify-start">
-                    <h2 class="text-gray-100 text-2xl font-bold tracking-wide mb-2">Change Alert Javascript</h2>
-                    <p class="text-gray-300 font-medium">Added by <span class="hover:underline text-blue-600 cursor-pointer">Juan Dela Cruz</span>, 1 day ago</p>
-                </div>
-
-                <div class="flex flex-row justify-start text-gray-100 font-medium text-lg tracking-wider">
-                    <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded">Image 1</span>
-                    <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded">Image 2</span>
-                    <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded">Image 3</span>
-                    <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded">Image 4</span>
-                </div>
-
-                <div class="inline-flex items-center justify-center text-gray-100 font-medium text-lg tracking-wider">
-                    <i class="fa-solid fa-file-lines mr-3 text-gray-100"></i>
-                    Description
-                </div>
-
-                <p class="text-base leading-relaxed text-gray-300">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                </p>
-                <div class="border-t border-gray-200 py-2.5">
-                    <h2 class="text-gray-200 text-xl font-medium tracking-wider mb-4">Comments</h2>
-                    <div class="mb-4 divide-y h-96 overflow-y-auto">
-                        <div class="flex items-start py-2.5">
-                            <img class="h-10 w-10 rounded-full" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg">
-                            <div class="px-4 rounded-lg w-full">
-                                <h2 class="text-gray-200 text-xl font-bold tracking-wider">Juan Dela Cruz</h2>
-                                <p class="text-gray-200 text-md">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start py-2.5">
-                            <img class="h-10 w-10 rounded-full" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg">
-                            <div class="px-4 rounded-lg w-full">
-                                <h2 class="text-gray-200 text-xl font-bold tracking-wider">Juan Dela Cruz</h2>
-                                <p class="text-gray-200">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <script>
 const dt = new DataTransfer();
 $("#file-upload").on('change', function(e){
 	for(var i = 0; i < this.files.length; i++){
 		let fileBloc = $('<div/>', {class: 'flex flex-wrap items-center justify-center mr-2 text-gray-200 border border-gray-50 px-2 py-1 rounded-md mb-2'}),
         fileName = $('<span/>', {class: 'name mr-2', text: this.files.item(i).name});
-        fileBloc.append('<span class="file-delete hover:text-red-600 hover:cursor-pointer order-last"><i class="fa-solid fa-xmark text-sm"></i></span>').append(fileName);
+        fileBloc.append('<span class="file-delete hover:text-red-600 hover:cursor-pointer order-last disabled"><i class="fa-solid fa-xmark text-sm"></i></span>').append(fileName);
 		$("#files-area > #filesList").append(fileBloc);
 	};
 
@@ -258,64 +159,54 @@ $(document).ready(function() {
         formData.append('uuid', uuid);
         formData.append('report', report);
         formData.append('description', description);
-
-        $.ajax({
-            type: 'POST',
-            url: "{{ route('add.report') }}",
-            data: formData,
-            cache: false,
-            contentType: false,
-            processData: false,
-            dataType: 'json',
-            beforeSend: function() {
-                $('input').addClass('disabled:opacity-25');
-                $('textarea').addClass('disabled:opacity-25');
-                $('#report_title').attr('disabled', 'disabled');
-                $('#description').attr('disabled', 'disabled');
-                $('#file-upload').attr('disabled', 'disabled');
-                $('#addReport').attr('disabled', 'disabled');
-                $('#addReport').removeClass('hover:bg-blue-800');
-                $('#addReport').addClass('disabled:opacity-25');
-                $('#close_modal').addClass('disabled:opacity-25');
-                $('#close_modal').attr('disabled', 'disabled');
-            },
-            success: function(data){
-                if(data.status === "success"){
-                    toastr.success(data.message);
-                        setTimeout(() => {
-                            location.reload();
-                        }, 3000);
-                }else{
-                    toastr.warning(data.message);
+        if(report !== "" && description !== ""){
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('add.report') }}",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: 'json',
+                beforeSend: function() {
+                    $('input').addClass('disabled:opacity-25');
+                    $('textarea').addClass('disabled:opacity-25');
+                    $('#report_title').attr('disabled', 'disabled');
+                    $('#description').attr('disabled', 'disabled');
+                    $('#file-upload').attr('disabled', 'disabled');
+                    $('#addReport').attr('disabled', 'disabled');
+                    $('#addReport').removeClass('hover:bg-blue-800');
+                    $('#addReport').addClass('disabled:opacity-25');
+                    $('#close_modal').addClass('disabled:opacity-25');
+                    $('#close_modal').attr('disabled', 'disabled');
+                },
+                success: function(data){
+                    console.log(data);
+                    if(data.status === "success"){
+                        toastr.success(data.message);
+                            setTimeout(() => {
+                                location.reload();
+                            }, 3000);
+                    }else{
+                        toastr.warning(data.message);
+                    }
+                    setTimeout(() => {
+                        $('input').removeClass('disabled:opacity-25');
+                        $('textarea').removeClass('disabled:opacity-25');
+                        $('#report_title').removeAttr('disabled', 'disabled');
+                        $('#description').removeAttr('disabled', 'disabled');
+                        $('#file-upload').removeAttr('disabled', 'disabled');
+                        $('#addReport').removeAttr('disabled', 'disabled');
+                        $('#addReport').addClass('hover:bg-blue-800');
+                        $('#addReport').removeClass('disabled:opacity-25');
+                        $('#close_modal').removeClass('disabled:opacity-25');
+                        $('#close_modal').removeAttr('disabled', 'disabled');
+                    }, 3000);
                 }
-                setTimeout(() => {
-                    $('input').removeClass('disabled:opacity-25');
-                    $('textarea').removeClass('disabled:opacity-25');
-                    $('#report_title').removeAttr('disabled', 'disabled');
-                    $('#description').removeAttr('disabled', 'disabled');
-                    $('#file-upload').removeAttr('disabled', 'disabled');
-                    $('#addReport').removeAttr('disabled', 'disabled');
-                    $('#addReport').addClass('hover:bg-blue-800');
-                    $('#addReport').removeClass('disabled:opacity-25');
-                    $('#close_modal').removeClass('disabled:opacity-25');
-                    $('#close_modal').removeAttr('disabled', 'disabled');
-                }, 3000);
-            }
-        });
-        /* 
-        $.ajax({
-            url: "{{ route('add.report') }}",
-            type: "POST",
-            header: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-            data: formData,
-            beforeSend: function() {
-
-            },
-            success: function(data){
-                console.log(data);
-            }
-
-        }) */
+            });
+        }else{
+            toastr.info('Fill up all required fields!');
+        }
     });
 });
 </script>
