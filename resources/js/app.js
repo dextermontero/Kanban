@@ -1,6 +1,7 @@
 import './bootstrap';
 import 'flowbite';
 import './toastr'
+import './magnific-popup';
 import Alpine from 'alpinejs';
 
 import swal from 'sweetalert2';

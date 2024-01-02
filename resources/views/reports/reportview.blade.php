@@ -18,12 +18,14 @@
                     <p class="text-gray-100 tracking-wide text-lg text-justify m-2">{{ $items->description }} </p>
                 </div>
                 <div class="mb-4">
-                    <div class="flex flex-wrap items-start justify-start">
+                    <div class="popup-gallery flex flex-wrap items-start justify-start">
                         @php
                             $image = explode(',', $items->images)
                         @endphp
                         @foreach ($image as $item)
-                            <img class="xl:h-36 w-[45%] md:w-1/4 xl:w-1/6 rounded-lg m-2 border border-gray-600" src="{{ asset('assets/projects/reports/'. $item) }}" alt="{{ $item }}">
+                        <a href="{{ asset('assets/projects/reports/'. $item) }}" alt="{{ $item }}">
+                            <img class="xl:h-36 xl:w-48 w-38 h-20  rounded-lg m-2 border border-gray-600" src="{{ asset('assets/projects/reports/'. $item) }}" alt="{{ $item }}">
+                        </a>
                         @endforeach
                     </div>
                 </div>
@@ -75,4 +77,22 @@
         </div>
     </div>
 </div>
+<script>
+$(document).ready(function() {
+	$('.popup-gallery').magnificPopup({
+		delegate: 'a',
+		type: 'image',
+		tLoading: 'Loading image #%curr%...',
+		mainClass: 'mfp-img-mobile',
+		gallery: {
+			enabled: true,
+			navigateByImgClick: true,
+			preload: [0,1] // Will preload 0 - before current, and 1 after the current image
+		},
+		image: {
+			tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
+		}
+	});
+});
+</script>
 @include("partials.footer")
