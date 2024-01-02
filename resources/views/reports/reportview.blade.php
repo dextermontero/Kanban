@@ -31,9 +31,11 @@
                 </div>
                 <div class="mb-4 px-0 xl:px-20">
                     <div class="flex items-start py-2.5 mb-2">
-                        <img class="h-10 w-10 rounded-full mr-3 hidden xl:block" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg">
+                        <img class="h-10 w-10 rounded-full mr-3 hidden xl:block" src="{{ asset('assets/profiles/'. $profile->profile_img) }}" alt="{{ ucwords($profile->firstname) }} {{ ucwords($profile->lastname) }}">
                         <div class="px-4 py-2 bg-gray-200 rounded-lg w-full">
-                            <form>
+                            <form action="{{ route('report.comment') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="report_id" value="{{ $items->id }}" readonly>
                                 <label for="comment" class="sr-only">Your comment</label>
                                 <textarea id="comment" name="comment" rows="4" class="w-full px-0 text-md text-gray-900 bg-gray-200 border-0 focus:ring-0 resize-none" placeholder="Write a comment..." ></textarea>
                                 <div class="border-t border-gray-600 p-2 text-end">
@@ -43,34 +45,20 @@
                         </div>
                     </div>
                     <div class="divide-y min-h-96 overflow-y-auto">
-                        <div class="flex items-start py-2.5">
-                            <img class="h-10 w-10 rounded-full" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg">
-                            <div class="px-4 rounded-lg w-full">
-                                <h2 class="text-gray-200 text-xl font-bold tracking-wider">Juan Dela Cruz</h2>
-                                <p class="text-gray-200 text-md">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start py-2.5">
-                            <img class="h-10 w-10 rounded-full" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg">
-                            <div class="px-4 rounded-lg w-full">
-                                <h2 class="text-gray-200 text-xl font-bold tracking-wider">Juan Dela Cruz</h2>
-                                <p class="text-gray-200 text-md">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start py-2.5">
-                            <img class="h-10 w-10 rounded-full" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg">
-                            <div class="px-4 rounded-lg w-full">
-                                <h2 class="text-gray-200 text-xl font-bold tracking-wider">Juan Dela Cruz</h2>
-                                <p class="text-gray-200 text-md">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start py-2.5">
-                            <img class="h-10 w-10 rounded-full" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg">
-                            <div class="px-4 rounded-lg w-full">
-                                <h2 class="text-gray-200 text-xl font-bold tracking-wider">Juan Dela Cruz</h2>
-                                <p class="text-gray-200 text-md">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                            </div>
-                        </div>
+                        @if (count($comments) > 0)
+                            @foreach ($comments as $item)
+                                <div class="flex items-start py-3">
+                                    <img class="h-10 w-10 rounded-full" src="{{ asset('assets/profiles/'. $item->profile_img) }}" alt="{{ ucwords($item->firstname) }} {{ ucwords($item->lastname) }}">
+                                    <div class="px-4 rounded-lg w-full">
+                                        <div class="flex items-center justify-start">
+                                            <h2 class="text-gray-200 text-xl font-bold tracking-wider mr-2">{{ ucwords($item->firstname) }} {{ ucwords($item->lastname) }} </h2> 
+                                            <span class="text-gray-300 text-md">&bullet;  {{ $item->created_at->diffForHumans() }}</span>
+                                        </div>
+                                        <p class="text-gray-200 text-md text-left">{{ $item->comment }}</p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
                     </div>
                 </div>
             </div>
@@ -90,7 +78,7 @@ $(document).ready(function() {
 			preload: [0,1] // Will preload 0 - before current, and 1 after the current image
 		},
 		image: {
-			tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
+			tError: '<a href="%url%">The image </a> could not be loaded.',
 		}
 	});
 });

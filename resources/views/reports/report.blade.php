@@ -97,7 +97,7 @@
                             </svg> 
                             Attach File
                         </label>
-                        <input type="file" id="file-upload" name='reportFiles[]' class="hidden" multiple > 
+                        <input type="file" id="file-upload" name='reportFiles[]' class="hidden" accept=".jpg,.jpeg,.png" multiple > 
                         <div id="files-area" class="mb-2 min-h-0 max-h-14 xl:min-h-0 xl:max-h-32 overflow-y-auto">
                             <span id="filesList"></span>
                         </div>
