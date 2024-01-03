@@ -112,6 +112,14 @@
 <script>
 const dt = new DataTransfer();
 $("#file-upload").on('change', function(e){
+    for(var i = 0; i < this.files.length; i++){
+        var ext = this.files[i].name.substr(-3);
+        if(ext !== "jpeg" && ext !== "jpg" && ext !== "png" && ext !== "JPEG" && ext !== "JPG" && ext !== "PNG"){
+            toastr.info('Image Format: jpeg/jpg and png only');
+            return false;
+        }
+    }
+
 	for(var i = 0; i < this.files.length; i++){
 		let fileBloc = $('<div/>', {class: 'flex flex-wrap items-center justify-center mr-2 text-gray-200 border border-gray-50 px-2 py-1 rounded-md mb-2'}),
         fileName = $('<span/>', {class: 'name mr-2', text: this.files.item(i).name});
@@ -120,7 +128,11 @@ $("#file-upload").on('change', function(e){
 	};
 
     for (let file of this.files) {
-		dt.items.add(file);
+        var ext = file.name.substr(-3);
+        if(ext !== "jpeg" && ext !== "jpg" && ext !== "png" && ext !== "JPEG" && ext !== "JPG" && ext !== "PNG"){
+        }else{
+            dt.items.add(file);
+        }
 	}
 
 	this.files = dt.files;
@@ -134,7 +146,6 @@ $("#file-upload").on('change', function(e){
                 continue;
             }
         }
-        // Mise à jour des fichiers de l'input file après suppression
         document.getElementById('file-upload').files = dt.files;
     }); 
 });

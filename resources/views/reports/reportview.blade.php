@@ -23,9 +23,11 @@
                             $image = explode(',', $items->images)
                         @endphp
                         @foreach ($image as $item)
-                        <a href="{{ asset('assets/projects/reports/'. $item) }}" alt="{{ $item }}">
-                            <img class="xl:h-36 xl:w-48 w-38 h-20  rounded-lg m-2 border border-gray-600" src="{{ asset('assets/projects/reports/'. $item) }}" alt="{{ $item }}">
-                        </a>
+                            @if ($item !== '')
+                                <a href="{{ asset('assets/projects/reports/'. $item) }}" alt="{{ $item }}">
+                                    <img class="xl:h-36 xl:w-48 w-38 h-20  rounded-lg m-2 border border-gray-600" src="{{ asset('assets/projects/reports/'. $item) }}" alt="{{ $item }}">
+                                </a>
+                            @endif
                         @endforeach
                     </div>
                 </div>

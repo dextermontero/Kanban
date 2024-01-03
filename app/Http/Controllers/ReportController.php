@@ -43,7 +43,7 @@ class ReportController extends Controller
     public function addReport(Request $request){
 
         $validator = Validator::make($request->all(), [
-            'reportFiles' => 'image|mimes:jpeg,png,jpg,gif'
+            'reportFiles' => 'image|mimes:jpeg,png,jpg'
         ]);
 
         if ($validator->passes()) {
@@ -52,12 +52,14 @@ class ReportController extends Controller
                 for($i = 0; $i < $request->totalImages; $i++){
                     if($request->hasFile('files'.$i)){
                         $file = $request->file('files' . $i);
-                        $name = $request->uuid.'_'.time().'_'.$file->getClientOriginalName();
-                        $file->move(public_path('assets/projects/reports'), $name);
-                        $imagesFile[$i] = $name;
+                        $ext = strtolower($file->getClientOriginalExtension());
+                        if($ext === "png" || $ext === "jpg" || $ext === "jpeg"){
+                            $name = $request->uuid.'_'.time().'_'.$file->getClientOriginalName();
+                            $file->move(public_path('assets/projects/reports'), $name);
+                            $imagesFile[$i] = $name;
+                        }
                     }
                 }
-    
                 $img = implode(',', $imagesFile);
     
                 $report = Reports::create([
@@ -99,12 +101,12 @@ class ReportController extends Controller
                     ]);
                 }
             }
+        }else{
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Something went wrong! Contact administrator',
+            ]);
         }
-
-        return response()->json([
-            'status' => 'error',
-            'message' =>$validator->errors()->all()]
-        );
     }
 
     // Post a comment on Report Item by ID
