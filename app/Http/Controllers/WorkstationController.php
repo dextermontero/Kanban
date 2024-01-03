@@ -26,7 +26,8 @@ class WorkstationController extends Controller
                 $todo = Workstation::select('id', 'task_name', 'description', 'item_status', 'status')->where('project_id', $data->id)->where('item_status', 'todo')->inRandomOrder()->get();
                 $progress = Workstation::select('id', 'task_name', 'description', 'item_status', 'status')->where('project_id', $data->id)->where('item_status', 'progress')->inRandomOrder()->get();
                 $done = Workstation::select('id', 'task_name', 'description', 'item_status', 'status')->where('project_id', $data->id)->where('item_status', 'done')->inRandomOrder()->get();
-                return view('kanban.view', compact('data', 'todo', 'progress', 'done'))->with('title', $data->project_name. ' Workstation');
+                $cowork = Colleagues::select('colleagues.id', 'ui.profile_img', 'ui.firstname', 'ui.lastname')->leftJoin('users_information as ui', 'ui.uid', 'colleagues.member_id')->where('colleagues.project_id', $data->id)->inRandomOrder()->limit(4)->get();
+                return view('kanban.view', compact('data', 'todo', 'progress', 'done', 'cowork'))->with('title', $data->project_name. ' Workstation');
             }else{
                 return redirect()->route('auth.listWorkstation');
             }

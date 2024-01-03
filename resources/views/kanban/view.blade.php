@@ -7,26 +7,13 @@
             </div>
             <div class="inline-flex items-center justify-center">
                 <div class="inline-flex items-center justify-center mr-3">
-                    <img data-tooltip-target="member_4" data-tooltip-placement="bottom" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="rounded-full h-12 w-12 -mr-2 z-30 border-[3px] border-gray-100">
-                    <img data-tooltip-target="member_3" data-tooltip-placement="bottom" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="rounded-full h-12 w-12 -mr-2 z-20 border-[3px] border-gray-100">
-                    <img data-tooltip-target="member_2" data-tooltip-placement="bottom" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="rounded-full h-12 w-12 -mr-2 z-10 border-[3px] border-gray-100">
-                    <img data-tooltip-target="member_1" data-tooltip-placement="bottom" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="rounded-full h-12 w-12">    
-                    <div id="member_1" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-600 rounded-lg shadow-sm opacity-0 tooltip tracking-wider">
-                        Member 1
-                        <div class="tooltip-arrow" data-popper-arrow></div>
-                    </div>
-                    <div id="member_2" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-600 rounded-lg shadow-sm opacity-0 tooltip tracking-wider">
-                        Member 2
-                        <div class="tooltip-arrow" data-popper-arrow></div>
-                    </div>
-                    <div id="member_3" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-600 rounded-lg shadow-sm opacity-0 tooltip tracking-wider">
-                        Member 3
-                        <div class="tooltip-arrow" data-popper-arrow></div>
-                    </div>
-                    <div id="member_4" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-600 rounded-lg shadow-sm opacity-0 tooltip tracking-wider">
-                        Member 4
-                        <div class="tooltip-arrow" data-popper-arrow></div>
-                    </div>
+                    @foreach ($cowork as $worker)
+                        <img data-tooltip-target="{{ $worker->id }}" data-tooltip-placement="bottom" src="{{ asset('assets/profiles/'. $worker->profile_img)}}" class="rounded-full h-12 w-12 -mr-2 z-30 border-[3px] border-gray-500" alt="{{ ucwords($worker->firstname) }} {{ ucwords($worker->lastname) }}">
+                        <div id="{{ $worker->id }}" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-600 rounded-lg shadow-sm opacity-0 tooltip tracking-wider">
+                            {{ ucwords($worker->firstname) }} {{ ucwords($worker->lastname) }}
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div>
+                    @endforeach
                 </div>
                 <button type="button" data-modal-target="add_member_modal" data-modal-toggle="add_member_modal" data-tooltip-target="add_member" data-tooltip-placement="bottom" class="border-2 border-dashed border-gray-200 rounded-full h-12 w-12 hover:border-gray-600 group">
                     <i class="fa-solid fa-plus text-gray-100 group-hover:text-gray-600"></i>
@@ -181,9 +168,7 @@
 
 <div id="add_member_modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
    <div class="relative p-4 w-full max-w-lg max-h-full">
-    <!-- Modal content -->
         <div class="relative bg-gray-800 rounded-lg shadow dark:bg-gray-700">
-        <!-- Modal header -->
             <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
                 <h3 class="text-xl font-semibold text-gray-100 tracking-wider">
                     Add Member
@@ -195,84 +180,16 @@
                     <span class="sr-only">Close modal</span>
                 </button>
             </div>
-            <!-- Modal body -->
             <div class="p-4 md:p-5 space-y-4">
                 <form>
                     @csrf
-                    <label for="search_name" class="text-gray-100 text-xl block mb-2 font-medium">Search Name</label>
-                    <input type="text" id="search_name" name="search_name" class="w-full rounded-lg text-gray-800 font-medium bg-gray-400 placeholder-gray-400 border focus:border-gray-500 focus:ring-gray-500">
+                    <div>
+                        <label for="search_name" class="block mb-2 text-md font-medium text-gray-200">Search Name</label>
+                        <input type="text" id="search_name" name="search_name" class="bg-gray-600 border border-gray-400 text-gray-200 text-md focus:ring-gray-700 focus:border-gray-700 block rounded-lg w-full placeholder-gray-200" placeholder="Search Member">
+                    </div>
                 </form>
                 <div class="text-base leading-relaxed text-gray-300 h-96 overflow-y-auto">
-                    <div class="group mb-2">
-                        <div class="flex items-center justify-between group-hover:bg-gray-500 px-2 py-2 rounded-lg">
-                            <div class="flex items-center justify-start">
-                                <img src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="h-14 mr-3 rounded-full">
-                                <div class="flex flex-col items-start justify-start">
-                                    <p class="text-xl font-medium text-gray-200 tracking-wider">Juan Dela Cruz</p>
-                                    <label class="text-lg leading-relaxed text-gray-200 tracking-wider">Member</label>
-                                </div>
-                            </div>
-                            <div class="group">
-                                <button type="button" class="px-3 py-2 font-lg font-medium rounded-lg tracking-widest text-gray-100 bg-blue-600 hover:bg-blue-700 hover:text-gray-300">Add</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="group mb-2">
-                        <div class="flex items-center justify-between group-hover:bg-gray-500 px-2 py-2 rounded-lg">
-                            <div class="flex items-center justify-start">
-                                <img src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="h-14 mr-3 rounded-full">
-                                <div class="flex flex-col items-start justify-start">
-                                    <p class="text-xl font-medium text-gray-200 tracking-wider">Juan Dela Cruz</p>
-                                    <label class="text-lg leading-relaxed text-gray-200 tracking-wider">Member</label>
-                                </div>
-                            </div>
-                            <div class="group">
-                                <button type="button" class="px-3 py-2 font-lg font-medium rounded-lg tracking-widest text-gray-100 bg-blue-600 hover:bg-blue-700 hover:text-gray-300">Add</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="group mb-2">
-                        <div class="flex items-center justify-between group-hover:bg-gray-500 px-2 py-2 rounded-lg">
-                            <div class="flex items-center justify-start">
-                                <img src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="h-14 mr-3 rounded-full">
-                                <div class="flex flex-col items-start justify-start">
-                                    <p class="text-xl font-medium text-gray-200 tracking-wider">Juan Dela Cruz</p>
-                                    <label class="text-lg leading-relaxed text-gray-200 tracking-wider">Member</label>
-                                </div>
-                            </div>
-                            <div class="group">
-                                <button type="button" class="px-3 py-2 font-lg font-medium rounded-lg tracking-widest text-gray-100 bg-blue-600 hover:bg-blue-700 hover:text-gray-300">Add</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="group mb-2">
-                        <div class="flex items-center justify-between group-hover:bg-gray-500 px-2 py-2 rounded-lg">
-                            <div class="flex items-center justify-start">
-                                <img src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="h-14 mr-3 rounded-full">
-                                <div class="flex flex-col items-start justify-start">
-                                    <p class="text-xl font-medium text-gray-200 tracking-wider">Juan Dela Cruz</p>
-                                    <label class="text-lg leading-relaxed text-gray-200 tracking-wider">Member</label>
-                                </div>
-                            </div>
-                            <div class="group">
-                                <button type="button" class="px-3 py-2 font-lg font-medium rounded-lg tracking-widest text-gray-100 bg-blue-600 hover:bg-blue-700 hover:text-gray-300">Add</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="group mb-2">
-                        <div class="flex items-center justify-between group-hover:bg-gray-500 px-2 py-2 rounded-lg">
-                            <div class="flex items-center justify-start">
-                                <img src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" class="h-14 mr-3 rounded-full">
-                                <div class="flex flex-col items-start justify-start">
-                                    <p class="text-xl font-medium text-gray-200 tracking-wider">Juan Dela Cruz</p>
-                                    <label class="text-lg leading-relaxed text-gray-200 tracking-wider">Member</label>
-                                </div>
-                            </div>
-                            <div class="group">
-                                <button type="button" class="px-3 py-2 font-lg font-medium rounded-lg tracking-widest text-gray-100 bg-blue-600 hover:bg-blue-700 hover:text-gray-300">Add</button>
-                            </div>
-                        </div>
-                    </div>
+                    <span id="displaySearch"></span>
                 </div>
             </div>
         </div>
@@ -558,5 +475,119 @@ $(document).ready(function() {
             }
         })
     })
+</script>
+<script>
+    $(document).ready(function() {
+        $('#search_name').keyup(function(e) {
+            e.preventDefault();
+            search()
+        });
+        
+        search();
+
+        function search(){
+            var id = "{{ request()->route('id') }}"
+            var keyword = $('#search_name').val();
+            var token = $('input[type="hidden"]').val();
+            $.post("{{ route('search.member') }}",
+            {
+                _token: token,
+                id: id,
+                search: keyword
+            },
+            function(list){
+                displayUser(list);
+            });
+
+            function displayUser(list){
+                let data = '';
+                if(list.users.length <= 0){
+                    data+= `
+                    <div class="flex items-center justify-center h-56 mb-4 rounded  dark:bg-gray-800">
+                        <p class="text-2xl text-gray-400 dark:text-gray-500">
+                            User not found
+                        </p>
+                    </div>`;
+                }
+
+                list.users.forEach((u) => {
+                    u.action = list.projectID.some(p => p.member_id === u.id);
+                });
+
+                for(let i = 0; i < list.users.length; i++){
+                    if(list.users[i].action){
+                        data += 
+                        `<div class="group mb-1">
+                            <div class="flex items-center w-full rounded-md group-hover:bg-gray-500 p-2">
+                                <div class="relative inline-block shrink-0 rounded-2xl me-3">
+                                    <img src="{{ asset('assets/profiles')}}/`+list.users[i].profile_img+`" class="w-[50px] h-[50px] inline-block shrink-0 rounded-2xl" alt="`+list.users[i].firstname+` `+list.users[i].lastname+`">
+                                </div>
+                                <div class="flex justify-between items-center w-full">
+                                    <div class="">
+                                        <h2 class="font-medium transition-colors duration-200 ease-in-out text-lg tracking-wider text-gray-200 capitalize">`+list.users[i].firstname+` `+list.users[i].lastname+`</h2>
+                                    </div>
+                                    <div class="text-blue-500 mr-3 font-medium p-2 whitespace-nowrap tracking-wider group-hover:text-blue-400">
+                                        Added
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+                    }else{
+                        data += 
+                        `<div id="hello" class="group mb-1">
+                            <div class="flex items-center w-full rounded-md group-hover:bg-gray-500 p-2">
+                                <div class="relative inline-block shrink-0 rounded-2xl me-3">
+                                    <img src="{{ asset('assets/profiles')}}/`+list.users[i].profile_img+`" class="w-[50px] h-[50px] inline-block shrink-0 rounded-2xl" alt="`+list.users[i].firstname+` `+list.users[i].lastname+`">
+                                </div>
+                                <div class="flex justify-between items-center w-full">
+                                    <div class="">
+                                        <h2 class="font-medium transition-colors duration-200 ease-in-out text-lg tracking-wider text-gray-200 capitalize">`+list.users[i].firstname+` `+list.users[i].lastname+`</h2>
+                                    </div>
+                                    <button type="button" id="addMember" data-id="`+list.users[i].id+`" class="bg-blue-700 text-center rounded-md w-16 text-blue-200 mr-3 font-medium p-2 whitespace-nowrap tracking-wider hover:text-blue-300 group-hover:bg-blue-800">
+                                        Add
+                                    </button>
+                                </div>
+                            </div>
+                        </div>`;
+                    }
+                }
+
+                $('#displaySearch').html(data);
+            }
+
+            $(function() {
+                $(document).on("click", "#addMember", function() {
+                    var id = "{{ request()->route('id') }}";
+                    var userId = $(this).attr("data-id");
+                    $.ajax({
+                        url: "{{ route('add.member') }}",
+                        type: "POST",
+                        header: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                        data: {
+                            _token: $('meta[name="csrf-token"]').attr('content'),
+                            id: id,
+                            userID: userId,
+                        },
+                        beforeSend: function() {
+                            $('#addMember').attr('disabled', 'disabled');
+                            $('#addMember').attr('disabled', 'disabled');
+                            $('#addMember').removeClass('hover:bg-blue-800');
+                            $('#addMember').addClass('disabled:opacity-25');
+                        },
+                        success: function(data){
+                            if(data.status === "success"){
+                                toastr.success(data.message);
+                                setTimeout(() => {
+                                    location.reload();
+                                }, 3000);
+                            }else{
+                                toastr.warning(data.message);
+                            }
+                        }
+                    });
+                });
+            });
+        }
+    });
 </script>
 @include("partials.footer")

@@ -192,7 +192,6 @@ $(document).ready(function() {
                     $('#close_modal').attr('disabled', 'disabled');
                 },
                 success: function(data){
-                    console.log(data);
                     if(data.status === "success"){
                         toastr.success(data.message);
                             setTimeout(() => {
