@@ -13,13 +13,17 @@ class InviteMember extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
+    private $inviterName;
+    private $projectName;
     private $firstname;
     private $lastname;
     private $email;
     private $token;
     
-    public function __construct($firstname, $lastname, $email, $token)
+    public function __construct($inviter, $projectName, $firstname, $lastname, $email, $token)
     {
+        $this->inviterName = ucwords($inviter);
+        $this->projectName = ucwords($projectName);
         $this->firstname = $firstname;
         $this->lastname = $lastname;
         $this->email = $email;
@@ -45,7 +49,7 @@ class InviteMember extends Mailable implements ShouldQueue
     {
         return new Content(
             view: 'mails.invite',
-            with: ['firstname' => $this->firstname, 'lastname' => $this->lastname, 'token' => $this->token]
+            with: ['inviter' => $this->inviterName, 'projectName' => $this->projectName, 'firstname' => $this->firstname, 'lastname' => $this->lastname, 'token' => $this->token]
         );
     }
 

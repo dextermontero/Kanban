@@ -23,13 +23,13 @@
                 <h2 class="text-gray-700 dark:text-gray-200">Hi <b>{{ Str::ucfirst($firstname) }} {{ Str::ucfirst($lastname) }}</b>,</h2>
         
                 <p class="mt-2 leading-loose text-gray-600 dark:text-gray-300">
-                    Thank you for signing up. 
+                    {{ $inviter }} invites you to join the "<b>{{ $projectName }}</b>" to collaborate with team. 
                 </p>
 
                 <p class="mt-2 leading-loose text-gray-600 dark:text-gray-300 mb-2">
-                    To verify your account, please click on verify button below. 
+                    To accept the invitation, please click on the Join button below.
                 </p>
-                <a href="{{ route('email.verified', $token)}}" class="px-6 py-2 mt-8 text-sm font-medium tracking-wider text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">Verify</a>
+                <a href="{{ route('email.verified', $token)}}" class="px-6 py-2 mt-8 text-sm font-medium tracking-wider text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">Join the team</a>
                 
                 <p class="mt-8 text-gray-600 dark:text-gray-300">
                     Regards, <br>

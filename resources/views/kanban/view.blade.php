@@ -7,13 +7,23 @@
             </div>
             <div class="inline-flex items-center justify-center">
                 <div class="inline-flex items-center justify-center mr-3">
-                    @foreach ($cowork as $worker)
-                        <img data-tooltip-target="{{ $worker->id }}" data-tooltip-placement="bottom" src="{{ asset('assets/profiles/'. $worker->profile_img)}}" class="rounded-full h-12 w-12 -mr-2 z-30 border-[3px] border-gray-500" alt="{{ ucwords($worker->firstname) }} {{ ucwords($worker->lastname) }}">
-                        <div id="{{ $worker->id }}" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-600 rounded-lg shadow-sm opacity-0 tooltip tracking-wider">
-                            {{ ucwords($worker->firstname) }} {{ ucwords($worker->lastname) }}
-                            <div class="tooltip-arrow" data-popper-arrow></div>
-                        </div>
-                    @endforeach
+                    @if (count($cowork) > 1)
+                        @foreach ($cowork as $worker)
+                            <img data-tooltip-target="{{ $worker->id }}" data-tooltip-placement="bottom" src="{{ asset('assets/profiles/'. $worker->profile_img)}}" class="rounded-full h-12 w-12 -mr-2 z-30 border-[3px] border-gray-500" alt="{{ ucwords($worker->firstname) }} {{ ucwords($worker->lastname) }}">
+                            <div id="{{ $worker->id }}" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-600 rounded-lg shadow-sm opacity-0 tooltip tracking-wider">
+                                {{ ucwords($worker->firstname) }} {{ ucwords($worker->lastname) }}
+                                <div class="tooltip-arrow" data-popper-arrow></div>
+                            </div>
+                        @endforeach
+                    @else
+                        @foreach ($cowork as $worker)
+                            <img data-tooltip-target="{{ $worker->id }}" data-tooltip-placement="bottom" src="{{ asset('assets/profiles/'. $worker->profile_img)}}" class="rounded-full h-12 w-12 z-30 border-[3px] border-gray-500" alt="{{ ucwords($worker->firstname) }} {{ ucwords($worker->lastname) }}">
+                            <div id="{{ $worker->id }}" role="tooltip" class="absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-600 rounded-lg shadow-sm opacity-0 tooltip tracking-wider">
+                                {{ ucwords($worker->firstname) }} {{ ucwords($worker->lastname) }}
+                                <div class="tooltip-arrow" data-popper-arrow></div>
+                            </div>
+                        @endforeach
+                    @endif
                 </div>
                 <button type="button" data-modal-target="add_member_modal" data-modal-toggle="add_member_modal" data-tooltip-target="add_member" data-tooltip-placement="bottom" class="border-2 border-dashed border-gray-200 rounded-full h-12 w-12 hover:border-gray-600 group">
                     <i class="fa-solid fa-plus text-gray-100 group-hover:text-gray-600"></i>

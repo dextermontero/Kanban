@@ -78,7 +78,7 @@
                 <h3 class="text-xl font-medium text-gray-200">
                     Invite Member
                 </h3>
-                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="invite-modal">
+                <button type="button" id="close_modal" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="invite-modal">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                     </svg>
@@ -285,8 +285,19 @@
                         lastname: lastname,
                         email: email,
                     },
+                    beforeSend: function() {
+                        $('input').addClass('disabled:opacity-25');
+                        $('#search_name').attr('disabled', 'disabled');
+                        $('#invite_firstname').attr('disabled', 'disabled');
+                        $('#invite_lastname').attr('disabled', 'disabled');
+                        $('#invite_email').attr('disabled', 'disabled');
+                        $('#close_modal').addClass('disabled:opacity-25');
+                        $('#close_modal').attr('disabled', 'disabled');
+                        $('#inviteMember').attr('disabled', 'disabled');
+                        $('#inviteMember').removeClass('hover:bg-blue-800');
+                        $('#inviteMember').addClass('disabled:opacity-25');
+                    },
                     success:function(data){
-                        console.log(data);
                         if(data.status === "success"){
                             toastr.success(data.message);
                             setTimeout(() => {
@@ -297,6 +308,18 @@
                         }else{
                             toastr.warning(data.message);
                         }
+                        setTimeout(() => {
+                            $('input').removeClass('disabled:opacity-25');
+                            $('#search_name').removeAttr('disabled', 'disabled');
+                            $('#invite_firstname').removeAttr('disabled', 'disabled');
+                            $('#invite_lastname').removeAttr('disabled', 'disabled');
+                            $('#invite_email').removeAttr('disabled', 'disabled');
+                            $('#close_modal').removeClass('disabled:opacity-25');
+                            $('#close_modal').removeAttr('disabled', 'disabled');
+                            $('#inviteMember').removeAttr('disabled', 'disabled');
+                            $('#inviteMember').addClass('hover:bg-blue-800');
+                            $('#inviteMember').removeClass('disabled:opacity-25');
+                        }, 5000);
                     }
                 });
             }else{

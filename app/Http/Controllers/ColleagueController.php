@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\UsersInformation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
@@ -36,6 +37,7 @@ class ColleagueController extends Controller
         if(!$exists){
             $hash = sha1(now());
             $getProject = Colleagues::select('project_id')->where('member_id', Auth::id())->first()->project_id;
+            $projectName = Projects::select('project_name')->where('id', $getProject)->first();
             $invite = Invitation::create([
                 'email' => $request->email,
                 'project_id' => $getProject,
@@ -67,7 +69,9 @@ class ColleagueController extends Controller
                 ]);
 
                 if($user_info->save() && $cowork->save()){
-                    //Mail::to($request->email)->send(new \App\Mail\InviteMember($request->firstname, $request->lastname, $request->email, $hash));
+                    $inviter = UsersInformation::select(DB::raw('CONCAT(firstname, \' \', lastname) as fullname'))->where('uid', Auth::id())->first()->fullname;
+                    $projectName = Projects::select('project_name')->where('id', $getProject)->first()->project_name;
+                    Mail::to($request->email)->send(new \App\Mail\InviteMember($inviter, $projectName, $request->firstname, $request->lastname, $request->email, $hash));
                     return response()->json([
                         'status' => 'success',
                         'message' => 'The email address has been sent an invitation!',
@@ -75,7 +79,7 @@ class ColleagueController extends Controller
                 }else{
                     return response()->json([
                         'status' => 'warning',
-                    'message' => 'Something went wrong! Contact administrator',
+                        'message' => 'Something went wrong! Contact administrator',
                     ]);
                 }
             }else{
