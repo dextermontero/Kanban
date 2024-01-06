@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RecentLog;
 use App\Models\User;
 use App\Models\UsersInformation;
 use Illuminate\Http\Request;
@@ -29,6 +30,12 @@ class IndexController extends Controller
                 User::where('remember_token', $request->get('id'))->update(['remember_token' => $token]);
                 $user = User::select('ui.firstname', 'ui.lastname', 'users.email', 'users.remember_token')->leftJoin('users_information as ui', 'ui.uid', 'users.id')->where('users.remember_token', $token)->first();
                 Mail::to($user->email)->send(new \App\Mail\RegisterVerify($user->firstname, $user->lastname, $user->email, $user->remember_token));
+                
+                RecentLog::create([
+                    'title' => 'Email Verification',
+                    'task' => 'Resend verification was succussfully by '.ucwords($user->firstname).' '.ucwords($user->lastname),
+                ]);
+
                 return response()->json([
                     'status' => 'success',
                     'message' => 'Resend Successfully. Check your Mail',

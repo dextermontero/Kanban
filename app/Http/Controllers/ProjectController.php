@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProjectRequest;
 use App\Models\Colleagues;
 use App\Models\Projects;
+use App\Models\RecentLog;
 use App\Models\UsersInformation;
 use App\Models\Workstation;
 use Illuminate\Http\Request;
@@ -42,8 +43,9 @@ class ProjectController extends Controller
                 $data = Projects::where('uuid', $id)->first();
                 $tCounts = Workstation::where('project_id', $data->id)->count(); // Task Counts
                 $mCounts = Colleagues::where('project_id', $data->id)->count(); // Member Counts
+                $logs = RecentLog::select('title', 'task', 'created_at')->where('project_id', $data->id)->orderBy('id', 'DESC')->get();
                 $members = UsersInformation::select('users_information.profile_img', 'users_information.firstname', 'users_information.lastname', 'users_information.position', 'users_information.status')->join('colleagues as C', 'C.member_id', 'users_information.uid')->where('project_id', $data->id)->orderBy('users_information.id', 'desc')->limit(5)->get();
-                return view('projects.view', compact('data', 'tCounts', 'mCounts', 'members'))->with('title', $data->project_name);
+                return view('projects.view', compact('data', 'tCounts', 'mCounts', 'logs', 'members'))->with('title', $data->project_name);
             }
         }else{
             return redirect()->route('auth.projects')->with('error', 'The Project didn\'t exists data');
@@ -63,6 +65,12 @@ class ProjectController extends Controller
             Colleagues::create([
                 'project_id' => $projects['id'],
                 'member_id' => Auth::id()
+            ]);
+            $fullname = UsersInformation::select(DB::raw('CONCAT(firstname, \' \', lastname) as fullname'))->where('uid', Auth::id())->first()->fullname;
+            RecentLog::create([
+                'project_id' => $projects['id'],
+                'title' => $request->project_name,
+                'task' => 'Project was created successfully by '. $fullname,
             ]);
             return response()->json([
                 'status' => 'success',

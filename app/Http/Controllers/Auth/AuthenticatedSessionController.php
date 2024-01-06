@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\RecentLog;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -51,6 +52,11 @@ class AuthenticatedSessionController extends Controller
                 }else{
                     if(Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password])){
                         $request->session()->regenerate();
+                        RecentLog::create([
+                            'title' => 'Account Login',
+                            'task' => $request->email.' was successfully login',
+                        ]);
+
                         return response()->json([
                             'status' => 'success',
                             'message' => 'Login Successfully, Please wait...',

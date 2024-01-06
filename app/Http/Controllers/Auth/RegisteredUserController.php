@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\RecentLog;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -41,6 +42,10 @@ class RegisteredUserController extends Controller
     
             if($user){
                 Mail::to($request->email)->send(new \App\Mail\RegisterVerify($userinfo['firstname'], $userinfo['lastname'], $userinfo['email'], $token));
+                RecentLog::create([
+                    'title' => 'Account Registration',
+                    'task' =>  ucwords($userinfo['firstname']).' '.ucwords($userinfo['lastname']).' was registered successfully',
+                ]);
                 return response()->json([
                     'status' => 'success',
                     'message' => 'Creating Account Successfully, Please wait...',

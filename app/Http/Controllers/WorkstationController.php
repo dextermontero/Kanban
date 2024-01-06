@@ -4,13 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Models\Colleagues;
 use App\Models\Projects;
+use App\Models\RecentLog;
+use App\Models\UsersInformation;
 use App\Models\Workstation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class WorkstationController extends Controller
 {
-    
+
+    private $fullname;
+
+    public function fullname(){
+        $this->fullname = UsersInformation::select(DB::raw('CONCAT(firstname, \' \', lastname) as fullname'))->where('uid', Auth::id())->first()->fullname;
+    }
+
     public function listWorkstation() {
         $count = Projects::leftJoin('colleagues as c', 'c.project_id', 'projects.id')->where('projects.status', 'active')->where('c.member_id', Auth::id())->count();
         $list = Projects::select('projects.uuid', 'projects.project_name', 'projects.description', 'projects.end_date', 'projects.status')->leftjoin('colleagues as c', 'c.project_id', 'projects.id')->where('c.member_id', Auth::id())->get();
@@ -46,6 +55,13 @@ class WorkstationController extends Controller
         ]);
 
         if($task->save()){
+            $fullname = UsersInformation::select(DB::raw('CONCAT(firstname, \' \', lastname) as fullname'))->where('uid', Auth::id())->first()->fullname;
+            RecentLog::create([
+                'project_id' => $request->id,
+                'title' => $request->task_name,
+                'task' => 'Task was added successfully by '. $fullname,
+            ]);
+
             return response()->json([
                 'status' => 'success',
                 'message' => 'Add Task Successfully',
@@ -62,6 +78,14 @@ class WorkstationController extends Controller
 
         $update = Workstation::where('id', $request->id)->update(['item_status' => $request->status]);
         if($update === 1){
+            $fullname = UsersInformation::select(DB::raw('CONCAT(firstname, \' \', lastname) as fullname'))->where('uid', Auth::id())->first()->fullname;
+            $recent = Workstation::select('project_id', 'task_name')->where('id', $request->id)->first();
+            RecentLog::create([
+                'project_id' => $recent->project_id,
+                'title' => $recent->task_name,
+                'task' => 'Task was moved successfully by '. $fullname,
+            ]);
+
             return response()->json([
                 'status' => 'success',
                 'message' => 'Add Task Successfully',

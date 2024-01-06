@@ -270,6 +270,7 @@
 
         $('#inviteMember').click(function(e){
             e.preventDefault();
+            var id = "{{ request()->route('id') }}"
             var token = $('input[type="hidden"]').val();
             var firstname = $('#invite_firstname').val();
             var lastname = $('#invite_lastname').val();
@@ -281,6 +282,7 @@
                     header: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                     data: {
                         _token: token,
+                        uuid: id,
                         firstname: firstname,
                         lastname: lastname,
                         email: email,
@@ -298,6 +300,7 @@
                         $('#inviteMember').addClass('disabled:opacity-25');
                     },
                     success:function(data){
+                        console.log(data);
                         if(data.status === "success"){
                             toastr.success(data.message);
                             setTimeout(() => {

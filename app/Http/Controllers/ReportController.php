@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Projects;
 use App\Models\Reports;
 use App\Models\Comments;
+use App\Models\RecentLog;
 use App\Models\UsersInformation;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
 {
@@ -45,7 +47,7 @@ class ReportController extends Controller
         $validator = Validator::make($request->all(), [
             'reportFiles' => 'image|mimes:jpeg,png,jpg'
         ]);
-
+        $fullname = UsersInformation::select(DB::raw('CONCAT(firstname, \' \', lastname) as fullname'))->where('uid', Auth::id())->first()->fullname;
         if ($validator->passes()) {
             $imagesFile = [];
             if($request->totalImages > 0){
@@ -71,6 +73,11 @@ class ReportController extends Controller
                 ]);
     
                 if($report->save()){
+                    RecentLog::create([
+                        'project_id' => $request->id,
+                        'title' => $request->report,
+                        'task' => 'Report was created successfully by '. $fullname,
+                    ]);
                     return response()->json([
                         'status' => 'success',
                         'message' => 'Add Report Successfully'
@@ -90,6 +97,11 @@ class ReportController extends Controller
                     'images' => ''
                 ]);
                 if($report->save()){
+                    RecentLog::create([
+                        'project_id' => $request->id,
+                        'title' => $request->report,
+                        'task' => 'Report was created successfully by '. $fullname,
+                    ]);
                     return response()->json([
                         'status' => 'success',
                         'message' => 'Add Report Successfully'
@@ -115,11 +127,21 @@ class ReportController extends Controller
             'comment' => ['required', 'min:2', 'string']
         ]);
 
-        Comments::create([
+        $comment = Comments::create([
             'report_id' => $request->report_id,
             'member_id' => Auth::id(),
             'comment' => $comments['comment']
         ]);
+
+        if($comment->save()){
+            $fullname = UsersInformation::select(DB::raw('CONCAT(firstname, \' \', lastname) as fullname'))->where('uid', Auth::id())->first()->fullname;
+            $logs = Reports::select('project_id', 'title', DB::raw('CONCAT(firstname, \' \', lastname) as author'))->leftJoin('users_information as ui', 'ui.uid', 'reports.member_id')->where('reports.id', $request->report_id)->first();
+            RecentLog::create([
+                'project_id' => $logs->project_id,
+                'title' => $logs->title,
+                'task' => $fullname.' commented on '.$logs->author.' report\'s',
+            ]);
+        }
 
         return redirect()->route('auth.report.item', $request->report_id);
     }

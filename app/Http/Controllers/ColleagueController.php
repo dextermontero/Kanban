@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Colleagues;
 use App\Models\Invitation;
 use App\Models\Projects;
+use App\Models\RecentLog;
 use App\Models\User;
 use App\Models\UsersInformation;
 use Illuminate\Http\Request;
@@ -36,11 +37,10 @@ class ColleagueController extends Controller
         $exists = Invitation::where('email', $request->email)->exists();
         if(!$exists){
             $hash = sha1(now());
-            $getProject = Colleagues::select('project_id')->where('member_id', Auth::id())->first()->project_id;
-            $projectName = Projects::select('project_name')->where('id', $getProject)->first();
+            $project = Projects::select('id', 'project_name')->where('uuid', $request->uuid)->first();
             $invite = Invitation::create([
                 'email' => $request->email,
-                'project_id' => $getProject,
+                'project_id' => $project->id,
                 'hash' => $hash
             ]);
 
@@ -63,15 +63,21 @@ class ColleagueController extends Controller
                 ]);
 
                 $cowork = Colleagues::create([
-                    'project_id' => $getProject,
+                    'project_id' => $project->id,
                     'member_id' => $user['id'],
                     'status' => 'pending'
                 ]);
 
                 if($user_info->save() && $cowork->save()){
                     $inviter = UsersInformation::select(DB::raw('CONCAT(firstname, \' \', lastname) as fullname'))->where('uid', Auth::id())->first()->fullname;
-                    $projectName = Projects::select('project_name')->where('id', $getProject)->first()->project_name;
+                    $projectName = Projects::select('project_name')->where('id', $project->id)->first()->project_name;
                     Mail::to($request->email)->send(new \App\Mail\InviteMember($inviter, $projectName, $request->firstname, $request->lastname, $request->email, $hash));
+
+                    RecentLog::create([
+                        'project_id' => $project->id,
+                        'title' => 'Member Invitation',
+                        'task' =>  $inviter.' sent an email invitation to '.ucwords($request->firstname).' '.ucwords($request->lastname),
+                    ]);
                     return response()->json([
                         'status' => 'success',
                         'message' => 'The email address has been sent an invitation!',
@@ -121,6 +127,13 @@ class ColleagueController extends Controller
         ]);
 
         if($c->save()){
+            $fullname = UsersInformation::select(DB::raw('CONCAT(firstname, \' \', lastname) as fullname'))->where('uid', Auth::id())->first()->fullname;
+            $target = UsersInformation::select(DB::raw('CONCAT(firstname, \' \', lastname) as fullname'))->where('uid', $request->userID)->first()->fullname;
+            RecentLog::create([
+                'project_id' => $projectId,
+                'title' => 'Member Invitation',
+                'task' =>  $fullname.' sent invitation to '.ucwords($target),
+            ]);
             return response()->json([
                 'status' => 'success',
                 'message' => 'Add member successfully'

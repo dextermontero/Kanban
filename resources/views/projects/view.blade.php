@@ -54,27 +54,37 @@
                 <div class="flex flex-col min-h-[20rem] rounded bg-gray-800 mb-4">
                     <h2 class="text-2xl text-gray-100 font-medium tracking-wider py-2.5 px-5">Recent Logs</h2>
                     <div class="tracking-wider px-2 h-[25rem] overflow-y-auto">
-                        <a href="#filter" class="block group px-1">
-                            <div class="flex items-center justify-between group-hover:bg-gray-600 px-2 py-2.5 rounded-lg">
-                                <div class="inline-flex items-center justify-center">
-                                    <img class="w-10 h-10 rounded-2xl mr-2" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" alt="user photo">
-                                    <div class="flex flex-col items-start justify-start">
-                                        <h2 class="text-gray-200 font-semibold text-md">Title Recent</h2>
-                                        <span class="text-gray-300 text-sm font-medium">Moved by Juan Dela Cruz</span>
+                        @if (count($logs) > 0)
+                            @foreach ($logs as $log)
+                                <a href="#{{ $log->title }}" class="block group px-1">
+                                    <div class="flex items-center justify-between group-hover:bg-gray-600 px-2 py-2.5 rounded-lg">
+                                        <div class="inline-flex items-center justify-start w-[70%]">
+                                            <img class="w-10 h-10 rounded-2xl mr-2" src="https://png.pngtree.com/png-vector/20220814/ourlarge/pngtree-rounded-vector-icon-in-flat-black-and-white-for-user-profile-vector-png-image_19500858.jpg" alt="user photo">
+                                            <div class="flex flex-col items-start justify-start">
+                                                <h2 class="text-gray-200 font-semibold text-md">{{ ucwords($log->title) }}</h2>
+                                                <span class="text-gray-300 text-sm font-medium">{{ $log->task }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="text-gray-300">
+                                            {{ $log->created_at->diffForHumans()}}
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="text-gray-300">
-                                    {{ Carbon\Carbon::parse('2023-11-16 12:00:00')->diffForHumans()}}
-                                </div>
+                                </a>
+                            @endforeach
+                        @else
+                            <div class="flex items-center justify-center h-[23rem] mb-4 rounded dark:bg-gray-800">
+                                <p class="text-2xl text-gray-400 dark:text-gray-500">
+                                    No Recent Logs
+                                </p>
                             </div>
-                        </a>
+                        @endif
                     </div>
-                    <a href="{{ route('auth.organization.view', $data->uuid)}}" class="flex items-center justify-center text-gray-200 mt-2 group mb-2">
+                    {{-- <a href="{{ route('auth.organization.view', $data->uuid)}}" class="flex items-center justify-center text-gray-200 mt-2 group mb-2">
                         <svg class="flex-shrink-0 w-5 h-5 text-gray-200 mr-1 group-hover:text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 576 512">
                             <path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"/>
                         </svg>
                         <span class="text-lg group-hover:text-blue-500">View</span>
-                    </a>
+                    </a> --}}
                 </div>
             </div>
         </div>
